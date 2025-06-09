@@ -442,9 +442,20 @@
         }
 
         .faq-answer {
-            color: #666;
-            line-height: 1.6;
-        }
+            display: none;
+            margin-top: 0.5rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        .faq-question i {
+            float: right;
+            transition: transform 0.3s ease;
+        }
 
         /* Footer */
         footer {
