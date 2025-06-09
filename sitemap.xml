@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://ftalla18.github.io/CHURO/</loc>
+    <priority>1.00</priority>
+  </url>
+  
+  <url>
+    <loc>https://ftalla18.github.io/CHURO/about.html</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://ftalla18.github.io/CHURO/fleet.html</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://ftalla18.github.io/CHURO/contact.html</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://ftalla18.github.io/CHURO/faq.html</loc>
+    <priority>0.80</priority>
+  </url>
+
+</urlset>
