@@ -43,6 +43,8 @@
             overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #f9f9f9; /* Blend with the about content background */
+            padding: 20px 0; /* Add some vertical padding to the carousel */
         }
 
         .review-carousel-container {
@@ -53,24 +55,20 @@
         .review-slide {
             flex: 0 0 100%;
             padding: 20px;
-            background-color: #fff;
-            border-right: 1px solid #eee;
-            text-align: center;
-        }
-
-        .review-slide:last-child {
-            border-right: none;
+            text-align: center; /* Center the text within the slide */
         }
 
         .review-slide blockquote {
             font-size: 1.1em;
             color: #555;
             margin-bottom: 10px;
+            line-height: 1.6; /* Improve readability of blockquote */
         }
 
         .review-slide p.reviewer {
             font-style: italic;
             color: #777;
+            margin-top: 10px; /* Add some space between quote and reviewer */
         }
 
         .review-prev, .review-next {
