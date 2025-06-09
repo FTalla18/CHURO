@@ -78,3 +78,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// FAQ Toggle
+function toggleFAQ(element) {
+    const answer = element.nextElementSibling;
+    const icon = element.querySelector('i');
+
+    answer.classList.toggle('active');
+    icon.style.transform = answer.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+}
