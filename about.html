@@ -12,40 +12,41 @@
 
         #about-container {
             display: flex;
-            flex-wrap: wrap; /* Allows content to wrap on smaller screens */
-            align-items: flex-start; /* Align items to the top */
-            justify-content: space-around; /* Space out the text and carousel */
+            flex-direction: column; /* Stack the text and carousel vertically */
+            align-items: center; /* Center items horizontally */
             padding: 20px;
         }
 
         #about-content {
             background-color: #f9f9f9;
-            padding: 30px; /* Increased padding */
+            padding: 30px;
             border-radius: 8px;
-            margin-bottom: 20px; /* Reduced margin when side by side */
+            margin-bottom: 20px; /* Add margin below text tile */
             flex: 1; /* Allows the text to grow */
             min-width: 300px; /* Minimum width for the text section */
-            margin-right: 20px; /* Space between text and carousel */
             text-align: center; /* Center the text horizontally */
         }
 
         #about-content p {
-            margin-bottom: 20px; /* Increased margin */
-            line-height: 1.8; /* Improved line height for readability */
-            color: #555; /* Slightly lighter text color */
-            font-size: 1.1rem; /* Slightly larger font size */
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: #555;
+            font-size: 1.1rem;
         }
 
         #about-content ul {
             list-style-type: none;
             padding-left: 0;
-            margin-bottom: 20px; /* Increased margin */
+            margin-bottom: 20px;
         }
 
         #about-content ul li {
-            margin-bottom: 10px; /* Increased margin */
+            margin-bottom: 10px;
             color: #555;
-            font-size: 1.1rem; /* Match paragraph font size */
+            font-size: 1.1rem;
+            display: flex; /* Align checkmark and text vertically */
+            align-items: baseline; /* Align items at the baseline */
+            justify-content: center; /* Center the whole list horizontally */
         }
 
         #about-content ul li::before {
@@ -57,18 +58,16 @@
         /* Review Carousel Styles */
         .review-carousel {
             position: relative;
-            max-width: 400px; /* Adjusted max width for side-by-side layout */
-            margin: 20px 0; /* Adjusted margin */
+            max-width: 800px; /* Full width for vertical layout */
+            margin: 20px auto; /* Center the carousel */
             overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            background-color: #f9f9f9; /* Blend with the about content background */
+            background-color: #ddd; /* Brighter grey background */
             padding: 30px 0; /* Increased vertical padding */
             display: flex; /* Enable flexbox for centering */
             align-items: center; /* Center items vertically */
             justify-content: center; /* Center items horizontally */
-            flex: 1; /* Allows the carousel to grow */
-            min-width: 300px; /* Minimum width for the carousel section */
         }
 
         .review-carousel-container {
@@ -133,19 +132,12 @@
 
         /* Responsive layout for smaller screens */
         @media (max-width: 768px) {
-            #about-container {
-                flex-direction: column; /* Stack on smaller screens */
-                align-items: stretch; /* Make items take full width */
-            }
-
             #about-content {
-                margin-right: 0; /* Remove right margin on smaller screens */
-                margin-bottom: 20px; /* Add bottom margin instead */
                 text-align: left; /* Revert text alignment to left on smaller screens */
             }
 
-            .review-carousel {
-                max-width: 100%; /* Take full width on smaller screens */
+            #about-content ul li {
+                justify-content: flex-start; /* Align list items to the start on smaller screens */
             }
         }
     </style>
@@ -188,10 +180,46 @@
                         <blockquote>“Car was clean I really enjoyed the ride”</blockquote>
                         <p class="reviewer">Kelvet (Kia Optima 2014)</p>
                     </div>
+                    <div class="review-slide">
+                        <blockquote>“Awesome host. Quick”</blockquote>
+                        <p class="reviewer">James (Kia Sorento 2022)</p>
                     </div>
-                    <button class="review-prev">&#10094;</button>
-                    <button class="review-next">&#10095;</button>
-                </section>
+                    <div class="review-slide">
+                        <blockquote>“The car was great. Only problem was the radio other than that A-OK.”</blockquote>
+                        <p class="reviewer">Quinlan P. (Kia Optima 2014)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“Great ride and flexible host. Highly recommend”</blockquote>
+                        <p class="reviewer">Brandon (Kia Optima 2014)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“OMG! I needed a car around spring break at the last minute. Everything was booked up on Hertz, Budget, Avis, and Enterprise. My best friend told me about Turo and I found this wonderful man right here. He made my first time experience easy and accommodating. I rate him 10/10 and would recommend him to any one of my family members to him. He was welcoming, nice, very easy going, and respectful. I met him at his residence and he handed me the keys. Told me to take my pictures and read the rules. Long as you respect the rules of the vehicle you will be fine. When I first entered the vehicle I was in love. I immediately respected the truck like it was my own, told the kids to respect it, and any of my visitors. The truck gas tank was full and the car was clean. The truck smelled good for a whole week straight. He made my Turo experience smooth, easy, and perfect. I was stressed because my car went out and I have it in the shop for fixing. I was able to make it back and forth for work because of this young man. I absolutely adore you and appreciate your hospitality. I will be back. Thank you again.”</blockquote>
+                        <p class="reviewer">Jimecka  (Kia Sorento 2016)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“loved it”</blockquote>
+                        <p class="reviewer">Francis (Kia Sorento 2018)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“Freeman was a great host. Very responsive. The car was very clean and drove great.”</blockquote>
+                        <p class="reviewer">Celeste (Kia Sorento 2022)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“This gentleman Rocks”</blockquote>
+                        <p class="reviewer">Don (Kia Sorento 2016)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“Mr Freeman was absolutely amazing from start to finish car was nice and clean. He responded always in a timely manner would definitely recommend him and the Kia to anyone that needs a nice and convenient ride thanks Mr freeman.”</blockquote>
+                        <p class="reviewer">Tamika (Kia Optima 2014)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“Freeman's Kia was perfect for our group of 6 people. The third row is great and is hard to find in a rental. It folds down so you can have the extra storage space if needed. Freeman was super flexible with pickup and drop-off off. The car is in great condition with low miles. I'd definitely rent itagain!”</blockquote>
+                        <p class="reviewer">Jason (Kia Sorento 2022)</p>
+                    </div>
+                </div>
+                <button class="review-prev">&#10094;</button>
+                <button class="review-next">&#10095;</button>
+            </section>
         </section>
     </main>
 
