@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHURO - Experience Exquisite Car Rentals</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0Hhonpy AIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header>
@@ -179,64 +180,88 @@
     </div>
 
         <div id="faq" class="section">
-        <div style="padding-top: 100px;">
-            <section class="faq">
-                <div class="container">
-                    <h2>Frequently Asked Questions</h2>
-                    <div class="faq-grid">
-                        <div class="faq-item">
-                            <h3 class="faq-question">What is CHURO?</h3>
-                            <p class="faq-answer">CHURO is a family-operated car rental business based in Sarasota, Florida, focused on providing personalized, honest, and hassle-free car rentals.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">How did CHURO start?</h3>
-                            <p class="faq-answer">CHURO was born from a desire to offer reliable car rentals without middlemen or surprises. With over 480 trips on Turo and a near-perfect 4.9-star rating, we decided to bring our service directly to our customers.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">What types of vehicles do you offer?</h3>
-                            <p class="faq-answer">Our fleet features premium Kia Sorento and Optima models – perfect for style, comfort, and performance - ranging from 5-seater SUVs to 7-seater family vehicles to sleek sedans for solo travelers.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">How do I make a reservation?</h3>
-                            <p class="faq-answer">You can make a reservation through our website or by contacting us directly. We aim to make the booking process as simple as possible.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">What is your cancellation policy?</h3>
-                            <p class="faq-answer">We understand that plans can change. Please check our website or contact us for detailed information on our cancellation policy.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">Are the rental cars well-maintained?</h3>
-                            <p class="faq-answer">Yes, all our vehicles are meticulously maintained to ensure a safe and reliable driving experience.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">What forms of payment do you accept?</h3>
-                            <p class="faq-answer">We accept various forms of payment, including major credit cards. Please check our website for specific details.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">Can I rent a car for a one-way trip?</h3>
-                            <p class="faq-answer">No, we focus on round-trip rentals to ensure your experience remains seamless and stress-free.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">What documents do I need to provide for rental?</h3>
-                            <p class="faq-answer">You will need a valid driver's license and a credit card for payment. Additional identification may be requested.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">Is insurance included in the rental price?</h3>
-                            <p class="faq-answer">Insurance options are available and can be added during the booking process. Please inquire if you need more information regarding coverage.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">Do you have age restrictions for rentals?</h3>
-                            <p class="faq-answer">Yes, renters must be at least 21 years old to rent a vehicle from CHURO. Additional fees may apply for drivers under 25.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">How can I contact CHURO for questions or more information?</h3>
-                            <p class="faq-answer">You can reach us through our website's contact form, by phone, or via email. We are here to assist you with any inquiries you may have.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
+          <div style="padding-top: 100px;">
+              <section class="faq">
+                  <div class="container">
+                      <h2>Frequently Asked Questions</h2>
+                      <div class="faq-grid">
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  What is CHURO? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">CHURO is a family-operated car rental business based in Sarasota, Florida, focused on providing personalized, honest, and hassle-free car rentals.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  How did CHURO start? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">CHURO was born from a desire to offer reliable car rentals without middlemen or surprises. With over 480 trips on Turo and a near-perfect 4.9-star rating, we decided to bring our service directly to our customers.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  What types of vehicles do you offer? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">Our fleet features premium Kia Sorento and Optima models – perfect for style, comfort, and performance - ranging from 5-seater SUVs to 7-seater family vehicles to sleek sedans for solo travelers.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  How do I make a reservation? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">You can make a reservation through our website or by contacting us directly. We aim to make the booking process as simple as possible.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  What is your cancellation policy? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">We understand that plans can change. Please check our website or contact us for detailed information on our cancellation policy.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  Are the rental cars well-maintained? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">Yes, all our vehicles are meticulously maintained to ensure a safe and reliable driving experience.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  What forms of payment do you accept? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">We accept various forms of payment, including major credit cards. Please check our website for specific details.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  Can I rent a car for a one-way trip? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">No, we focus on round-trip rentals to ensure your experience remains seamless and stress-free.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  What documents do I need to provide for rental? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">You will need a valid driver's license and a credit card for payment. Additional identification may be requested.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  Is insurance included in the rental price? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">Insurance options are available and can be added during the booking process. Please inquire if you need more information regarding coverage.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  Do you have age restrictions for rentals? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">Yes, renters must be at least 21 years old to rent a vehicle from CHURO. Additional fees may apply for drivers under 25.</p>
+                          </div>
+                          <div class="faq-item">
+                              <h3 class="faq-question" onclick="toggleFAQ(this)">
+                                  How can I contact CHURO for questions or more information? <i class="fas fa-chevron-down"></i>
+                              </h3>
+                              <p class="faq-answer">You can reach us through our website's contact form, by phone, or via email. We are here to assist you with any inquiries you may have.</p>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+          </div>
+      </div>
 
     <footer>
         <div class="container">
