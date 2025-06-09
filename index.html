@@ -18,39 +18,49 @@
 
         #company-ethos {
             background-color: #f4f4f4;
-            padding: 20px;
+            padding: 30px; /* Increased padding for better spacing */
             border-radius: 8px;
             margin-top: 30px;
-            text-align: center; /* Center the entire section content */
+            text-align: center; /* Center the title */
         }
 
         #company-ethos h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+            font-size: 2.2rem; /* Slightly larger title */
+            margin-bottom: 15px;
             color: #333;
         }
 
         #company-ethos h3 {
-            text-align: center; /* Center the subtitle */
             color: #555;
-            margin-bottom: 10px;
+            margin-bottom: 20px; /* Increased margin below subtitle */
+            font-style: italic; /* Added italics for style */
+            font-size: 1.4rem; /* Slightly larger subtitle */
+        }
+
+        #company-ethos > div {
+            display: flex; /* Use flexbox for horizontal centering of text and list */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
         }
 
         #company-ethos p {
             color: #555;
-            margin-bottom: 10px;
-            text-align: left; /* Align paragraphs to the left for better readability */
+            margin-bottom: 15px;
+            text-align: center; /* Center the paragraph text */
+            max-width: 800px; /* Limit the width of the paragraph */
         }
 
         #company-ethos ul {
             list-style-type: disc;
-            padding-left: 20px;
+            padding-left: 0; /* Remove default left padding */
             color: #555;
-            text-align: left; /* Align list items to the left */
+            text-align: left; /* Align list text to the left */
+            margin-top: 20px; /* Add some space above the list */
+            max-width: 600px; /* Limit the width of the list */
         }
 
-        #company-ethos li {
-            margin-bottom: 5px;
+        #company-ethos ul li {
+            margin-bottom: 10px; /* Increased margin between list items */
         }
     </style>
 </head>
@@ -96,16 +106,17 @@
         <section id="company-ethos">
             <h2>Our company ethos</h2>
             <h3>Driven By Trust. Powered By Passion.</h3>
-            <p>CHURO was born from a deep belief that car rentals should be personal, flexible, and refreshingly reliable. We’re not a big corporation — we’re your neighbors, providing hand-to-hand service with heart.</p>
-            <p>We:</p>
-            <ul>
-                <li>Deliver excellence with every clean, well-maintained car</li>
-                <li>Go green with paperless agreements and efficient vehicles</li>
-                <li>Welcome all — solo travelers, couples, families with kids, and business execs alike</li>
-                <li>Stay ready — 7-seaters, sedans, and everything in between for your Sarasota stay</li>
-                <li>Deliver loyalty — Many of our guests return every time they’re in town</li>
-            </ul>
-            <p>This is more than a side hustle. It’s our pride on wheels.</p>
+            <div>
+                <p>CHURO was born from a deep belief that car rentals should be personal, flexible, and refreshingly reliable. We’re not a big corporation — we’re your neighbors, providing hand-to-hand service with heart.</p>
+                <ul>
+                    <li>Deliver excellence with every clean, well-maintained car</li>
+                    <li>Go green with paperless agreements and efficient vehicles</li>
+                    <li>Welcome all — solo travelers, couples, families with kids, and business execs alike</li>
+                    <li>Stay ready — 7-seaters, sedans, and everything in between for your Sarasota stay</li>
+                    <li>Deliver loyalty — Many of our guests return every time they’re in town</li>
+                </ul>
+                <p>This is more than a side hustle. It’s our pride on wheels.</p>
+            </div>
         </section>
     </main>
 
