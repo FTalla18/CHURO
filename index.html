@@ -1,252 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHURO - Experience Exquisite Car Rentals</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHURO - Experience Exquisite Car Rentals</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">CHURO</div>
-            <ul class="nav-links">
-                <li><a href="#" onclick="showSection('home')">Home</a></li>
-                <li><a href="#" onclick="showSection('about')">About</a></li>
-                <li><a href="#" onclick="showSection('contact')">Contact</a></li>  
-                <li><a href="#" onclick="showSection('faq')">FAQs</a></li>
-                <li><a href="https://churorentals.fillout.com/reservation" target="_blank" style="background: #4A90E2; color: white; padding: 0.5rem 1rem; border-radius: 25px;">Book Now</a></li>
-            </ul>
-        </nav>
-    </header>
+    <header>
+        <nav class="container">
+            <div class="logo">CHURO</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('about')">About</a></li>
+                <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+                <li><a href="#" onclick="showSection('faq')">FAQs</a></li>
+                <li><a href="https://churorentals.fillout.com/reservation" target="_blank" style="background: #4A90E2; color: white; padding: 0.5rem 1rem; border-radius: 25px;">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Home Section -->
-    <div id="home" class="section active">
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Experience Exquisite Car Rentals</h1>
-                <p>Welcome to CHURO — your private gateway to luxury, comfort, and reliability. With over 480 trips completed and a 4.9-star rating on Turo, we bring years of trusted car-sharing experience directly to you, now on our terms. Whether you're traveling solo or with family, for business or a special event, CHURO makes it effortless to drive in style throughout Sarasota.</p>
-                <a href="https://churorentals.fillout.com/reservation" target="_blank" class="cta-button">Book Your Ride Now</a>
-            </div>
-        </section>
+        <div id="home" class="section active">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Experience Exquisite Car Rentals</h1>
+                <p>Welcome to CHURO — your private gateway to luxury, comfort, and reliability. With over 480 trips completed and a 4.9-star rating on Turo, we bring years of trusted car-sharing experience directly to you, now on our terms. Whether you're traveling solo or with family, for business or a special event, CHURO makes it effortless to drive in style throughout Sarasota.</p>
+                <a href="https://churorentals.fillout.com/reservation" target="_blank" class="cta-button">Book Your Ride Now</a>
+            </div>
+        </section>
 
-        <section class="fleet">
-            <div class="container">
-                <h2>Services we offer</h2>
-                <h3 class="fleet-subtitle" style="color: white; margin-bottom: 2rem;">More Than a Ride — It's a CHURO Experience</h3>
-                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem;">At CHURO, we offer a hand-picked fleet of stylish, well-maintained vehicles tailored to fit your needs:</p>
-                
-                <div class="carousel">
-                    <div class="carousel-container">
-                        <div class="car-slide">
-                            <div class="car-image">Nissan Sentra SV 2013</div>
-                            <div class="car-info">
-                                <h3>Nissan Sentra SV 2013</h3>
-                                <div class="car-price">$80/day</div>
-                                <p class="car-description">Compact, efficient, and easy to drive — great for zipping around Sarasota or sticking to a travel budget without compromising reliability.</p>
-                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
-                            </div>
-                        </div>
-                
-                        <div class="car-slide">
-                            <div class="car-image">Kia Optima 2014</div>
-                            <div class="car-info">
-                                <h3>Kia Optima 2014</h3>
-                                <div class="car-price">$97/day</div>
-                                <p class="car-description">Budget-friendly, reliable, and stylish — perfect for solo travelers or small families who want a no-fuss, smooth-sailing sedan.</p>
-                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
-                            </div>
-                        </div>
-                
-                        <div class="car-slide">
-                            <div class="car-image">Kia Optima 2019</div>
-                            <div class="car-info">
-                                <h3>Kia Optima 2019</h3>
-                                <div class="car-price">$105/day</div>
-                                <p class="car-description">Clean, modern, and smooth on the road — this Optima is ideal for couples or professionals who want comfort and class without the high price tag.</p>
-                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
-                            </div>
-                        </div>
-                
-                        <div class="car-slide">
-                            <div class="car-image">Kia Sorento 2016</div>
-                            <div class="car-info">
-                                <h3>Kia Sorento 2016</h3>
-                                <div class="car-price">$110/day</div>
-                                <p class="car-description">Spacious, reliable, and great for road trips — this Sorento offers SUV versatility and family-friendly features at an unbeatable value.</p>
-                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
-                            </div>
-                        </div>
-                
-                        <div class="car-slide">
-                            <div class="car-image">Kia Sorento 2018</div>
-                            <div class="car-info">
-                                <h3>Kia Sorento 2018</h3>
-                                <div class="car-price">$120/day</div>
-                                <p class="car-description">Bold and capable, this mid-size SUV delivers comfort and confidence — a smart choice for weekend warriors, airport travelers, or families on the go.</p>
-                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
-                            </div>
-                        </div>
-                
-                        <div class="car-slide">
-                            <div class="car-image">Kia Sorento 2022</div>
-                            <div class="car-info">
-                                <h3>Kia Sorento 2022</h3>
-                                <div class="car-price">$130/day</div>
-                                <p class="car-description">Our newest 7-seater SUV blends luxury, tech, and comfort — perfect for families or group travelers looking to ride in style without sacrificing space.</p>
-                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="prev">&#10094;</button>
-                    <button class="next">&#10095;</button>
-                </div>
-            </div>
-        </section>
-    </div>
+        <section class="fleet">
+            <div class="container">
+                <h2>Services we offer</h2>
+                <h3 class="fleet-subtitle" style="color: white; margin-bottom: 2rem;">More Than a Ride — It's a CHURO Experience</h3>
+                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem;">At CHURO, we offer a hand-picked fleet of stylish, well-maintained vehicles tailored to fit your needs:</p>
+                
+                <div class="carousel">
+                    <div class="carousel-container">
+                        <div class="car-slide">
+                            <div class="car-image"><img src="NissanSentra2013.JPG" alt="Nissan Sentra SV 2013"></div>
+                            <div class="car-info">
+                                <h3>Nissan Sentra SV 2013</h3>
+                                <div class="car-price">$80/day</div>
+                                <p class="car-description">Compact, efficient, and easy to drive — great for zipping around Sarasota or sticking to a travel budget without compromising reliability.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image"><img src="Optima2014.jpg" alt="Kia Optima 2014"></div>
+                            <div class="car-info">
+                                <h3>Kia Optima 2014</h3>
+                                <div class="car-price">$97/day</div>
+                                <p class="car-description">Budget-friendly, reliable, and stylish — perfect for solo travelers or small families who want a no-fuss, smooth-sailing sedan.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image"><img src="Optima2019.jpg" alt="Kia Optima 2019"></div>
+                            <div class="car-info">
+                                <h3>Kia Optima 2019</h3>
+                                <div class="car-price">$105/day</div>
+                                <p class="car-description">Clean, modern, and smooth on the road — this Optima is ideal for couples or professionals who want comfort and class without the high price tag.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image"><img src="sorento2016.jpg" alt="Kia Sorento 2016"></div>
+                            <div class="car-info">
+                                <h3>Kia Sorento 2016</h3>
+                                <div class="car-price">$110/day</div>
+                                <p class="car-description">Spacious, reliable, and great for road trips — this Sorento offers SUV versatility and family-friendly features at an unbeatable value.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image"><img src="sorento2018.jpg" alt="Kia Sorento 2018"></div>
+                            <div class="car-info">
+                                <h3>Kia Sorento 2018</h3>
+                                <div class="car-price">$120/day</div>
+                                <p class="car-description">Bold and capable, this mid-size SUV delivers comfort and confidence — a smart choice for weekend warriors, airport travelers, or families on the go.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image"><img src="sorento2022.jpg" alt="Kia Sorento 2022"></div>
+                            <div class="car-info">
+                                <h3>Kia Sorento 2022</h3>
+                                <div class="car-price">$130/day</div>
+                                <p class="car-description">Our newest 7-seater SUV blends luxury, tech, and comfort — perfect for families or group travelers looking to ride in style without sacrificing space.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="prev">&#10094;</button>
+                    <button class="next">&#10095;</button>
+                </div>
+            </div>
+        </section>
+    </div>
 
-    <!-- About Section -->
-    <div id="about" class="section">
-        <div style="padding-top: 100px;">
-            <section class="ethos">
-                <div class="container">
-                    <div class="ethos-content">
-                        <div class="ethos-text">
-                            <h2>Our company ethos</h2>
-                            <div class="ethos-tagline">Driven By Trust. Powered By Passion.</div>
-                            <p class="ethos-description">CHURO was born from a deep belief that car rentals should be personal, flexible, and refreshingly reliable. We're not a big corporation — we're your neighbors, providing hand-to-hand service with heart.</p>
-                            <p style="font-weight: bold; margin-bottom: 1.5rem;">We:</p>
-                            <ul class="ethos-points">
-                                <li><strong>Deliver excellence</strong> with every clean, well-maintained car</li>
-                                <li><strong>Go green</strong> with paperless agreements and efficient vehicles</li>
-                                <li><strong>Welcome all</strong> — solo travelers, couples, families with kids, and business execs alike</li>
-                                <li><strong>Stay ready</strong> — 7-seaters, sedans, and everything in between for your Sarasota stay</li>
-                                <li><strong>Deliver loyalty</strong> — Many of our guests return every time they're in town</li>
-                            </ul>
-                            <p style="margin-top: 2rem; font-style: italic; font-size: 1.1rem;">This is more than a side hustle. It's our pride on wheels.</p>
-                        </div>
-                        <div class="ethos-image">
-                            <span>🚗 Premium Interior Experience</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <div id="about" class="section">
+        <div style="padding-top: 100px;">
+            <section class="ethos">
+                <div class="container">
+                    <div class="ethos-content">
+                        <div class="ethos-text">
+                            <h2>Our company ethos</h2>
+                            <div class="ethos-tagline">Driven By Trust. Powered By Passion.</div>
+                            <p class="ethos-description">CHURO was born from a deep belief that car rentals should be personal, flexible, and refreshingly reliable. We're not a big corporation — we're your neighbors, providing hand-to-hand service with heart.</p>
+                            <p style="font-weight: bold; margin-bottom: 1.5rem;">We:</p>
+                            <ul class="ethos-points">
+                                <li><strong>Deliver excellence</strong> with every clean, well-maintained car</li>
+                                <li><strong>Go green</strong> with paperless agreements and efficient vehicles</li>
+                                <li><strong>Welcome all</strong> — solo travelers, couples, families with kids, and business execs alike</li>
+                                <li><strong>Stay ready</strong> — 7-seaters, sedans, and everything in between for your Sarasota stay</li>
+                                <li><strong>Deliver loyalty</strong> — Many of our guests return every time they're in town</li>
+                            </ul>
+                            <p style="margin-top: 2rem; font-style: italic; font-size: 1.1rem;">This is more than a side hustle. It's our pride on wheels.</p>
+                        </div>
+                        <div class="ethos-image">
+                            <span>🚗 Premium Interior Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            <section class="testimonials">
-                <div class="container">
-                    <h2>What Our Customers Say</h2>
-                    <div class="testimonials-grid">
-                        <div class="testimonial">
-                            <p class="testimonial-text">"Car was clean I really enjoyed the ride"</p>
-                            <p class="testimonial-author">- Kelvet (Kia Optima 2014)</p>
-                        </div>
-                        <div class="testimonial">
-                            <p class="testimonial-text">"Awesome host. Quick"</p>
-                            <p class="testimonial-author">- James (Kia Sorento 2022)</p>
-                        </div>
-                        <div class="testimonial">
-                            <p class="testimonial-text">"Freeman's Kia was perfect for our group of 6 people. The third row is great and is hard to find in a rental. It folds down so you can have the extra storage space if needed. Freeman was super flexible with pickup and drop-off. The car is in great condition with low miles. I'd definitely rent it again!"</p>
-                            <p class="testimonial-author">- Jason (Kia Sorento 2022)</p>
-                        </div>
-                        <div class="testimonial">
-                            <p class="testimonial-text">"The car was great. Only problem was the radio other than that A-OK."</p>
-                            <p class="testimonial-author">- Quinlan P. (Kia Optima 2014)</p>
-                        </div>
-                        <div class="testimonial">
-                            <p class="testimonial-text">"loved it"</p>
-                            <p class="testimonial-author">- Francis (Kia Sorento 2018)</p>
-                        </div>
-                        <div class="testimonial">
-                            <p class="testimonial-text">"Great ride and flexible host. Highly recommend"</p>
-                            <p class="testimonial-author">- Brandon (Kia Optima 2014)</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
+            <section class="testimonials">
+                <div class="container">
+                    <h2>What Our Customers Say</h2>
+                    <div class="testimonials-grid">
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Car was clean I really enjoyed the ride"</p>
+                            <p class="testimonial-author">- Kelvet (Kia Optima 2014)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Awesome host. Quick"</p>
+                            <p class="testimonial-author">- James (Kia Sorento 2022)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Freeman's Kia was perfect for our group of 6 people. The third row is great and is hard to find in a rental. It folds down so you can have the extra storage space if needed. Freeman was super flexible with pickup and drop-off. The car is in great condition with low miles. I'd definitely rent it again!"</p>
+                            <p class="testimonial-author">- Jason (Kia Sorento 2022)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"The car was great. Only problem was the radio other than that A-OK."</p>
+                            <p class="testimonial-author">- Quinlan P. (Kia Optima 2014)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"loved it"</p>
+                            <p class="testimonial-author">- Francis (Kia Sorento 2018)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Great ride and flexible host. Highly recommend"</p>
+                            <p class="testimonial-author">- Brandon (Kia Optima 2014)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 
-    <!-- Contact Section -->
-    <div id="contact" class="section">
-        <div style="padding-top: 100px;">
-            <section class="contact">
-                <div class="container">
-                    <h2>Contact Us</h2>
-                    <div class="contact-content">
-                        <p class="contact-description">Let's Get You Rolling<br><br>Whether you're ready to book, have a special request, or just want to chat options, we're here. Fill out our reservation form and we'll get you moving in style.</p>
-                        <a href="https://churorentals.fillout.com/reservation" target="_blank" class="cta-button">Start Your Reservation</a>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
+        <div id="contact" class="section">
+        <div style="padding-top: 100px;">
+            <section class="contact">
+                <div class="container">
+                    <h2>Contact Us</h2>
+                    <div class="contact-content">
+                        <p class="contact-description">Let's Get You Rolling<br><br>Whether you're ready to book, have a special request, or just want to chat options, we're here. Fill out our reservation form and we'll get you moving in style.</p>
+                        <a href="https://churorentals.fillout.com/reservation" target="_blank" class="cta-button">Start Your Reservation</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 
-    <!-- FAQ Section -->
-    <div id="faq" class="section">
-        <div style="padding-top: 100px;">
-            <section class="faq">
-                <div class="container">
-                    <h2>Frequently Asked Questions</h2>
-                    <div class="faq-grid">
-                        <div class="faq-item">
-                            <h3 class="faq-question">What is CHURO?</h3>
-                            <p class="faq-answer">CHURO is a family-operated car rental business based in Sarasota, Florida, focused on providing personalized, honest, and hassle-free car rentals.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">How did CHURO start?</h3>
-                            <p class="faq-answer">CHURO was born from a desire to offer reliable car rentals without middlemen or surprises. With over 480 trips on Turo and a near-perfect 4.9-star rating, we decided to bring our service directly to our customers.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">What types of vehicles do you offer?</h3>
-                            <p class="faq-answer">Our fleet features premium Kia Sorento and Optima models – perfect for style, comfort, and performance - ranging from 5-seater SUVs to 7-seater family vehicles to sleek sedans for solo travelers.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">How do I make a reservation?</h3>
-                            <p class="faq-answer">You can make a reservation through our website or by contacting us directly. We aim to make the booking process as simple as possible.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">What is your cancellation policy?</h3>
-                            <p class="faq-answer">We understand that plans can change. Please check our website or contact us for detailed information on our cancellation policy.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">Are the rental cars well-maintained?</h3>
-                            <p class="faq-answer">Yes, all our vehicles are meticulously maintained to ensure a safe and reliable driving experience.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">What forms of payment do you accept?</h3>
-                            <p class="faq-answer">We accept various forms of payment, including major credit cards. Please check our website for specific details.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">Can I rent a car for a one-way trip?</h3>
-                            <p class="faq-answer">No, we focus on round-trip rentals to ensure your experience remains seamless and stress-free.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">What documents do I need to provide for rental?</h3>
-                            <p class="faq-answer">You will need a valid driver's license and a credit card for payment. Additional identification may be requested.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">Is insurance included in the rental price?</h3>
-                            <p class="faq-answer">Insurance options are available and can be added during the booking process. Please inquire if you need more information regarding coverage.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">Do you have age restrictions for rentals?</h3>
-                            <p class="faq-answer">Yes, renters must be at least 21 years old to rent a vehicle from CHURO. Additional fees may apply for drivers under 25.</p>
-                        </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">How can I contact CHURO for questions or more information?</h3>
-                            <p class="faq-answer">You can reach us through our website's contact form, by phone, or via email. We are here to assist you with any inquiries you may have.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
+        <div id="faq" class="section">
+        <div style="padding-top: 100px;">
+            <section class="faq">
+                <div class="container">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <h3 class="faq-question">What is CHURO?</h3>
+                            <p class="faq-answer">CHURO is a family-operated car rental business based in Sarasota, Florida, focused on providing personalized, honest, and hassle-free car rentals.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">How did CHURO start?</h3>
+                            <p class="faq-answer">CHURO was born from a desire to offer reliable car rentals without middlemen or surprises. With over 480 trips on Turo and a near-perfect 4.9-star rating, we decided to bring our service directly to our customers.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">What types of vehicles do you offer?</h3>
+                            <p class="faq-answer">Our fleet features premium Kia Sorento and Optima models – perfect for style, comfort, and performance - ranging from 5-seater SUVs to 7-seater family vehicles to sleek sedans for solo travelers.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">How do I make a reservation?</h3>
+                            <p class="faq-answer">You can make a reservation through our website or by contacting us directly. We aim to make the booking process as simple as possible.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">What is your cancellation policy?</h3>
+                            <p class="faq-answer">We understand that plans can change. Please check our website or contact us for detailed information on our cancellation policy.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Are the rental cars well-maintained?</h3>
+                            <p class="faq-answer">Yes, all our vehicles are meticulously maintained to ensure a safe and reliable driving experience.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">What forms of payment do you accept?</h3>
+                            <p class="faq-answer">We accept various forms of payment, including major credit cards. Please check our website for specific details.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Can I rent a car for a one-way trip?</h3>
+                            <p class="faq-answer">No, we focus on round-trip rentals to ensure your experience remains seamless and stress-free.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">What documents do I need to provide for rental?</h3>
+                            <p class="faq-answer">You will need a valid driver's license and a credit card for payment. Additional identification may be requested.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Is insurance included in the rental price?</h3>
+                            <p class="faq-answer">Insurance options are available and can be added during the booking process. Please inquire if you need more information regarding coverage.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Do you have age restrictions for rentals?</h3>
+                            <p class="faq-answer">Yes, renters must be at least 21 years old to rent a vehicle from CHURO. Additional fees may apply for drivers under 25.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">How can I contact CHURO for questions or more information?</h3>
+                            <p class="faq-answer">You can reach us through our website's contact form, by phone, or via email. We are here to assist you with any inquiries you may have.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 CHURO Car Rentals. Experience the difference of personalized service in Sarasota, Florida.</p>
-        </div>
-    </footer>
-    <script src="script.js"></script>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CHURO Car Rentals. Experience the difference of personalized service in Sarasota, Florida.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
