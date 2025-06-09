@@ -34,6 +34,72 @@
             content: "✅ "; /* Add a checkmark */
             color: green;
         }
+
+        /* Review Carousel Styles */
+        .review-carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .review-carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .review-slide {
+            flex: 0 0 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-right: 1px solid #eee;
+            text-align: center;
+        }
+
+        .review-slide:last-child {
+            border-right: none;
+        }
+
+        .review-slide blockquote {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .review-slide p.reviewer {
+            font-style: italic;
+            color: #777;
+        }
+
+        .review-prev, .review-next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+            border: none;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .review-prev:hover, .review-next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .review-prev {
+            left: 0;
+        }
+
+        .review-next {
+            right: 0;
+        }
     </style>
 </head>
 <body>
@@ -68,8 +134,51 @@
                 <p>Let us handle the details while you focus on the journey. We're here to earn your business—not just once, but every time you come to town.</p>
             </div>
 
-            <section style="text-align: center; padding: 20px;">
-                <img src="jacket.jpg" alt="CHURO Team or Car" style="max-width: 500px; height: auto; border-radius: 8px;">
+            <section class="review-carousel">
+                <div class="review-carousel-container">
+                    <div class="review-slide">
+                        <blockquote>“Car was clean I really enjoyed the ride”</blockquote>
+                        <p class="reviewer">Kelvet (Kia Optima 2014)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“Awesome host. Quick”</blockquote>
+                        <p class="reviewer">James (Kia Sorento 2022)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“The car was great. Only problem was the radio other than that A-OK.”</blockquote>
+                        <p class="reviewer">Quinlan P. (Kia Optima 2014)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“Great ride and flexible host. Highly recommend”</blockquote>
+                        <p class="reviewer">Brandon (Kia Optima 2014)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“OMG! I needed a car around spring break at the last minute. Everything was booked up on Hertz, Budget, Avis, and Enterprise. My best friend told me about Turo and I found this wonderful man right here. He made my first time experience easy and accommodating. I rate him 10/10 and would recommend him to any one of my family members to him. He was welcoming, nice, very easy going, and respectful. I met him at his residence and he handed me the keys. Told me to take my pictures and read the rules. Long as you respect the rules of the vehicle you will be fine. When I first entered the vehicle I was in love. I immediately respected the truck like it was my own, told the kids to respect it, and any of my visitors. The truck gas tank was full and the car was clean. The truck smelled good for a whole week straight. He made my Turo experience smooth, easy, and perfect. I was stressed because my car went out and I have it in the shop for fixing. I was able to make it back and forth for work because of this young man. I absolutely adore you and appreciate your hospitality. I will be back. Thank you again.”</blockquote>
+                        <p class="reviewer">Jimecka  (Kia Sorento 2016)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“loved it”</blockquote>
+                        <p class="reviewer">Francis (Kia Sorento 2018)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“Freeman was a great host. Very responsive. The car was very clean and drove great.”</blockquote>
+                        <p class="reviewer">Celeste (Kia Sorento 2022)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“This gentleman Rocks”</blockquote>
+                        <p class="reviewer">Don (Kia Sorento 2016)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“Mr Freeman was absolutely amazing from start to finish car was nice and clean. He responded always in a timely manner would definitely recommend him and the Kia to anyone that needs a nice and convenient ride thanks Mr freeman.”</blockquote>
+                        <p class="reviewer">Tamika (Kia Optima 2014)</p>
+                    </div>
+                    <div class="review-slide">
+                        <blockquote>“Freeman's Kia was perfect for our group of 6 people. The third row is great and is hard to find in a rental. It folds down so you can have the extra storage space if needed. Freeman was super flexible with pickup and drop-off off. The car is in great condition with low miles. I'd definitely rent itagain!”</blockquote>
+                        <p class="reviewer">Jason (Kia Sorento 2022)</p>
+                    </div>
+                </div>
+                <button class="review-prev">&#10094;</button>
+                <button class="review-next">&#10095;</button>
             </section>
         </section>
     </main>
@@ -79,5 +188,42 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        const reviewCarousel = document.querySelector('.review-carousel-container');
+        const reviewPrevButton = document.querySelector('.review-prev');
+        const reviewNextButton = document.querySelector('.review-next');
+        const reviewSlides = document.querySelectorAll('.review-slide');
+        let reviewIndex = 0;
+        const reviewSlideWidth = reviewSlides[0].offsetWidth;
+
+        function showReviewSlide(n) {
+            if (n >= reviewSlides.length) {
+                reviewIndex = 0;
+            } else if (n < 0) {
+                reviewIndex = reviewSlides.length - 1;
+            } else {
+                reviewIndex = n;
+            }
+            const offset = -reviewIndex * reviewSlideWidth;
+            reviewCarousel.style.transform = `translateX(${offset}px)`;
+        }
+
+        reviewNextButton.addEventListener('click', () => {
+            showReviewSlide(reviewIndex + 1);
+        });
+
+        reviewPrevButton.addEventListener('click', () => {
+            showReviewSlide(reviewIndex - 1);
+        });
+
+        showReviewSlide(reviewIndex);
+
+        // Basic resize handling for responsiveness (optional, might need more sophisticated logic)
+        window.addEventListener('resize', () => {
+            const newSlideWidth = reviewSlides[0].offsetWidth;
+            const newOffset = -reviewIndex * newSlideWidth;
+            reviewCarousel.style.transform = `translateX(${newOffset}px)`;
+        });
+    </script>
 </body>
 </html>
