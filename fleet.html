@@ -3,15 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Fleet - CHURO Car Rental</title>
+    <title>CHURO Car Fleet: Kia Sorento & Optima Rentals in Sarasota</title>
+    <meta name="description" content="Browse our premium car fleet at CHURO Car Rental in Sarasota. Featuring Kia Sorento and Optima models for style, comfort, and performance.">
     <link rel="stylesheet" href="styles.css">
     <style>
+        .car-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .car-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
         .car-card .car-info h3 {
             font-size: 1.5rem;
             margin-bottom: 0.3rem;
             color: #000; /* Black color for car names */
             font-weight: bold; /* Bold font for car names */
-            text-align: center; /* Center horizontally for car names */
         }
 
         /* Make the selector more specific */
@@ -19,7 +37,6 @@
             color: #000; /* Black color for description */
             margin-bottom: 0.7rem;
             font-style: italic; /* Italic font for description */
-            text-align: center; /* Center horizontally for description */
         }
 
         .car-card .car-info .car-price {
@@ -28,7 +45,6 @@
             display: block;
             margin-bottom: 0.5rem;
             font-size: 1.2rem;
-            text-align: center; /* Center the price horizontally */
         }
     </style>
 </head>
@@ -52,7 +68,7 @@
 
         <section id="car-listings">
             <div class="car-card">
-                <img src="NissanSentra2013.JPG" alt="Nissan Sentra 2013">
+                <img src="NissanSentra2013.JPG" alt="Compact and efficient Nissan Sentra SV 2013 rental">
                 <div class="car-info">
                     <h3>Nissan Sentra SV 2013</h3>
                     <span class="car-price">$80</span>
@@ -61,7 +77,7 @@
             </div>
 
             <div class="car-card">
-                <img src="Optima2014.jpg" alt="Kia Optima 2014">
+                <img src="Optima2014.jpg" alt="Reliable and stylish Kia Optima 2014 sedan rental">
                 <div class="car-info">
                     <h3>Kia Optima 2014</h3>
                     <span class="car-price">$97</span>
@@ -70,7 +86,7 @@
             </div>
 
             <div class="car-card">
-                <img src="Optima2019.jpg" alt="Kia Optima 2019">
+                <img src="Optima2019.jpg" alt="Clean and modern Kia Optima 2019 rental for couples">
                 <div class="car-info">
                     <h3>Kia Optima 2019</h3>
                     <span class="car-price">$105</span>
@@ -79,7 +95,7 @@
             </div>
 
             <div class="car-card">
-                <img src="sorento2016.jpg" alt="Kia Sorento 2016">
+                <img src="sorento2016.jpg" alt="Spacious and reliable Kia Sorento 2016 SUV for road trips">
                 <div class="car-info">
                     <h3>Kia Sorento 2016</h3>
                     <span class="car-price">$110</span>
@@ -88,7 +104,7 @@
             </div>
 
             <div class="car-card">
-                <img src="sorento2018.jpg" alt="Kia Sorento 2018">
+                <img src="sorento2018.jpg" alt="Comfortable and confident Kia Sorento 2018 SUV rental">
                 <div class="car-info">
                     <h3>Kia Sorento 2018</h3>
                     <span class="car-price">$120</span>
@@ -97,7 +113,7 @@
             </div>
 
             <div class="car-card">
-                <img src="sorento2022.jpg" alt="Kia Sorento 2022">
+                <img src="sorento2022.jpg" alt="Newest 7-seater Kia Sorento 2022 luxury SUV rental">
                 <div class="car-info">
                     <h3>Kia Sorento 2022</h3>
                     <span class="car-price">$130</span>
