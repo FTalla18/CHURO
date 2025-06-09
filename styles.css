@@ -1,498 +1,637 @@
+/* Reset and base styles */
 * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-   }
-
-   body {
-            font-family: 'Georgia', serif;
-            line-height: 1.6;
-            color: #333;
-   }
-
-   .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-    }
-
-        /* Header */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #4A90E2;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('hero-bg.jpg'); /* Changed this line */
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            line-height: 1.8;
-            font-style: italic;
-        }
-
-        .cta-button {
-            background: linear-gradient(45deg, #4A90E2, #357ABD);
-            color: white;
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);
-        }
-
-        /* Fleet Section */
-        .fleet {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .fleet h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-        }
-
-        .fleet-subtitle {
-            text-align: center;
-            font-size: 1.3rem;
-            margin-bottom: 4rem;
-            color: #333;
-        }
-
-        .fleet-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .car-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            cursor: pointer;
-            color: #333;
-        }
-
-        .car-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-        }
-
-        .car-image {
-            height: 250px;
-            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            color: #666;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .car-image::before {
-            content: '🚗';
-            font-size: 4rem;
-            opacity: 0.3;
-        }
-
-        .car-info {
-            padding: 1.5rem;
-        }
-
-        .car-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .car-price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #4A90E2;
-            margin-bottom: 1rem;
-        }
-
-        .car-description {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #666;
-        }
-
-/* --- New Carousel Styles --- */
-.carousel {
-    position: relative;
-    overflow: hidden;
-    padding: 20px 0; /* Added some padding for better visual separation */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header and navigation */
+header {
+    background-color: #1c1c1c;
+    color: #fff;
+    padding: 1rem 0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Main content */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Set the background image for the hero section */
+#hero {
+    background-image: url('Car Rental Logo.jpg');
+    background-size: cover; /* Ensures the image covers the entire section */
+    background-position: center; /* Centers the image */
+    height: 500px; /* Adjust the height as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Aligns content to the bottom of the section */
+    padding: 20px;
+    color: white; /* Adjust text color for visibility */
+    text-align: center;
+}
+
+/* Style for header text */
+#hero h1 {
+    margin: 0;
+    font-size: 2.5rem; /* Adjust font size as needed */
+    z-index: 1; /* Ensures text is above other elements */
+}
+
+/* Style for CTA button */
+.cta-button {
+    background-color: #ff6f61; /* Adjust button color */
+    color: white; /* Text color on button */
+    padding: 10px 20px; /* Adjust padding */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Remove underline from link */
+    display: inline-block;
+    font-size: 1.2rem; /* Adjust font size */
+    margin-top: 10px; /* Space above the button */
+}
+
+/* Ensure other sections are styled properly */
+section {
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
+
+/* Reservation form */
+#reservation {
+    background-color: #f4f4f4;
+    padding: 2rem;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    justify-content: center; /* Centers content horizontally */
+    box-sizing: border-box; /* Ensures padding doesn't affect the width */
+    align-items: center; /* Centers content vertically */
+}
+
+#reservation-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%; /* Ensures form takes full width of the container */
+}
+
+#reservation-form input,
+#reservation-form select,
+#reservation-form button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%; /* Ensures elements take full width of the form */
+    border: 1px solid #ccc; /* Adds a light border to input fields */
+    border-radius: 4px; /* Rounded corners for inputs and button */
+}
+
+#reservation-form button {
+    background-color: #4CAF50; /* Green background for the button */
+    color: white; /* White text */
+    border: none; /* No border for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+#reservation-form button:hover {
+    background-color: #45a049; /* Darker shade of green on hover */
+}
+
+/* Car gallery */
+/* Carousel container styling */
+.carousel {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Carousel image container styling */
 .carousel-container {
     display: flex;
     transition: transform 0.5s ease-in-out;
 }
 
-.car-slide {
-    min-width: 100%;
-    box-sizing: border-box;
-    padding: 20px;
+.carousel-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* Navigation buttons styling */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    #hero h1 {
+        font-size: 2rem;
+    }
+
+    #reservation-form {
+        flex-direction: column;
+    }
+}
+
+/* About page styles */
+#about-hero {
+    background-image: url('Car Rental Logo.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px; /* Adjust height if needed */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: flex-end; /* Aligns content to the bottom of the section */
+    padding: 20px; /* Adds padding for spacing */
+    color: #fff; /* White text color for contrast */
+    text-align: center; /* Center-align text */
+}
+
+#about-hero h1 {
+    font-size: 2.5rem; /* Adjust font size as needed */
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Adds text shadow for better readability */
+}
+
+.car-gallery {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+#car-gallery {
     text-align: center;
-    background: rgba(255, 255, 255, 0.95); /* Added background to the slides */
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    margin: 0 10px; /* Added some horizontal margin between slides */
+    padding: 2rem 0;
 }
 
-.carousel-container {
-    padding: 0 20px; /* Adjust padding for the container */
-}
-
-/* Override existing .car-image style for carousel */
-.carousel .car-image {
-    height: 150px; /* Adjusted height for carousel */
-    width: 200px; /* Adjusted width for carousel */
-    margin-bottom: 10px;
+.image-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0; /* Placeholder */
+    gap: 2rem; /* Space between images */
+    margin-bottom: 2rem;
 }
 
-/* Override existing .car-info h3 style for carousel */
-.carousel .car-info h3 {
-    font-size: 1.2rem; /* Adjusted font size for carousel */
+.image-container img {
+    width: 30%; /* Adjust as needed */
+    max-width: 300px; /* Maximum width for each image */
+    height: auto;
+    object-fit: cover;
+}
+
+.car-gallery figure {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.car-gallery img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .image-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-container img {
+        width: 80%;
+        max-width: none;
+    }
+}
+
+/* Fleet page styles */
+#fleet-hero {
+    background-image: url('Car Rental Logo.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px; /* Adjust height if needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Aligns content to the bottom of the section */
+    padding: 20px; /* Adds padding for spacing */
+    color: #fff; /* White text color for contrast */
+    text-align: center; /* Center-align text */
+}
+
+#fleet-hero h1 {
+    font-size: 2.5rem; /* Adjust font size as needed */
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Adds text shadow for better readability */
+}
+
+#car-filters {
+    background-color: #f4f4f4;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+#filter-form {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+#filter-form select,
+#filter-form button {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+#car-listings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.car-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* CSS for car card images */
+.car-card img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+}
+
+/* CSS for no results message */
+#car-listings p {
+    font-size: 1.2rem;
+    color: #ff0000; /* Or any color that suits your design */
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+/*.car-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}*/
+
+.car-info {
+    padding: 1rem;
+}
+
+.car-info h3 {
+    margin-bottom: 0.5rem;
+}
+
+.car-price {
+    font-weight: bold;
+    color: gold;
+}
+
+/* Contact page styles */
+#contact-hero {
+    background-image: url('hero.bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px; /* Adjust height if needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Aligns content to the bottom of the section */
+    padding: 20px; /* Adds padding for spacing */
+    color: #fff; /* White text color for contrast */
+    text-align: center; /* Center-align text */
+}
+
+#contact-hero h1 {
+    font-size: 2.5rem; /* Adjust font size as needed */
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Adds text shadow for better readability */
+}
+
+#contact-form-section {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#contact-form input,
+#contact-form textarea {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#contact-form textarea {
+    height: 150px;
+}
+
+#contact-form button {
+    background-color: gold;
+    color: #1c1c1c;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#contact-form button:hover {
+    background-color: #e6c200;
+}
+
+/* FAQ page styles */
+#faq-hero {
+    background-image: url('Car Rental Logo.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px; /* Adjust height if needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Aligns content to the bottom of the section */
+    padding: 20px; /* Adds padding for spacing */
+    color: #fff; /* White text color for contrast */
+    text-align: center; /* Center-align text */
+}
+
+#faq-hero h1 {
+    font-size: 2.5rem; /* Adjust font size as needed */
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Adds text shadow for better readability */
+}
+
+#faq-list {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.faq-item {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+}
+
+.faq-item h2 {
+    cursor: pointer;
+    color: #333;
+}
+
+.faq-item p {
+    display: none;
     margin-top: 1rem;
 }
 
-/* Override existing .car-price style for carousel */
-.carousel .car-price {
-    font-size: 1em; /* Adjusted font size for carousel */
-    margin-bottom: 5px;
+.faq-item.active p {
+    display: block;
+}
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
-/* Override existing .car-description style for carousel */
-.carousel .car-description {
-    font-size: 0.85rem; /* Adjusted font size for carousel */
-    margin-bottom: 10px;
+/* Blog hero section */
+#blog-hero {
+    background-image: url('Car Rental Logo.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
 }
 
-.carousel button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
+#blog-hero h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Blog posts container */
+#blog-posts {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Individual blog post item */
+.blog-post-item, .blog-post {
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 2rem;
+}
+
+.blog-post-item h2, .blog-post h2 {
+    color: #333;
+}
+
+.blog-post-meta {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.9em;
+}
+
+.blog-post-content {
+    line-height: 1.6;
+}
+
+/* Read More and Back to List buttons */
+.read-more, .back-to-list {
+    background-color: gold;
+    color: #1c1c1c;
     border: none;
-    font-size: 2em;
+    padding: 10px 15px;
     cursor: pointer;
-    padding: 10px;
-    user-select: none;
-    color: #333; /* Added color to the buttons */
+    transition: background-color 0.3s;
 }
 
-.carousel button.prev {
-    left: 10px;
+.read-more:hover, .back-to-list:hover {
+    background-color: #e6c200;
 }
 
-.carousel button.next {
-    right: 10px;
+/* Full article styles */
+#article-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
 }
 
-.car-slide button {
-    background: linear-gradient(45deg, #4A90E2, #357ABD);
-    color: white;
+.article-image {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
+
+.article-content p {
+    margin-bottom: 1em;
+}
+
+.article-content h3 {
+    margin-top: 1.5em;
+}
+
+/* Table styles */
+.rental-costs {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.rental-costs th, .rental-costs td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.rental-costs th {
+    background-color: #f2f2f2;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin-right: 10px;
+    background-color: gold;
+    color: #1c1c1c;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background-color: #e6c200;
+}
+
+/* Comments section */
+.blog-post-comments, .article-comments {
+    margin-top: 2rem;
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 1rem;
+}
+
+.comment-form button {
+    background-color: gold;
+    color: #1c1c1c;
     padding: 0.5rem 1rem;
     border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
-.car-slide button:hover {
-    background: linear-gradient(45deg, #357ABD, #4A90E2);
+.comment-form button:hover {
+    background-color: #e6c200;
 }
 
-/* Ethos Section */
-        .ethos {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        }
+/* Responsive design */
+@media (max-width: 600px) {
+    #blog-hero h1 {
+        font-size: 2rem;
+    }
 
-        .ethos-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .ethos-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #4A90E2;
-            font-weight: 300;
-        }
-
-        .ethos-tagline {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            color: #357ABD;
-            font-weight: 600;
-        }
-
-        .ethos-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            color: #555;
-        }
-
-        .ethos-points {
-            list-style: none;
-        }
-
-        .ethos-points li {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            color: #333;
-        }
-
-        .ethos-points li strong {
-            color: #4A90E2;
-        }
-
-        .ethos-image {
-            height: 400px;
-            background: linear-gradient(45deg, #333, #555);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        }
-
-        .testimonials h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-            color: #333;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-left: 4px solid #4A90E2;
-        }
-
-        .testimonial-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 1rem;
-            font-style: italic;
-            color: #555;
-        }
-
-        .testimonial-author {
-            font-weight: bold;
-            color: #4A90E2;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .contact h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        /* FAQ Section */
-        .faq {
-            padding: 6rem 0;
-            background: #f8f9fa;
-        }
-
-        .faq h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-            color: #333;
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 2rem;
-        }
-
-        .faq-item {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .faq-question {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .faq-answer {
-            display: none;
-            margin-top: 0.5rem;
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        .faq-answer.active {
-            display: block;
-        }
-        
-        .faq-question i {
-            float: right;
-            transition: transform 0.3s ease;
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .ethos-content {
-                grid-template-columns: 1fr;
-            }
-
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Hidden sections for navigation */
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        #home.active {
-            display: block;
-        }
+    .blog-post-item h2, .blog-post h2 {
+        font-size: 1.5rem;
+    }
+}
