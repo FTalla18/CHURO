@@ -1,694 +1,678 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHURO - Experience Exquisite Car Rentals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4A90E2;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23556B7D" width="1200" height="800"/><polygon fill="%23435A6B" points="0,400 600,200 1200,400 1200,800 0,800"/><polygon fill="%232E3D4A" points="200,600 800,300 1200,600 1200,800 0,800"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #4A90E2, #357ABD);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Fleet Section */
+        .fleet {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .fleet h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .fleet-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 4rem;
+            color: #333;
+        }
+
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .car-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .car-image {
+            height: 250px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #666;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .car-image::before {
+            content: '🚗';
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+
+        .car-info {
+            padding: 1.5rem;
+        }
+
+        .car-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .car-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4A90E2;
+            margin-bottom: 1rem;
+        }
+
+        .car-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Ethos Section */
+        .ethos {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .ethos-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .ethos-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #4A90E2;
+            font-weight: 300;
+        }
+
+        .ethos-tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #357ABD;
+            font-weight: 600;
+        }
+
+        .ethos-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .ethos-points {
+            list-style: none;
+        }
+
+        .ethos-points li {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .ethos-points li strong {
+            color: #4A90E2;
+        }
+
+        .ethos-image {
+            height: 400px;
+            background: linear-gradient(45deg, #333, #555);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            color: #333;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 4px solid #4A90E2;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: #555;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #4A90E2;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 0;
+            background: #f8f9fa;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            color: #333;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .faq-answer {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .ethos-content {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hidden sections for navigation */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        #home.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;CHURO - Experience Exquisite Car Rentals&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Georgia', serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 1200px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 0 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Header */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>header {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.95);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1000;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 1rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 2px 20px rgba(0,0,0,0.1);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>nav {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.logo {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-links {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>list-style: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-links a {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: color 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-links a:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #4A90E2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Hero Section */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hero {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 100vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"&gt;&lt;rect fill="%23556B7D" width="1200" height="800"/&gt;&lt;polygon fill="%23435A6B" points="0,400 600,200 1200,400 1200,800 0,800"/&gt;&lt;polygon fill="%232E3D4A" points="200,600 800,300 1200,600 1200,800 0,800"/&gt;&lt;/svg&gt;');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-size: cover;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-position: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hero-content h1 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 3.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 300;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hero-content p {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 800px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.8;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-style: italic;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(45deg, #4A90E2, #357ABD);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 1rem 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-button:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-3px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Fleet Section */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.fleet {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 6rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.fleet h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 300;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.fleet-subtitle {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.3rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 4rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.fleet-grid {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 3rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.car-card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.95);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 20px 40px rgba(0,0,0,0.1);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.car-card:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-10px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 30px 60px rgba(0,0,0,0.2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.car-image {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 250px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(45deg, #f0f0f0, #e0e0e0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.car-image::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '🚗';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 4rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.3;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.car-info {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.car-info h3 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 0.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.car-price {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #4A90E2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.car-description {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Ethos Section */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ethos {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 6rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ethos-content {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: 1fr 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 4rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ethos-text h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #4A90E2;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 300;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ethos-tagline {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #357ABD;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ethos-description {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.8;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #555;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ethos-points {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>list-style: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ethos-points li {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ethos-points li strong {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #4A90E2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.ethos-image {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 400px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(45deg, #333, #555);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Testimonials */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.testimonials {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 6rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.testimonials h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 4rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.testimonials-grid {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.testimonial {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 30px rgba(0,0,0,0.1);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-left: 4px solid #4A90E2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.testimonial-text {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.7;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-style: italic;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #555;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.testimonial-author {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #4A90E2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Contact Section */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.contact {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 6rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.contact h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.contact-content {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 600px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.contact-description {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.8;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* FAQ Section */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.faq {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 6rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #f8f9fa;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.faq h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 4rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.faq-grid {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.faq-item {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 15px rgba(0,0,0,0.1);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.faq-question {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.faq-answer {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Footer */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>footer {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #333;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 2rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Mobile Responsive */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.nav-links {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.hero-content h1 {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>font-size: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.ethos-content {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>grid-template-columns: 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.faq-grid {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>grid-template-columns: 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Hidden sections for navigation */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section.active {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>#home.active {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;nav class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="logo"&gt;CHURO&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;ul class="nav-links"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li&gt;&lt;a href="#" onclick="showSection('home')"&gt;Home&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li&gt;&lt;a href="#" onclick="showSection('about')"&gt;About&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li&gt;&lt;a href="#" onclick="showSection('contact')"&gt;Contact&lt;/a&gt;&lt;/li&gt; <span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li&gt;&lt;a href="#" onclick="showSection('faq')"&gt;FAQs&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li&gt;&lt;a href="https://churorentals.fillout.com/reservation" target="_blank" style="background: #4A90E2; color: white; padding: 0.5rem 1rem; border-radius: 25px;"&gt;Book Now&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Home Section --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="home" class="section active"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="hero"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="hero-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h1&gt;Experience Exquisite Car Rentals&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Welcome to CHURO — your private gateway to luxury, comfort, and reliability. With over 480 trips completed and a 4.9-star rating on Turo, we bring years of trusted car-sharing experience directly to you, now on our terms. Whether you're traveling solo or with family, for business or a special event, CHURO makes it effortless to drive in style throughout Sarasota.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="https://churorentals.fillout.com/reservation" target="_blank" class="cta-button"&gt;Book Your Ride Now&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="fleet"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;Services we offer&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="fleet-subtitle" style="color: white; margin-bottom: 2rem;"&gt;More Than a Ride — It's a CHURO Experience&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem;"&gt;At CHURO, we offer a hand-picked fleet of stylish, well-maintained vehicles tailored to fit your needs:&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="fleet-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-image"&gt;Nissan Sentra SV 2013&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-info"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3&gt;Nissan Sentra SV 2013&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="car-price"&gt;$80/day&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="car-description"&gt;Compact, efficient, and easy to drive — great for zipping around Sarasota or sticking to a travel budget without compromising reliability.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-image"&gt;Kia Optima 2014&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-info"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3&gt;Kia Optima 2014&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="car-price"&gt;$97/day&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="car-description"&gt;Budget-friendly, reliable, and stylish — perfect for solo travelers or small families who want a no-fuss, smooth-sailing sedan.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-image"&gt;Kia Optima 2019&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-info"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3&gt;Kia Optima 2019&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="car-price"&gt;$105/day&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="car-description"&gt;Clean, modern, and smooth on the road — this Optima is ideal for couples or professionals who want comfort and class without the high price tag.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-image"&gt;Kia Sorento 2016&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-info"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3&gt;Kia Sorento 2016&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="car-price"&gt;$110/day&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="car-description"&gt;Spacious, reliable, and great for road trips — this Sorento offers SUV versatility and family-friendly features at an unbeatable value.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-image"&gt;Kia Sorento 2018&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-info"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3&gt;Kia Sorento 2018&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="car-price"&gt;$120/day&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="car-description"&gt;Bold and capable, this mid-size SUV delivers comfort and confidence — a smart choice for weekend warriors, airport travelers, or families on the go.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-image"&gt;Kia Sorento 2022&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="car-info"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3&gt;Kia Sorento 2022&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="car-price"&gt;$130/day&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="car-description"&gt;Our newest 7-seater SUV blends luxury, tech, and comfort — perfect for families or group travelers looking to ride in style without sacrificing space.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- About Section --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="about" class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="padding-top: 100px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="ethos"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="ethos-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="ethos-text"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h2&gt;Our company ethos&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="ethos-tagline"&gt;Driven By Trust. Powered By Passion.&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="ethos-description"&gt;CHURO was born from a deep belief that car rentals should be personal, flexible, and refreshingly reliable. We're not a big corporation — we're your neighbors, providing hand-to-hand service with heart.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p style="font-weight: bold; margin-bottom: 1.5rem;"&gt;We:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;ul class="ethos-points"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Deliver excellence&lt;/strong&gt; with every clean, well-maintained car&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Go green&lt;/strong&gt; with paperless agreements and efficient vehicles&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Welcome all&lt;/strong&gt; — solo travelers, couples, families with kids, and business execs alike&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Stay ready&lt;/strong&gt; — 7-seaters, sedans, and everything in between for your Sarasota stay&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Deliver loyalty&lt;/strong&gt; — Many of our guests return every time they're in town&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p style="margin-top: 2rem; font-style: italic; font-size: 1.1rem;"&gt;This is more than a side hustle. It's our pride on wheels.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="ethos-image"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;🚗 Premium Interior Experience&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="testimonials"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2&gt;What Our Customers Say&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="testimonials-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="testimonial"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-text"&gt;"Car was clean I really enjoyed the ride"&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-author"&gt;- Kelvet (Kia Optima 2014)&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="testimonial"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-text"&gt;"Awesome host. Quick"&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-author"&gt;- James (Kia Sorento 2022)&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="testimonial"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-text"&gt;"Freeman's Kia was perfect for our group of 6 people. The third row is great and is hard to find in a rental. It folds down so you can have the extra storage space if needed. Freeman was super flexible with pickup and drop-off. The car is in great condition with low miles. I'd definitely rent it again!"&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-author"&gt;- Jason (Kia Sorento 2022)&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="testimonial"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-text"&gt;"The car was great. Only problem was the radio other than that A-OK."&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-author"&gt;- Quinlan P. (Kia Optima 2014)&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="testimonial"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-text"&gt;"loved it"&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-author"&gt;- Francis (Kia Sorento 2018)&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="testimonial"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-text"&gt;"Great ride and flexible host. Highly recommend"&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="testimonial-author"&gt;- Brandon (Kia Optima 2014)&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Contact Section --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="contact" class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="padding-top: 100px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="contact"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2&gt;Contact Us&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="contact-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="contact-description"&gt;Let's Get You Rolling&lt;br&gt;&lt;br&gt;Whether you're ready to book, have a special request, or just want to chat options, we're here. Fill out our reservation form and we'll get you moving in style.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://churorentals.fillout.com/reservation" target="_blank" class="cta-button"&gt;Start Your Reservation&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- FAQ Section --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="faq" class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="padding-top: 100px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="faq"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2&gt;Frequently Asked Questions&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="faq-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;What is CHURO?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;CHURO is a family-operated car rental business based in Sarasota, Florida, focused on providing personalized, honest, and hassle-free car rentals.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;How did CHURO start?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;CHURO was born from a desire to offer reliable car rentals without middlemen or surprises. With over 480 trips on Turo and a near-perfect 4.9-star rating, we decided to bring our service directly to our customers.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;What types of vehicles do you offer?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;Our fleet features premium Kia Sorento and Optima models – perfect for style, comfort, and performance - ranging from 5-seater SUVs to 7-seater family vehicles to sleek sedans for solo travelers.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;How do I make a reservation?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;You can make a reservation through our website or by contacting us directly. We aim to make the booking process as simple as possible.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;What is your cancellation policy?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;We understand that plans can change. Please check our website or contact us for detailed information on our cancellation policy.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;Are the rental cars well-maintained?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;Yes, all our vehicles are meticulously maintained to ensure a safe and reliable driving experience.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;What forms of payment do you accept?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;We accept various forms of payment, including major credit cards. Please check our website for specific details.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;Can I rent a car for a one-way trip?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;No, we focus on round-trip rentals to ensure your experience remains seamless and stress-free.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;What documents do I need to provide for rental?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;You will need a valid driver's license and a credit card for payment. Additional identification may be requested.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;Is insurance included in the rental price?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;Insurance options are available and can be added during the booking process. Please inquire if you need more information regarding coverage.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;Do you have age restrictions for rentals?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;Yes, renters must be at least 21 years old to rent a vehicle from CHURO. Additional fees may apply for drivers under 25.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="faq-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="faq-question"&gt;How can I contact CHURO for questions or more information?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="faq-answer"&gt;You can reach us through our website's contact form, by phone, or via email. We are here to assist you with any inquiries you may have.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;&amp;copy; 2024 CHURO Car Rentals. Experience the difference of personalized service in Sarasota, Florida.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function showSection(sectionName) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Hide all sections</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const sections = document.querySelectorAll('.section');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>sections.forEach(section =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>section.classList.remove('active');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Show the selected section</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(sectionName).classList.add('active');</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Scroll to top</p>
-<p class="p1"><span class="Apple-converted-space">            </span>window.scrollTo(0, 0);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Smooth scrolling for anchor links</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.querySelectorAll('a[href^="#"]').forEach(anchor =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>anchor.addEventListener('click', function (e) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>e.preventDefault();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const target = document.querySelector(this.getAttribute('href'));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (target) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>target.scrollIntoView({</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>behavior: 'smooth',</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>block: 'start'</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Add some interactive effects</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', function() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Add hover effects to car cards</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const carCards = document.querySelectorAll('.car-card');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>carCards.forEach(card =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>card.addEventListener('mouseenter', function() {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>this.style.transform = 'translateY(-10px) scale(1.02)';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>card.addEventListener('mouseleave', function() {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>this.style.transform = 'translateY(0) scale(1)';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <header>
+        <nav class="container">
+            <div class="logo">CHURO</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('about')">About</a></li>
+                <li><a href="#" onclick="showSection('contact')">Contact</a></li>  
+                <li><a href="#" onclick="showSection('faq')">FAQs</a></li>
+                <li><a href="https://churorentals.fillout.com/reservation" target="_blank" style="background: #4A90E2; color: white; padding: 0.5rem 1rem; border-radius: 25px;">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <div id="home" class="section active">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Experience Exquisite Car Rentals</h1>
+                <p>Welcome to CHURO — your private gateway to luxury, comfort, and reliability. With over 480 trips completed and a 4.9-star rating on Turo, we bring years of trusted car-sharing experience directly to you, now on our terms. Whether you're traveling solo or with family, for business or a special event, CHURO makes it effortless to drive in style throughout Sarasota.</p>
+                <a href="https://churorentals.fillout.com/reservation" target="_blank" class="cta-button">Book Your Ride Now</a>
+            </div>
+        </section>
+
+        <section class="fleet">
+            <div class="container">
+                <h2>Services we offer</h2>
+                <h3 class="fleet-subtitle" style="color: white; margin-bottom: 2rem;">More Than a Ride — It's a CHURO Experience</h3>
+                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem;">At CHURO, we offer a hand-picked fleet of stylish, well-maintained vehicles tailored to fit your needs:</p>
+                
+                <div class="fleet-grid">
+                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
+                        <div class="car-image">Nissan Sentra SV 2013</div>
+                        <div class="car-info">
+                            <h3>Nissan Sentra SV 2013</h3>
+                            <div class="car-price">$80/day</div>
+                            <p class="car-description">Compact, efficient, and easy to drive — great for zipping around Sarasota or sticking to a travel budget without compromising reliability.</p>
+                        </div>
+                    </div>
+
+                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
+                        <div class="car-image">Kia Optima 2014</div>
+                        <div class="car-info">
+                            <h3>Kia Optima 2014</h3>
+                            <div class="car-price">$97/day</div>
+                            <p class="car-description">Budget-friendly, reliable, and stylish — perfect for solo travelers or small families who want a no-fuss, smooth-sailing sedan.</p>
+                        </div>
+                    </div>
+
+                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
+                        <div class="car-image">Kia Optima 2019</div>
+                        <div class="car-info">
+                            <h3>Kia Optima 2019</h3>
+                            <div class="car-price">$105/day</div>
+                            <p class="car-description">Clean, modern, and smooth on the road — this Optima is ideal for couples or professionals who want comfort and class without the high price tag.</p>
+                        </div>
+                    </div>
+
+                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
+                        <div class="car-image">Kia Sorento 2016</div>
+                        <div class="car-info">
+                            <h3>Kia Sorento 2016</h3>
+                            <div class="car-price">$110/day</div>
+                            <p class="car-description">Spacious, reliable, and great for road trips — this Sorento offers SUV versatility and family-friendly features at an unbeatable value.</p>
+                        </div>
+                    </div>
+
+                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
+                        <div class="car-image">Kia Sorento 2018</div>
+                        <div class="car-info">
+                            <h3>Kia Sorento 2018</h3>
+                            <div class="car-price">$120/day</div>
+                            <p class="car-description">Bold and capable, this mid-size SUV delivers comfort and confidence — a smart choice for weekend warriors, airport travelers, or families on the go.</p>
+                        </div>
+                    </div>
+
+                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
+                        <div class="car-image">Kia Sorento 2022</div>
+                        <div class="car-info">
+                            <h3>Kia Sorento 2022</h3>
+                            <div class="car-price">$130/day</div>
+                            <p class="car-description">Our newest 7-seater SUV blends luxury, tech, and comfort — perfect for families or group travelers looking to ride in style without sacrificing space.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="section">
+        <div style="padding-top: 100px;">
+            <section class="ethos">
+                <div class="container">
+                    <div class="ethos-content">
+                        <div class="ethos-text">
+                            <h2>Our company ethos</h2>
+                            <div class="ethos-tagline">Driven By Trust. Powered By Passion.</div>
+                            <p class="ethos-description">CHURO was born from a deep belief that car rentals should be personal, flexible, and refreshingly reliable. We're not a big corporation — we're your neighbors, providing hand-to-hand service with heart.</p>
+                            <p style="font-weight: bold; margin-bottom: 1.5rem;">We:</p>
+                            <ul class="ethos-points">
+                                <li><strong>Deliver excellence</strong> with every clean, well-maintained car</li>
+                                <li><strong>Go green</strong> with paperless agreements and efficient vehicles</li>
+                                <li><strong>Welcome all</strong> — solo travelers, couples, families with kids, and business execs alike</li>
+                                <li><strong>Stay ready</strong> — 7-seaters, sedans, and everything in between for your Sarasota stay</li>
+                                <li><strong>Deliver loyalty</strong> — Many of our guests return every time they're in town</li>
+                            </ul>
+                            <p style="margin-top: 2rem; font-style: italic; font-size: 1.1rem;">This is more than a side hustle. It's our pride on wheels.</p>
+                        </div>
+                        <div class="ethos-image">
+                            <span>🚗 Premium Interior Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="testimonials">
+                <div class="container">
+                    <h2>What Our Customers Say</h2>
+                    <div class="testimonials-grid">
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Car was clean I really enjoyed the ride"</p>
+                            <p class="testimonial-author">- Kelvet (Kia Optima 2014)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Awesome host. Quick"</p>
+                            <p class="testimonial-author">- James (Kia Sorento 2022)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Freeman's Kia was perfect for our group of 6 people. The third row is great and is hard to find in a rental. It folds down so you can have the extra storage space if needed. Freeman was super flexible with pickup and drop-off. The car is in great condition with low miles. I'd definitely rent it again!"</p>
+                            <p class="testimonial-author">- Jason (Kia Sorento 2022)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"The car was great. Only problem was the radio other than that A-OK."</p>
+                            <p class="testimonial-author">- Quinlan P. (Kia Optima 2014)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"loved it"</p>
+                            <p class="testimonial-author">- Francis (Kia Sorento 2018)</p>
+                        </div>
+                        <div class="testimonial">
+                            <p class="testimonial-text">"Great ride and flexible host. Highly recommend"</p>
+                            <p class="testimonial-author">- Brandon (Kia Optima 2014)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="section">
+        <div style="padding-top: 100px;">
+            <section class="contact">
+                <div class="container">
+                    <h2>Contact Us</h2>
+                    <div class="contact-content">
+                        <p class="contact-description">Let's Get You Rolling<br><br>Whether you're ready to book, have a special request, or just want to chat options, we're here. Fill out our reservation form and we'll get you moving in style.</p>
+                        <a href="https://churorentals.fillout.com/reservation" target="_blank" class="cta-button">Start Your Reservation</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div id="faq" class="section">
+        <div style="padding-top: 100px;">
+            <section class="faq">
+                <div class="container">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <h3 class="faq-question">What is CHURO?</h3>
+                            <p class="faq-answer">CHURO is a family-operated car rental business based in Sarasota, Florida, focused on providing personalized, honest, and hassle-free car rentals.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">How did CHURO start?</h3>
+                            <p class="faq-answer">CHURO was born from a desire to offer reliable car rentals without middlemen or surprises. With over 480 trips on Turo and a near-perfect 4.9-star rating, we decided to bring our service directly to our customers.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">What types of vehicles do you offer?</h3>
+                            <p class="faq-answer">Our fleet features premium Kia Sorento and Optima models – perfect for style, comfort, and performance - ranging from 5-seater SUVs to 7-seater family vehicles to sleek sedans for solo travelers.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">How do I make a reservation?</h3>
+                            <p class="faq-answer">You can make a reservation through our website or by contacting us directly. We aim to make the booking process as simple as possible.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">What is your cancellation policy?</h3>
+                            <p class="faq-answer">We understand that plans can change. Please check our website or contact us for detailed information on our cancellation policy.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Are the rental cars well-maintained?</h3>
+                            <p class="faq-answer">Yes, all our vehicles are meticulously maintained to ensure a safe and reliable driving experience.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">What forms of payment do you accept?</h3>
+                            <p class="faq-answer">We accept various forms of payment, including major credit cards. Please check our website for specific details.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Can I rent a car for a one-way trip?</h3>
+                            <p class="faq-answer">No, we focus on round-trip rentals to ensure your experience remains seamless and stress-free.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">What documents do I need to provide for rental?</h3>
+                            <p class="faq-answer">You will need a valid driver's license and a credit card for payment. Additional identification may be requested.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Is insurance included in the rental price?</h3>
+                            <p class="faq-answer">Insurance options are available and can be added during the booking process. Please inquire if you need more information regarding coverage.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">Do you have age restrictions for rentals?</h3>
+                            <p class="faq-answer">Yes, renters must be at least 21 years old to rent a vehicle from CHURO. Additional fees may apply for drivers under 25.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3 class="faq-question">How can I contact CHURO for questions or more information?</h3>
+                            <p class="faq-answer">You can reach us through our website's contact form, by phone, or via email. We are here to assist you with any inquiries you may have.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CHURO Car Rentals. Experience the difference of personalized service in Sarasota, Florida.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to car cards
+            const carCards = document.querySelectorAll('.car-card');
+            carCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
