@@ -3,96 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQs - CHURO Car Rental</title>
+    <title>Frequently Asked Questions - CHURO Car Rental Sarasota</title>
+    <meta name="description" content="Find answers to common questions about car rentals at CHURO in Sarasota, Florida. Learn about reservations, policies, vehicle information, and more.">
     <link rel="stylesheet" href="styles.css">
     <style>
-        #faq-hero h1 {
-            margin-bottom: 1rem;
-        }
-
-        .faq-carousel {
-            position: relative;
-            max-width: 800px;
-            margin: 20px auto;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            background-color: #f9f9f9;
-            padding-bottom: 60px; /* Space for controls */
-        }
-
-        .faq-carousel-container {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .faq-slide {
-            flex: 0 0 100%;
-            padding: 20px;
-            text-align: left;
-        }
-
-        .faq-slide h2 {
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: #333;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 10px;
-        }
-
-        .faq-slide p {
-            display: none;
-            margin-top: 1rem;
-            color: #555;
-            line-height: 1.7;
-        }
-
-        .faq-slide.active p {
-            display: block;
-        }
-
-        .faq-prev, .faq-next {
-            cursor: pointer;
-            position: absolute;
-            top: auto;
-            bottom: 15px;
-            width: auto;
-            padding: 10px 15px;
-            margin-top: -22px;
-            color: white;
-            background-color: rgba(0,0,0,0.5);
-            border: none;
-            border-radius: 3px;
-            font-weight: bold;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-            z-index: 10;
-        }
-
-        .faq-prev:hover, .faq-next:hover {
-            background-color: rgba(0,0,0,0.8);
-        }
-
-        .faq-prev {
-            left: 20px;
-        }
-
-        .faq-next {
-            right: 20px;
-        }
-
-        #faq-image-container {
-            text-align: center;
-            padding: 20px;
-        }
-
-        #faq-image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+        /* ... existing styles ... */
     </style>
 </head>
 <body>
@@ -123,73 +38,13 @@
                     <h2 onclick="toggleFAQ(this)">How did CHURO start?</h2>
                     <p>CHURO was born from a desire to offer reliable car rentals without middlemen or surprises. With over 480 trips on Turo and a near-perfect 4.9-star rating, we decided to bring our service directly to our customers.</p>
                 </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">What types of vehicles do you offer?</h2>
-                    <p>Our fleet features premium Kia Sorento and Optima models – perfect for style, comfort, and performance - ranging from 7-seater SUVs for larger families to sleek sedans for solo travelers.</p>
                 </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">How do I make a reservation?</h2>
-                    <p>You can make a reservation through our website or by contacting us directly. We aim to make the booking process as simple as possible.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">What is your cancellation policy?</h2>
-                    <p>We understand that plans can change. Please check our website or contact us for detailed information on our cancellation policy.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">Are the rental cars well-maintained?</h2>
-                    <p>Yes, all our vehicles are meticulously maintained to ensure a safe and reliable driving experience.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">What if I have issues with the car during my rental period?</h2>
-                    <p>If you encounter any issues, please contact us immediately. We are committed to resolving any problems as quickly as possible to ensure your satisfaction.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">Do you offer delivery services?</h2>
-                    <p>We offer local delivery services for your convenience. Please inquire when making your reservation.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">Are your vehicles suitable for both city drives and weekend getaways?</h2>
-                    <p>Absolutely. Our Kia Sorento and Optima vehicles offer the perfect blend of elegance and practicality for any journey.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">What forms of payment do you accept?</h2>
-                    <p>We accept various forms of payment, including major credit cards. Please check our website for specific details.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">Can I rent a car for a one-way trip?</h2>
-                    <p>No, we focus on round-trip rentals to ensure your experience remains seamless and stress-free.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">What documents do I need to provide for rental?</h2>
-                    <p>You will need a valid driver's license and a credit card for payment. Additional identification may be requested.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">Is insurance included in the rental price?</h2>
-                    <p>Insurance options are available and can be added during the booking process. Please inquire if you need more information regarding coverage.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">Do you have age restrictions for rentals?</h2>
-                    <p>Yes, renters must be at least 21 years old to rent a vehicle from CHURO. Additional fees may apply for drivers under 25.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">How can I contact CHURO for questions or more information?</h2>
-                    <p>You can reach us through our website's contact form, by phone, or via email. We are here to assist you with any inquiries you may have.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">Why should I choose CHURO over other car rental companies?</h2>
-                    <p>At CHURO, we prioritize personalized service, trust, and repeat customers. Our local knowledge and dedication to customer satisfaction set us apart from larger companies.</p>
-                </div>
-                <div class="faq-slide">
-                    <h2 onclick="toggleFAQ(this)">How do I extend my rental reservation?</h2>
-                    <p>Simply contact us before your reservation ends. We’re happy to accommodate your needs whenever possible.</p>
-                </div>
-            </div>
             <button class="faq-prev">&#10094;</button>
             <button class="faq-next">&#10095;</button>
         </section>
 
         <section id="faq-image-container">
-            <img src="Sorentointerior.jpg" alt="Kia Sorento Interior">
+            <img src="Sorentointerior.jpg" alt="Inside of a CHURO rental car - Kia Sorento Interior">
         </section>
     </main>
 
@@ -198,64 +53,7 @@
     </footer>
 
     <script>
-        const faqCarousel = document.querySelector('.faq-carousel-container');
-        const faqPrevButton = document.querySelector('.faq-prev');
-        const faqNextButton = document.querySelector('.faq-next');
-        const faqSlides = document.querySelectorAll('.faq-slide');
-        let faqIndex = 0;
-        const faqSlideWidth = faqSlides[0].offsetWidth;
-
-        function showFaqSlide(n) {
-            if (n >= faqSlides.length) {
-                faqIndex = 0;
-            } else if (n < 0) {
-                faqIndex = faqSlides.length - 1;
-            } else {
-                faqIndex = n;
-            }
-            const offset = -faqIndex * faqSlideWidth;
-            faqCarousel.style.transform = `translateX(${offset}px)`;
-
-            // Ensure only the active slide's answer can be toggled initially
-            faqSlides.forEach(slide => {
-                slide.classList.remove('active');
-                const answer = slide.querySelector('p');
-                if (answer) {
-                    answer.style.display = 'none';
-                }
-            });
-            faqSlides[faqIndex].classList.add('active');
-        }
-
-        function nextFaqSlide() {
-            showFaqSlide(faqIndex + 1);
-        }
-
-        function prevFaqSlide() {
-            showFaqSlide(faqIndex - 1);
-        }
-
-        faqNextButton.addEventListener('click', nextFaqSlide);
-        faqPrevButton.addEventListener('click', prevFaqSlide);
-
-        showFaqSlide(faqIndex); // Initial display
-
-        function toggleFAQ(questionElement) {
-            const slide = questionElement.parentNode;
-            const answer = questionElement.nextElementSibling;
-
-            // Only toggle if the slide is currently the active one
-            if (slide.classList.contains('active')) {
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-            }
-        }
-
-        // Basic resize handling
-        window.addEventListener('resize', () => {
-            const newSlideWidth = faqSlides[0].offsetWidth;
-            const newOffset = -faqIndex * newSlideWidth;
-            faqCarousel.style.transform = `translateX(${newOffset}px)`;
-        });
+        // ... existing script ...
     </script>
 </body>
 </html>
