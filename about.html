@@ -44,31 +44,42 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             background-color: #f9f9f9; /* Blend with the about content background */
-            padding: 20px 0; /* Add some vertical padding to the carousel */
+            padding: 30px 0; /* Increased vertical padding */
+            display: flex; /* Enable flexbox for centering */
+            align-items: center; /* Center items vertically */
+            justify-content: center; /* Center items horizontally */
         }
 
         .review-carousel-container {
             display: flex;
             transition: transform 0.5s ease-in-out;
+            width: 100%; /* Ensure container takes full width for centering */
         }
 
         .review-slide {
             flex: 0 0 100%;
             padding: 20px;
-            text-align: center; /* Center the text within the slide */
+            text-align: center;
+            font-family: "Georgia", serif; /* More stylish font */
+            display: flex; /* Enable flexbox for inner centering */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px; /* Ensure a minimum height for vertical centering */
         }
 
         .review-slide blockquote {
-            font-size: 1.1em;
+            font-size: 1.2em;
             color: #555;
             margin-bottom: 10px;
-            line-height: 1.6; /* Improve readability of blockquote */
+            line-height: 1.8;
+            padding: 0 30px; /* Add horizontal padding to the quote */
         }
 
         .review-slide p.reviewer {
             font-style: italic;
             color: #777;
-            margin-top: 10px; /* Add some space between quote and reviewer */
+            margin-top: 10px;
         }
 
         .review-prev, .review-next {
@@ -92,11 +103,11 @@
         }
 
         .review-prev {
-            left: 0;
+            left: 10px; /* Adjust position for better visibility */
         }
 
         .review-next {
-            right: 0;
+            right: 10px; /* Adjust position for better visibility */
         }
     </style>
 </head>
