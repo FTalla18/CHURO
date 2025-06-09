@@ -43,7 +43,7 @@ main {
 
 /* Set the background image for the hero section */
 #hero {
-    background-image: url('Car Rental Logo.jpg');
+    background-image: url('free.png');
     background-size: cover; /* Ensures the image covers the entire section */
     background-position: center; /* Centers the image */
     height: 500px; /* Adjust the height as needed */
@@ -199,7 +199,7 @@ footer {
 
 /* About page styles */
 #about-hero {
-    background-image: url('Car Rental Logo.jpg');
+    background-image: url('free.png');
     background-size: cover;
     background-position: center;
     height: 500px; /* Adjust height if needed */
@@ -286,7 +286,7 @@ footer {
 
 /* Fleet page styles */
 #fleet-hero {
-    background-image: url('Car Rental Logo.jpg');
+    background-image: url('free.png');
     background-size: cover;
     background-position: center;
     height: 500px; /* Adjust height if needed */
@@ -432,7 +432,7 @@ footer {
 
 /* FAQ page styles */
 #faq-hero {
-    background-image: url('Car Rental Logo.jpg');
+    background-image: url('free.png');
     background-size: cover;
     background-position: center;
     height: 500px; /* Adjust height if needed */
