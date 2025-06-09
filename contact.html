@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Contact Us - CHURO Car Rental</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"/>
     <style>
-        #contact-hero h1 {
-            margin-bottom: 0.5rem; /* Add some space below the title */
-        }
-
+        /* ... existing styles (unchanged) ... */
+        #contact-hero h1 { margin-bottom: 0.5rem; }
         #contact-form-section .contact-intro {
             padding: 20px;
             background-color: #f9f9f9;
@@ -17,24 +15,20 @@
             margin-bottom: 20px;
             text-align: center;
         }
-
         #contact-form-section .contact-intro h2 {
             font-size: 1.8rem;
             color: #333;
             margin-bottom: 10px;
         }
-
         #contact-form-section .contact-intro p {
             font-size: 1.1rem;
             color: #555;
             line-height: 1.7;
         }
-
         #contact-form-section .contact-intro p:last-child {
             margin-top: 15px;
             font-weight: bold;
         }
-
         #contact-form {
             display: flex;
             flex-direction: column;
@@ -42,7 +36,6 @@
             max-width: 600px;
             margin: 0 auto;
         }
-
         #contact-form input,
         #contact-form textarea {
             padding: 0.7rem;
@@ -50,11 +43,9 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-
         #contact-form textarea {
             height: 150px;
         }
-
         #contact-form button {
             background-color: gold;
             color: #1c1c1c;
@@ -65,7 +56,6 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
         #contact-form button:hover {
             background-color: #e6c200;
         }
@@ -95,19 +85,20 @@
                 <p>Whether you're ready to book, have a special request, or just want to chat options, we're here. Fill out the form and we’ll get back to you ASAP — usually within a few hours.</p>
                 <p>Sarasota roads are waiting. Let's find your perfect ride.</p>
             </div>
-            <form id="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" required></textarea>
+
+            <form id="contact-form" action="https://docs.google.com/forms/d/e/1FAIpQLSdDgjD5kFGaFIEEmNzoNym8B8v12XjKW2jX8AZsHEpCmtCb_Q/formResponse" method="POST" target="_blank">
+                <input type="text" name="entry.YOUR_NAME_ENTRY_ID" placeholder="Your Name" required />
+                <input type="email" name="entry.YOUR_EMAIL_ENTRY_ID" placeholder="Your Email" required />
+                <textarea name="entry.YOUR_MESSAGE_ENTRY_ID" placeholder="Your Message" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
+
+            <p id="status"></p>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2025 CHURO Car Rental. All rights reserved.</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
