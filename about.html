@@ -6,11 +6,26 @@
     <title>About Us - CHURO Car Rental</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        #about-hero h1 {
+            margin-bottom: 1rem;
+        }
+
+        #about-container {
+            display: flex;
+            flex-wrap: wrap; /* Allows content to wrap on smaller screens */
+            align-items: flex-start; /* Align items to the top */
+            justify-content: space-around; /* Space out the text and carousel */
+            padding: 20px;
+        }
+
         #about-content {
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* Reduced margin when side by side */
+            flex: 1; /* Allows the text to grow */
+            min-width: 300px; /* Minimum width for the text section */
+            margin-right: 20px; /* Space between text and carousel */
         }
 
         #about-content p {
@@ -38,8 +53,8 @@
         /* Review Carousel Styles */
         .review-carousel {
             position: relative;
-            max-width: 800px;
-            margin: 20px auto;
+            max-width: 400px; /* Adjusted max width for side-by-side layout */
+            margin: 20px 0; /* Adjusted margin */
             overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -48,6 +63,8 @@
             display: flex; /* Enable flexbox for centering */
             align-items: center; /* Center items vertically */
             justify-content: center; /* Center items horizontally */
+            flex: 1; /* Allows the carousel to grow */
+            min-width: 300px; /* Minimum width for the carousel section */
         }
 
         .review-carousel-container {
@@ -109,6 +126,23 @@
         .review-next {
             right: 10px; /* Adjust position for better visibility */
         }
+
+        /* Responsive layout for smaller screens */
+        @media (max-width: 768px) {
+            #about-container {
+                flex-direction: column; /* Stack on smaller screens */
+                align-items: stretch; /* Make items take full width */
+            }
+
+            #about-content {
+                margin-right: 0; /* Remove right margin on smaller screens */
+                margin-bottom: 20px; /* Add bottom margin instead */
+            }
+
+            .review-carousel {
+                max-width: 100%; /* Take full width on smaller screens */
+            }
+        }
     </style>
 </head>
 <body>
@@ -129,7 +163,7 @@
             <h1>About Us</h1>
         </section>
 
-        <section>
+        <section id="about-container">
             <div id="about-content">
                 <p>CHURO was born from a simple belief: car rentals should feel personal, honest, and hassle-free.</p>
                 <p>After completing over 480 trips on Turo with a near-perfect 4.9-star rating, we knew it was time to bring our service directly to you—no middlemen, no surprises. Based in Sarasota and family-operated, we’ve built our business on trust, repeat guests, and a shared love for the open road.</p>
