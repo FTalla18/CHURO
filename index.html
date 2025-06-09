@@ -4,400 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHURO - Experience Exquisite Car Rentals</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Georgia', serif;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #4A90E2;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23556B7D" width="1200" height="800"/><polygon fill="%23435A6B" points="0,400 600,200 1200,400 1200,800 0,800"/><polygon fill="%232E3D4A" points="200,600 800,300 1200,600 1200,800 0,800"/></svg>');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            line-height: 1.8;
-            font-style: italic;
-        }
-
-        .cta-button {
-            background: linear-gradient(45deg, #4A90E2, #357ABD);
-            color: white;
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);
-        }
-
-        /* Fleet Section */
-        .fleet {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .fleet h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-        }
-
-        .fleet-subtitle {
-            text-align: center;
-            font-size: 1.3rem;
-            margin-bottom: 4rem;
-            color: #333;
-        }
-
-        .fleet-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .car-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            cursor: pointer;
-            color: #333;
-        }
-
-        .car-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-        }
-
-        .car-image {
-            height: 250px;
-            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            color: #666;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .car-image::before {
-            content: '🚗';
-            font-size: 4rem;
-            opacity: 0.3;
-        }
-
-        .car-info {
-            padding: 1.5rem;
-        }
-
-        .car-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .car-price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #4A90E2;
-            margin-bottom: 1rem;
-        }
-
-        .car-description {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #666;
-        }
-
-        /* Ethos Section */
-        .ethos {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        }
-
-        .ethos-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .ethos-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #4A90E2;
-            font-weight: 300;
-        }
-
-        .ethos-tagline {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            color: #357ABD;
-            font-weight: 600;
-        }
-
-        .ethos-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            color: #555;
-        }
-
-        .ethos-points {
-            list-style: none;
-        }
-
-        .ethos-points li {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            color: #333;
-        }
-
-        .ethos-points li strong {
-            color: #4A90E2;
-        }
-
-        .ethos-image {
-            height: 400px;
-            background: linear-gradient(45deg, #333, #555);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        }
-
-        .testimonials h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-            color: #333;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-left: 4px solid #4A90E2;
-        }
-
-        .testimonial-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 1rem;
-            font-style: italic;
-            color: #555;
-        }
-
-        .testimonial-author {
-            font-weight: bold;
-            color: #4A90E2;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .contact h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        /* FAQ Section */
-        .faq {
-            padding: 6rem 0;
-            background: #f8f9fa;
-        }
-
-        .faq h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-            color: #333;
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 2rem;
-        }
-
-        .faq-item {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .faq-question {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .faq-answer {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .ethos-content {
-                grid-template-columns: 1fr;
-            }
-
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Hidden sections for navigation */
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        #home.active {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -429,60 +36,70 @@
                 <h3 class="fleet-subtitle" style="color: white; margin-bottom: 2rem;">More Than a Ride — It's a CHURO Experience</h3>
                 <p style="text-align: center; margin-bottom: 3rem; font-size: 1.1rem;">At CHURO, we offer a hand-picked fleet of stylish, well-maintained vehicles tailored to fit your needs:</p>
                 
-                <div class="fleet-grid">
-                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
-                        <div class="car-image">Nissan Sentra SV 2013</div>
-                        <div class="car-info">
-                            <h3>Nissan Sentra SV 2013</h3>
-                            <div class="car-price">$80/day</div>
-                            <p class="car-description">Compact, efficient, and easy to drive — great for zipping around Sarasota or sticking to a travel budget without compromising reliability.</p>
+                <div class="carousel">
+                    <div class="carousel-container">
+                        <div class="car-slide">
+                            <div class="car-image">Nissan Sentra SV 2013</div>
+                            <div class="car-info">
+                                <h3>Nissan Sentra SV 2013</h3>
+                                <div class="car-price">$80/day</div>
+                                <p class="car-description">Compact, efficient, and easy to drive — great for zipping around Sarasota or sticking to a travel budget without compromising reliability.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image">Kia Optima 2014</div>
+                            <div class="car-info">
+                                <h3>Kia Optima 2014</h3>
+                                <div class="car-price">$97/day</div>
+                                <p class="car-description">Budget-friendly, reliable, and stylish — perfect for solo travelers or small families who want a no-fuss, smooth-sailing sedan.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image">Kia Optima 2019</div>
+                            <div class="car-info">
+                                <h3>Kia Optima 2019</h3>
+                                <div class="car-price">$105/day</div>
+                                <p class="car-description">Clean, modern, and smooth on the road — this Optima is ideal for couples or professionals who want comfort and class without the high price tag.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image">Kia Sorento 2016</div>
+                            <div class="car-info">
+                                <h3>Kia Sorento 2016</h3>
+                                <div class="car-price">$110/day</div>
+                                <p class="car-description">Spacious, reliable, and great for road trips — this Sorento offers SUV versatility and family-friendly features at an unbeatable value.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image">Kia Sorento 2018</div>
+                            <div class="car-info">
+                                <h3>Kia Sorento 2018</h3>
+                                <div class="car-price">$120/day</div>
+                                <p class="car-description">Bold and capable, this mid-size SUV delivers comfort and confidence — a smart choice for weekend warriors, airport travelers, or families on the go.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
+                        </div>
+                
+                        <div class="car-slide">
+                            <div class="car-image">Kia Sorento 2022</div>
+                            <div class="car-info">
+                                <h3>Kia Sorento 2022</h3>
+                                <div class="car-price">$130/day</div>
+                                <p class="car-description">Our newest 7-seater SUV blends luxury, tech, and comfort — perfect for families or group travelers looking to ride in style without sacrificing space.</p>
+                                <button onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">Book Now</button>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
-                        <div class="car-image">Kia Optima 2014</div>
-                        <div class="car-info">
-                            <h3>Kia Optima 2014</h3>
-                            <div class="car-price">$97/day</div>
-                            <p class="car-description">Budget-friendly, reliable, and stylish — perfect for solo travelers or small families who want a no-fuss, smooth-sailing sedan.</p>
-                        </div>
-                    </div>
-
-                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
-                        <div class="car-image">Kia Optima 2019</div>
-                        <div class="car-info">
-                            <h3>Kia Optima 2019</h3>
-                            <div class="car-price">$105/day</div>
-                            <p class="car-description">Clean, modern, and smooth on the road — this Optima is ideal for couples or professionals who want comfort and class without the high price tag.</p>
-                        </div>
-                    </div>
-
-                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
-                        <div class="car-image">Kia Sorento 2016</div>
-                        <div class="car-info">
-                            <h3>Kia Sorento 2016</h3>
-                            <div class="car-price">$110/day</div>
-                            <p class="car-description">Spacious, reliable, and great for road trips — this Sorento offers SUV versatility and family-friendly features at an unbeatable value.</p>
-                        </div>
-                    </div>
-
-                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
-                        <div class="car-image">Kia Sorento 2018</div>
-                        <div class="car-info">
-                            <h3>Kia Sorento 2018</h3>
-                            <div class="car-price">$120/day</div>
-                            <p class="car-description">Bold and capable, this mid-size SUV delivers comfort and confidence — a smart choice for weekend warriors, airport travelers, or families on the go.</p>
-                        </div>
-                    </div>
-
-                    <div class="car-card" onclick="window.open('https://churorentals.fillout.com/reservation', '_blank')">
-                        <div class="car-image">Kia Sorento 2022</div>
-                        <div class="car-info">
-                            <h3>Kia Sorento 2022</h3>
-                            <div class="car-price">$130/day</div>
-                            <p class="car-description">Our newest 7-seater SUV blends luxury, tech, and comfort — perfect for families or group travelers looking to ride in style without sacrificing space.</p>
-                        </div>
-                    </div>
+                    <button class="prev">&#10094;</button>
+                    <button class="next">&#10095;</button>
                 </div>
             </div>
         </section>
@@ -627,52 +244,9 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 CHURO Car Rentals. Experience the difference of personalized service in Sarasota, Florida.</p>
+            <p>&copy; 2025 CHURO Car Rentals. Experience the difference of personalized service in Sarasota, Florida.</p>
         </div>
     </footer>
-
-    <script>
-        function showSection(sectionName) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show the selected section
-            document.getElementById(sectionName).classList.add('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add some interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effects to car cards
-            const carCards = document.querySelectorAll('.car-card');
-            carCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
