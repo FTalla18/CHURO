@@ -10,14 +10,12 @@
     <meta name="keywords" content="CHURO Car Rental, Local Sarasota Alternative to Turo, Sarasota car rental, Turo alternative, car rental St. Pete, car rental Sarasota, affordable car rental Florida, CHURO cars, alternative to Turo, rental SUVs Sarasota, local car rental service, SUV rental Sarasota, local car rental Florida, CHURO">
     <meta name="author" content="Freeman T.">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:title" content="CHURO Car Rental | Sarasota's Trusted Local Option">
     <meta property="og:description" content="Find your perfect ride with CHURO. Reliable and local Sarasota car rental alternative to Turo — from sedans to SUVs.">
     <meta property="og:url" content="https://ftalla18.github.io/CHURO/">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://ftalla18.github.io/CHURO/logo.jpg">
 
-    <!-- X (optional) -->
     <meta name="X:card" content="summary_large_image">
     <meta name="X:title" content="CHURO Car Rental – Sarasota's Local Alternative to Turo">
     <meta name="X:description" content="Reliable, local, and personal car rentals in Sarasota — skip the Turo hassle with CHURO.">
@@ -30,7 +28,7 @@
             padding: 20px;
             background-color: #f9f9f9;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 30px; /* Added more margin below intro text */
             text-align: center;
         }
         #contact-form-section .contact-intro h2 {
@@ -42,39 +40,29 @@
             font-size: 1.1rem;
             color: #555;
             line-height: 1.7;
+            margin-bottom: 15px; /* Added margin between paragraphs */
         }
         #contact-form-section .contact-intro p:last-child {
             margin-top: 15px;
             font-weight: bold;
         }
-        #contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
+        .contact-button-container {
+            text-align: center; /* Center the button */
         }
-        #contact-form input,
-        #contact-form textarea {
-            padding: 0.7rem;
-            font-size: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        #contact-form textarea {
-            height: 150px;
-        }
-        #contact-form button {
+        .contact-button {
+            display: inline-block; /* Allows for padding and centering */
             background-color: gold;
             color: #1c1c1c;
-            padding: 0.7rem 1.2rem;
-            font-size: 1.1rem;
+            padding: 15px 30px; /* Increased padding for a larger button */
+            font-size: 1.2rem; /* Larger font size */
             border: none;
-            border-radius: 4px;
+            border-radius: 8px; /* More rounded corners */
             cursor: pointer;
+            text-decoration: none; /* Remove underline if it's an <a> tag */
             transition: background-color 0.3s;
+            font-weight: bold; /* Make the text bold */
         }
-        #contact-form button:hover {
+        .contact-button:hover {
             background-color: #e6c200;
         }
     </style>
@@ -104,14 +92,9 @@
                 <p>Sarasota roads are waiting. Let's find your perfect ride.</p>
             </div>
 
-            <form id="contact-form" action="https://docs.google.com/forms/d/e/1FAIpQLSdDgjD5kFGaFIEEmNzoNym8B8v12XjKW2jX8AZsHEpCmtCb_Q/formResponse" method="POST" target="_blank">
-                <input type="text" name="entry.YOUR_NAME_ENTRY_ID" placeholder="Your Name" required />
-                <input type="email" name="entry.YOUR_EMAIL_ENTRY_ID" placeholder="Your Email" required />
-                <textarea name="entry.YOUR_MESSAGE_ENTRY_ID" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-
-            <p id="status"></p>
+            <div class="contact-button-container">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdDgjD5kFGaFIEEmNzoNym8B8v12XjKW2jX8AZsHEpCmtCb_Q/viewform?usp=sharing&ouid=115600938134616394240" class="contact-button" target="_blank">Contact Us</a>
+            </div>
         </section>
     </main>
 
