@@ -24,147 +24,176 @@
 
     <link rel="stylesheet" href="styles.css">
     <style>
-        #about-hero h1 {
-            margin-bottom: 1rem;
-        }
+    #about-hero h1 {
+        margin-bottom: 1rem;
+    }
 
-        #about-container {
-            display: flex;
-            flex-direction: column; /* Stack the text and carousel vertically */
-            align-items: center; /* Center items horizontally */
-            padding: 20px;
-        }
+    #about-container {
+        display: flex;
+        flex-direction: column; /* Stack the text and carousel vertically */
+        align-items: center; /* Center items horizontally */
+        padding: 20px;
+    }
 
+    #about-content {
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 20px; /* Add margin below text tile */
+        flex: 1; /* Allows the text to grow */
+        min-width: 300px; /* Minimum width for the text section */
+        text-align: center; /* Center the text horizontally */
+    }
+
+    #about-content h1 { /* Added H1 for SEO */
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    #about-content p {
+        margin-bottom: 20px;
+        line-height: 1.8;
+        color: #555;
+        font-size: 1.1rem;
+    }
+
+    #about-content ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+
+    #about-content ul li {
+        margin-bottom: 10px;
+        color: #555;
+        font-size: 1.1rem;
+        display: flex; /* Align checkmark and text vertically */
+        align-items: baseline; /* Align items at the baseline */
+        justify-content: center; /* Center the whole list horizontally */
+    }
+
+    #about-content ul li::before {
+        content: "✅ "; /* Add a checkmark */
+        color: green;
+        margin-right: 8px; /* Space between checkmark and text */
+    }
+
+    /* Review Carousel Styles */
+    .review-carousel {
+        position: relative;
+        max-width: 800px; /* Full width for vertical layout */
+        margin: 20px auto; /* Center the carousel */
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        background-color: #ddd; /* Brighter grey background */
+        padding: 30px 0; /* Increased vertical padding */
+        display: flex; /* Enable flexbox for centering */
+        align-items: center; /* Center items vertically */
+        justify-content: center; /* Center items horizontally */
+    }
+
+    .review-carousel-container {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        width: 100%; /* Ensure container takes full width for centering */
+    }
+
+    .review-slide {
+        flex: 0 0 100%; /* Each slide takes full width */
+        padding: 20px;
+        text-align: center;
+        font-family: "Georgia", serif; /* More stylish font */
+        display: flex; /* Enable flexbox for inner centering */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 150px; /* Ensure a minimum height for vertical centering */
+    }
+
+    .review-slide blockquote {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 10px;
+        line-height: 1.8;
+        padding: 0 30px; /* Add horizontal padding to the quote */
+    }
+
+    .review-slide p.reviewer {
+        font-style: italic;
+        color: #777;
+        margin-top: 10px;
+    }
+
+    .review-prev, .review-next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        background-color: rgba(0,0,0,0.5);
+        border: none;
+        border-radius: 3px;
+        font-weight: bold;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+    }
+
+    .review-prev:hover, .review-next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    .review-prev {
+        left: 10px; /* Adjust position for better visibility */
+    }
+
+    .review-next {
+        right: 10px; /* Adjust position for better visibility */
+    }
+
+    /* Responsive layout for smaller screens */
+    @media (max-width: 768px) {
         #about-content {
-            background-color: #f9f9f9;
-            padding: 30px;
-            border-radius: 8px;
-            margin-bottom: 20px; /* Add margin below text tile */
-            flex: 1; /* Allows the text to grow */
-            min-width: 300px; /* Minimum width for the text section */
-            text-align: center; /* Center the text horizontally */
-        }
-
-        #about-content h1 { /* Added H1 for SEO */
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        #about-content p {
-            margin-bottom: 20px;
-            line-height: 1.8;
-            color: #555;
-            font-size: 1.1rem;
-        }
-
-        #about-content ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin-bottom: 20px;
+            text-align: left; /* Revert text alignment to left on smaller screens */
         }
 
         #about-content ul li {
-            margin-bottom: 10px;
-            color: #555;
-            font-size: 1.1rem;
-            display: flex; /* Align checkmark and text vertically */
-            align-items: baseline; /* Align items at the baseline */
-            justify-content: center; /* Center the whole list horizontally */
+            justify-content: flex-start; /* Align list items to the start on smaller screens */
         }
 
-        #about-content ul li::before {
-            content: "✅ "; /* Add a checkmark */
-            color: green;
-            margin-right: 8px; /* Space between checkmark and text */
-        }
-
-        /* Review Carousel Styles */
         .review-carousel {
-            position: relative;
-            max-width: 800px; /* Full width for vertical layout */
-            margin: 20px auto; /* Center the carousel */
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            background-color: #ddd; /* Brighter grey background */
-            padding: 30px 0; /* Increased vertical padding */
-            display: flex; /* Enable flexbox for centering */
-            align-items: center; /* Center items vertically */
-            justify-content: center; /* Center items horizontally */
-        }
-
-        .review-carousel-container {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: 100%; /* Ensure container takes full width for centering */
+            max-width: 100%; /* Make carousel take full width on smaller screens */
         }
 
         .review-slide {
-            flex: 0 0 100%;
-            padding: 20px;
-            text-align: center;
-            font-family: "Georgia", serif; /* More stylish font */
-            display: flex; /* Enable flexbox for inner centering */
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 150px; /* Ensure a minimum height for vertical centering */
+            padding: 15px; /* Adjust padding for smaller screens */
+            font-size: 0.9rem; /* Adjust font size for smaller screens if needed */
+            min-height: auto; /* Adjust min-height for smaller screens */
         }
 
         .review-slide blockquote {
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 10px;
-            line-height: 1.8;
-            padding: 0 30px; /* Add horizontal padding to the quote */
-        }
-
-        .review-slide p.reviewer {
-            font-style: italic;
-            color: #777;
-            margin-top: 10px;
+            font-size: 1em; /* Adjust blockquote font size */
+            padding: 0 15px; /* Adjust blockquote padding */
         }
 
         .review-prev, .review-next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -22px;
-            color: white;
-            background-color: rgba(0,0,0,0.5);
-            border: none;
-            border-radius: 3px;
-            font-weight: bold;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-        }
-
-        .review-prev:hover, .review-next:hover {
-            background-color: rgba(0,0,0,0.8);
+            font-size: 1.2rem; /* Adjust button font size */
+            padding: 10px; /* Adjust button padding */
+            bottom: 5px; /* Adjust button position */
         }
 
         .review-prev {
-            left: 10px; /* Adjust position for better visibility */
+            left: 5px; /* Adjust button position */
         }
 
         .review-next {
-            right: 10px; /* Adjust position for better visibility */
+            right: 5px; /* Adjust button position */
         }
-
-        /* Responsive layout for smaller screens */
-        @media (max-width: 768px) {
-            #about-content {
-                text-align: left; /* Revert text alignment to left on smaller screens */
-            }
-
-            #about-content ul li {
-                justify-content: flex-start; /* Align list items to the start on smaller screens */
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <header>
