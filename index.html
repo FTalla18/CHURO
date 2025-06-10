@@ -10,14 +10,12 @@
     <meta name="keywords" content="CHURO Car Rental, Local Sarasota Alternative to Turo, Sarasota car rental, Turo alternative, car rental St. Pete, car rental Sarasota, affordable car rental Florida, CHURO cars, alternative to Turo, rental SUVs Sarasota, local car rental service, SUV rental Sarasota, local car rental Florida, CHURO">
     <meta name="author" content="Freeman T.">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:title" content="CHURO Car Rental | Sarasota's Trusted Local Option">
     <meta property="og:description" content="Find your perfect ride with CHURO. Reliable and local Sarasota car rental alternative to Turo — from sedans to SUVs.">
     <meta property="og:url" content="https://ftalla18.github.io/CHURO/">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://ftalla18.github.io/CHURO/logo.jpg">
 
-    <!-- X (optional) -->
     <meta name="X:card" content="summary_large_image">
     <meta name="X:title" content="CHURO Car Rental – Sarasota's Local Alternative to Turo">
     <meta name="X:description" content="Reliable, local, and personal car rentals in Sarasota — skip the Turo hassle with CHURO.">
@@ -35,40 +33,68 @@
         }
 
         #company-ethos {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 30px;
-            text-align: center; /* Center the entire section content */
+            background-color: #f9f9f9; /* Lighter background for better contrast */
+            padding: 50px; /* Increased padding for more visual space */
+            border-radius: 12px; /* More rounded corners */
+            margin-top: 40px; /* Increased top margin */
+            text-align: center; /* Center the title */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         #company-ethos h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: #333;
+            font-size: 2.5rem; /* Larger title */
+            margin-bottom: 20px;
+            color: #4a148c; /* Distinct color */
         }
 
         #company-ethos h3 {
-            text-align: center; /* Center the subtitle */
             color: #555;
-            margin-bottom: 10px;
+            margin-bottom: 25px; /* Increased margin below subtitle */
+            font-style: italic;
+            font-size: 1.6rem; /* Slightly larger subtitle */
+        }
+
+        #company-ethos > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%; /* Limit width for better readability on larger screens */
         }
 
         #company-ethos p {
-            color: #555;
-            margin-bottom: 10px;
-            text-align: left; /* Align paragraphs to the left for better readability */
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.15rem;
         }
 
         #company-ethos ul {
-            list-style-type: disc;
-            padding-left: 20px;
-            color: #555;
-            text-align: left; /* Align list items to the left */
+            list-style-type: none;
+            padding-left: 0;
+            color: #666;
+            text-align: left; /* Align list text to the left */
+            margin-top: 30px;
+            width: 70%; /* Limit width of the list */
         }
 
-        #company-ethos li {
-            margin-bottom: 5px;
+        #company-ethos ul li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: baseline; /* Align the text with the bullet */
+        }
+
+        #company-ethos ul li::before {
+            content: "•"; /* Use a standard bullet for better consistency */
+            color: #f44336; /* Accent color for bullets */
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            font-size: 1.5rem; /* Make bullets more prominent */
+            vertical-align: middle; /* Align bullet vertically with text */
+            margin-right: 0.5em; /* Space between bullet and text */
         }
     </style>
 </head>
@@ -115,16 +141,18 @@
         <section id="company-ethos">
             <h2>Our company ethos</h2>
             <h3>Driven By Trust. Powered By Passion.</h3>
-            <p>CHURO was born from a deep belief that car rentals should be personal, flexible, and refreshingly reliable. We’re not a big corporation — we’re your neighbors, providing hand-to-hand service with heart.</p>
-            <p>We:</p>
-            <ul>
-                <li>Deliver excellence with every clean, well-maintained car</li>
-                <li>Go green with paperless agreements and efficient vehicles</li>
-                <li>Welcome all — solo travelers, couples, families with kids, and business execs alike</li>
-                <li>Stay ready — 7-seaters, sedans, and everything in between for your Sarasota stay</li>
-                <li>Deliver loyalty — Many of our guests return every time they’re in town</li>
-            </ul>
-            <p>This is more than a side hustle. It’s our pride on wheels.</p>
+            <div>
+                <p>CHURO was born from a deep belief that car rentals should be personal, flexible, and refreshingly reliable. We’re not a big corporation — we’re your neighbors, providing hand-to-hand service with heart.</p>
+                <p>We:</p>
+                <ul>
+                    <li>Deliver excellence with every clean, well-maintained car</li>
+                    <li>Go green with paperless agreements and efficient vehicles</li>
+                    <li>Welcome all — solo travelers, couples, families with kids, and business execs alike</li>
+                    <li>Stay ready — 7-seaters, sedans, and everything in between for your Sarasota stay</li>
+                    <li>Deliver loyalty — Many of our guests return every time they’re in town</li>
+                </ul>
+                <p>This is more than a side hustle. It’s our pride on wheels.</p>
+            </div>
         </section>
     </main>
 
