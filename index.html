@@ -76,9 +76,9 @@
             list-style-type: none;
             padding-left: 0;
             color: #666;
-            text-align: center; /* Center the list */
+            text-align: left; /* Align list text to the left */
             margin-top: 30px;
-            width: 85%; /* Increased width of the list */
+            width: 90%; /* Further increased width of the list */
         }
 
         #company-ethos ul li {
@@ -86,18 +86,18 @@
             display: flex;
             align-items: baseline; /* Align the text with the bullet */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A more modern sans-serif font */
-            justify-content: center; /* Center each list item */
+            justify-content: flex-start; /* Align text to the left */
         }
 
         #company-ethos ul li::before {
             content: "✅"; /* Use a checkmark */
             color: #f44336; /* Accent color for bullets */
             display: inline-block;
-            width: 1em;
-            margin-left: -1em;
+            width: 1.2em; /* Increased width for the checkmark */
+            margin-left: -1.2em; /* Adjust margin to shift left */
             font-size: 1.5rem; /* Make bullets more prominent */
             vertical-align: sub; /* Adjust vertical alignment */
-            margin-right: 0.8em; /* Slightly increased space */
+            margin-right: 0.5em; /* Reduced right margin */
         }
     </style>
 </head>
