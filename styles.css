@@ -133,6 +133,7 @@ footer {
     max-width: 100%;
     margin: auto;
     overflow: hidden;
+    border-radius: 12px; /* Added rounded corners to the carousel frame */
 }
 
 /* Carousel image container styling */
