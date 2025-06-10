@@ -94,10 +94,58 @@
             color: #f44336; /* Accent color for bullets */
             display: inline-block;
             width: 1.2em; /* Increased width for the checkmark */
-            margin-left: -0.8em; /* Adjusted margin to bring it to the right */
+            margin-left: -0.2em; /* Adjusted margin to bring it to the right */
             font-size: 1.5rem; /* Make bullets more prominent */
             vertical-align: sub; /* Adjust vertical alignment */
             margin-right: 0.5em; /* Reduced right margin */
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 12px; /* Added rounded corners to the carousel frame */
+        }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+            border: none;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
         }
     </style>
 </head>
