@@ -1,30 +1,47 @@
-# CHURO - Premium Car Rentals
-Experience an Elevated Car Rental Experience with CHURO
-A modern, responsive car rental website with integrated booking and payment system.
+# CHURO Car Rentals: Sarasota
+
+Website for CHURO Car Rentals (Drive Luxuriously, LLC). It covers daily and weekly rentals, Rent-to-Own with no credit check, and cars for sale. It also has an AI chat assistant.
+
+Live: <https://ftalla18.github.io/CHURO/>
 
 ## Features
-- 🚗 Fleet showcase with detailed car information
-- 📋 Google Forms integration for reservations
-- 💳 Stripe payment processing
-- 📱 Fully responsive design
-- ⚡ Fast loading and lightweight
+- **Fleet tiles** with a photo strip for each car: swipe on phones, or hover/tap the thumbnails. Each tile shows its availability badge and daily and weekly prices.
+- **Rental estimator:** pick dates, and every tile shows the estimated total. Full weeks are charged at the weekly rate.
+- **Rent-to-Own calculator:** shows weekly or bi-weekly payments over 1–12 months. The total includes the required first-week rental, the down payment and 8% APR. It also says whether the chosen car is available for Rent-to-Own.
+- **Cars for sale:** cash prices, with the Rent-to-Own alternative shown next to each.
+- **Churo chat assistant:** answers questions about rentals, Rent-to-Own and cash purchases. Rent-to-Own questions about a specific car load that car into the calculator.
+- Booking goes to the existing Fillout form. Questions go to the existing Google contact form.
 
-## Live Demo
-Visit: https://FTalla18.github.io/CHURO
+## Run locally
+```bash
+python3 -m http.server 8000
+```
+Then open <http://localhost:8000>. Adding `#chat` to the address opens the assistant.
 
-## Setup Instructions
-1. Clone this repository
-2. Replace Stripe publishable key in index.html
-3. Update Google Form URL
-4. Add your car images to the images folder
-5. Deploy to GitHub Pages
+## Updating the fleet
+Edit **`js/data.js`**. It is the single source of truth for the tiles, the calculator, the for-sale list and the chatbot.
+- `status: "available"` means the car is offered to rent, for Rent-to-Own and for sale. `status: "rto"` shows it as "On Rent-to-Own" (not available).
+- `daily`, `weekly`: rental rates. `value`: the cash price. `down`: the Rent-to-Own down payment.
+- `photos`: up to 3 images per car. Add files to `assets/cars/` (about 1200×900 JPG) and list them here.
+- `rto.apr` / `rto.maxMonths`: the Rent-to-Own terms.
 
-## Integration
-- Google Form: Collects reservation details
-- Google Apps Script: Processes bookings and sends emails
-- Stripe: Handles secure payments
-- GitHub Pages: Hosts the website
+Never put customer names, VINs or other private details in this file. Everything in it is public.
 
-## Contact
-Email: info@churorentals.com
-Phone: +1 (555) 123-4567
+## Chat assistant engines (⚙️ in the chat)
+| Engine | Notes |
+|---|---|
+| **Auto** (default) | Uses Ollama if the site runs on your own computer, otherwise the built-in engine |
+| **Ollama** | A free local model (`ollama pull llama3.2`). Works only on the computer running Ollama |
+| **In-browser AI** | A ~900 MB open model that runs in the visitor's browser (Chrome/Edge with WebGPU) |
+| **Built-in** | Instant and offline. This is what public visitors get by default |
+
+## Files
+```
+index.html         single-page site (old about/fleet/contact/faq pages redirect here)
+css/styles.css     styling (ocean-blue theme)
+js/data.js         ★ fleet, prices, Rent-to-Own terms, policies
+js/app.js          tiles, photo strips, estimator, calculator, for-sale list
+js/chatbot.js      chat assistant
+assets/cars/       car photos
+assets/brand/      logos and hero image
+```

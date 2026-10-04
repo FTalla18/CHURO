@@ -1,215 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHURO Car Rental Sarasota: Daily &amp; Weekly Rentals, Rent-to-Own, Cars for Sale</title>
+  <meta name="description" content="CHURO is Sarasota's local alternative to Turo: clean Kia Sorento and Optima rentals by the day or week, Rent-to-Own with no credit check, and cars for sale." />
+  <meta name="keywords" content="CHURO Car Rental, Sarasota car rental, Turo alternative, rent to own car Sarasota, no credit check car Sarasota, weekly car rental Sarasota, Kia Sorento rental, Kia Optima rental, SUV rental Sarasota" />
+  <meta name="author" content="Freeman T." />
+  <meta name="theme-color" content="#071a33" />
+  <link rel="canonical" href="https://ftalla18.github.io/CHURO/" />
 
-    <title>CHURO Car Rental Sarasota: Affordable Luxury & Reliable Service</title>
-    <meta name="description" content="Looking for a more personal car rental experience in Sarasota? CHURO is your local alternative to Turo — no middlemen, just great cars and honest service.">
-    <meta name="keywords" content="CHURO Car Rental, Local Sarasota Alternative to Turo, Sarasota car rental, Turo alternative, car rental St. Pete, car rental Sarasota, affordable car rental Florida, CHURO cars, alternative to Turo, rental SUVs Sarasota, local car rental service, SUV rental Sarasota, local car rental Florida, CHURO">
-    <meta name="author" content="Freeman T.">
+  <meta property="og:title" content="CHURO Car Rental | Sarasota's Trusted Local Option" />
+  <meta property="og:description" content="Daily & weekly rentals, Rent-to-Own with no credit check, and cars for sale in Sarasota." />
+  <meta property="og:url" content="https://ftalla18.github.io/CHURO/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://ftalla18.github.io/CHURO/logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-    <meta property="og:title" content="CHURO Car Rental | Sarasota's Trusted Local Option">
-    <meta property="og:description" content="Find your perfect ride with CHURO. Reliable and local Sarasota car rental alternative to Turo — from sedans to SUVs.">
-    <meta property="og:url" content="https://ftalla18.github.io/CHURO/">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://ftalla18.github.io/CHURO/logo.jpg">
-
-    <meta name="X:card" content="summary_large_image">
-    <meta name="X:title" content="CHURO Car Rental – Sarasota's Local Alternative to Turo">
-    <meta name="X:description" content="Reliable, local, and personal car rentals in Sarasota — skip the Turo hassle with CHURO.">
-    <meta name="X:image" content="https://ftalla18.github.io/CHURO/logo.jpg">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        #welcome-section {
-            text-align: center;
-            padding: 30px;
-        }
-
-        #welcome-section h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        #company-ethos {
-            background-color: #f9f9f9; /* Lighter background for better contrast */
-            padding: 50px; /* Increased padding for more visual space */
-            border-radius: 12px; /* More rounded corners */
-            margin-top: 40px; /* Increased top margin */
-            text-align: center; /* Center the title */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #company-ethos h2 {
-            font-size: 2.5rem; /* Larger title */
-            margin-bottom: 20px;
-            color: #4a148c; /* Distinct color */
-        }
-
-        #company-ethos h3 {
-            color: #555;
-            margin-bottom: 25px; /* Increased margin below subtitle */
-            font-style: italic;
-            font-size: 1.6rem; /* Slightly larger subtitle */
-        }
-
-        #company-ethos > div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 90%; /* Further increased width for more line length */
-        }
-
-        #company-ethos p {
-            color: #666;
-            margin-bottom: 15px; /* Slightly reduced margin */
-            text-align: center;
-            font-size: 1.1rem; /* Slightly smaller font size */
-            line-height: 1.7; /* Adjust line height for intro text */
-        }
-
-        #company-ethos ul {
-            list-style-type: none;
-            padding-left: 0;
-            color: #666;
-            text-align: left; /* Align list text to the left */
-            margin-top: 30px;
-            width: 90%; /* Further increased width of the list */
-        }
-
-        #company-ethos ul li {
-            margin-bottom: 10px; /* Reduced margin between list items */
-            display: flex;
-            align-items: baseline; /* Align the text with the bullet */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A more modern sans-serif font */
-            justify-content: flex-start; /* Align text to the left */
-        }
-
-        #company-ethos ul li::before {
-            content: "✅"; /* Use a checkmark */
-            color: #f44336; /* Accent color for bullets */
-            display: inline-block;
-            width: 1.2em; /* Increased width for the checkmark */
-            margin-left: 4.5em; /* Adjusted margin to bring it to the right */
-            font-size: 1.5rem; /* Make bullets more prominent */
-            vertical-align: sub; /* Adjust vertical alignment */
-            margin-right: 0.5em; /* Reduced right margin */
-        }
-
-        .carousel {
-            position: relative;
-            max-width: 100%;
-            margin: auto;
-            overflow: hidden;
-            border-radius: 12px; /* Added rounded corners to the carousel frame */
-        }
-
-        .carousel-container {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carousel-container img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            flex-shrink: 0;
-        }
-
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -22px;
-            color: white;
-            background-color: rgba(0,0,0,0.5);
-            border: none;
-            border-radius: 3px;
-            font-weight: bold;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-        }
-
-        .prev:hover, .next:hover {
-            background-color: rgba(0,0,0,0.8);
-        }
-
-        .prev {
-            left: 0;
-        }
-
-        .next {
-            right: 0;
-        }
-    </style>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="android-chrome-512x512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="fleet.html">Car Fleet</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="faq.html">FAQs</a></li>
-            </ul>
-        </nav>
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#top" class="brand" aria-label="CHURO Car Rentals home">
+        <span class="brand__chip"><img src="assets/brand/churo-logo-teal.png" alt="Churo Car Rentals" width="84" height="56" /></span>
+      </a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="#fleet">Fleet</a>
+        <a href="#how">How it works</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#faq">FAQ</a>
+        <div class="more" id="moreMenu">
+          <button class="more__btn" aria-expanded="false" aria-controls="moreList">More <span aria-hidden="true">▾</span></button>
+          <div class="more__list" id="moreList">
+            <a href="#rent-to-own"><b>Rent-to-Own</b><small>No credit check · own it in ≤12 months</small></a>
+            <a href="#calculator"><b>Payment calculator</b><small>See your weekly or bi-weekly payment</small></a>
+            <a href="#for-sale"><b>Cars for sale</b><small>Pay cash, get a clean title</small></a>
+          </div>
+        </div>
+      </nav>
+      <div class="nav__cta">
+        <button class="btn btn--ghost btn--sm" data-open-chat>Ask Churo</button>
+        <a href="https://forms.fillout.com/t/pHEsqVXHKaus" target="_blank" rel="noopener" class="btn btn--accent btn--sm">Book now</a>
+        <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="hero__media"><img src="assets/brand/hero.jpg" alt="CHURO's 2022 Kia Sorento parked under palm trees at sunset in Sarasota" /></div>
+      <div class="container hero__content">
+        <p class="eyebrow"><span class="dot"></span> Sarasota, FL · Locally owned</p>
+        <h1 class="hero__title">Drive today.<br /><em>Own it tomorrow.</em></h1>
+        <p class="hero__sub">Sarasota's local alternative to Turo. Clean, reliable Kias by the day or week, and a Rent-to-Own path with <strong>no credit check</strong>.</p>
+        <div class="hero__stats">
+          <div><strong>480+</strong><span>trips completed</span></div>
+          <div><strong>4.9★</strong><span>rating on Turo</span></div>
+          <div><strong>$0</strong><span>credit check to own</span></div>
+        </div>
+      </div>
+
+      <form class="booking container" id="search" autocomplete="off">
+        <div class="booking__field">
+          <label for="typeSel">Vehicle</label>
+          <select id="typeSel">
+            <option value="All">Any vehicle</option>
+            <option value="SUV">SUV</option>
+            <option value="Sedan">Sedan</option>
+          </select>
+        </div>
+        <div class="booking__field">
+          <label for="startDate">Pick-up</label>
+          <input type="date" id="startDate" required />
+        </div>
+        <div class="booking__field">
+          <label for="endDate">Return</label>
+          <input type="date" id="endDate" required />
+        </div>
+        <button type="submit" class="btn btn--accent booking__submit">
+          See prices
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="booking__note" id="searchNote" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- ================= OPTIONS BAND ================= -->
+    <section class="paths container" aria-label="Ways to drive with CHURO">
+      <a class="path" href="#fleet">
+        <span class="path__icon">🔑</span>
+        <h3>Rent</h3>
+        <p>Daily or weekly. Weekly is deeply discounted.</p>
+        <span class="path__link">Browse the fleet →</span>
+      </a>
+      <a class="path path--hot" href="#rent-to-own">
+        <span class="path__tag">No credit check</span>
+        <span class="path__icon">📈</span>
+        <h3>Rent-to-Own</h3>
+        <p>Stop throwing money away on rentals. Own your car in 12 months or less.</p>
+        <span class="path__link">How it works →</span>
+      </a>
+      <a class="path" href="#for-sale">
+        <span class="path__icon">💵</span>
+        <h3>Buy with cash</h3>
+        <p>Pay in full and we sign the clean title over to you.</p>
+        <span class="path__link">Cars for sale →</span>
+      </a>
+    </section>
+
+    <!-- ================= FLEET ================= -->
+    <section class="section" id="fleet">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow eyebrow--dark">The fleet</p>
+            <h2>Pick your ride.</h2>
+          </div>
+          <p class="section__lead" id="fleetLead">Hover a photo strip or swipe to see more of each car. Prices shown per day and per week.</p>
+        </div>
+        <div class="filters" id="filters" role="tablist" aria-label="Filter cars"></div>
+        <div class="fleet" id="fleetGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= HOW RENTING WORKS ================= -->
+    <section class="section section--dark" id="how">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">How renting works</p>
+            <h2>Neighbors, not a<br />rental counter.</h2>
+          </div>
+          <p class="section__lead section__lead--light">No middlemen, no surprises. Hand-to-hand service from a local, family-operated business.</p>
+        </div>
+        <div class="steps">
+          <article class="step-card"><span class="step-card__n">01</span><h3>Book online</h3><p>Pick your car and dates, then submit the booking form. We confirm, usually within a few hours.</p></article>
+          <article class="step-card"><span class="step-card__n">02</span><h3>Grab the keys</h3><p>Meet us in Sarasota or ask about local delivery. Bring your license and a credit card.</p></article>
+          <article class="step-card"><span class="step-card__n">03</span><h3>Drive & extend</h3><p>Need more time? Message us before your rental ends and we'll extend it whenever possible.</p></article>
+          <article class="step-card step-card--accent"><span class="step-card__n">+</span><h3>Love the car?</h3><p>After one week you can switch to Rent-to-Own and start paying toward owning it.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RENT TO OWN ================= -->
+    <section class="section" id="rent-to-own">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow eyebrow--dark">Rent-to-Own</p>
+            <h2>Stop renting.<br />Start owning.</h2>
+          </div>
+          <p class="section__lead">A low-stakes way into car ownership for anyone tired of paying Avis or Enterprise week after week. <strong>No credit check.</strong></p>
+        </div>
+        <ol class="timeline">
+          <li><span>1</span><div><h3>Rent it for a week</h3><p>Every Rent-to-Own starts with at least a one-week rental, so you get a feel for the car before committing.</p></div></li>
+          <li><span>2</span><div><h3>Sign at MIDFLORIDA</h3><p>We meet at MIDFLORIDA to sign and notarize the agreement. You pay the down payment and show proof of insurance (your own or ours).</p></div></li>
+          <li><span>3</span><div><h3>Pay weekly or bi-weekly</h3><p>Fixed payments for up to 12 months. You take over routine maintenance, just like an owner.</p></div></li>
+          <li><span>4</span><div><h3>It's yours</h3><p>Once it's paid off, the car is yours. Drive on with no more rental payments.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= CALCULATOR ================= -->
+    <section class="section section--tint" id="calculator">
+      <div class="container calc">
+        <div class="calc__form">
+          <p class="eyebrow eyebrow--dark">Payment calculator</p>
+          <h2>What will I pay?</h2>
+          <label class="field">
+            <span>Choose a car</span>
+            <select id="calcCar"></select>
+          </label>
+          <div class="calc__avail" id="calcAvail" aria-live="polite"></div>
+          <div class="field">
+            <span>Pay off in <b id="calcMonthsOut">12</b> months <small class="muted">(12 max)</small></span>
+            <input type="range" id="calcMonths" min="1" max="12" step="1" value="12" />
+          </div>
+          <div class="field">
+            <span>Payment schedule</span>
+            <div class="seg" role="radiogroup" aria-label="Payment schedule">
+              <label><input type="radio" name="freq" value="weekly" checked /><span>Weekly</span></label>
+              <label><input type="radio" name="freq" value="biweekly" /><span>Every 2 weeks</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <span>Insurance</span>
+            <div class="seg" role="radiogroup" aria-label="Insurance">
+              <label><input type="radio" name="ins" value="own" checked /><span>My own policy</span></label>
+              <label><input type="radio" name="ins" value="churo" /><span>Use CHURO's</span></label>
+            </div>
+          </div>
+        </div>
+
+        <aside class="calc__result" id="calcResult" aria-live="polite">
+          <p class="calc__label" id="calcPayLabel">Your weekly payment</p>
+          <p class="calc__big" id="calcPayment">$0</p>
+          <p class="calc__sub" id="calcSub"></p>
+          <ul class="calc__lines" id="calcLines"></ul>
+          <div class="calc__actions">
+            <a class="btn btn--accent btn--block" id="calcCta" href="https://forms.fillout.com/t/pHEsqVXHKaus" target="_blank" rel="noopener">Start with a 1-week rental</a>
+            <button class="btn btn--ghost-light btn--block" data-open-chat>Questions? Ask Churo</button>
+          </div>
+          <p class="calc__fine">Estimate only. Uses an 8% annual rate on the amount after your down payment. Final terms are set in your signed agreement.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= FOR SALE ================= -->
+    <section class="section" id="for-sale">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow eyebrow--dark">Cars for sale</p>
+            <h2>Pay cash.<br />Get a clean title.</h2>
+          </div>
+          <p class="section__lead">Bring the full amount in cash, we sign the clean title over to you, and you take it to the DMV for your registration and plate. Prefer smaller payments? Every car below is also available as Rent-to-Own.</p>
+        </div>
+        <div class="sale" id="saleGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= REVIEWS ================= -->
+    <section class="section section--dark" id="reviews">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">Reviews</p>
+            <h2>480+ trips. 4.9 stars.</h2>
+          </div>
+          <p class="section__lead section__lead--light">Real reviews from our guests on Turo.</p>
+        </div>
+        <div class="reviews">
+          <figure class="review review--wide"><div class="stars">★★★★★</div><blockquote>"Mr Freeman was absolutely amazing from start to finish. Car was nice and clean. He responded always in a timely manner. Would definitely recommend him and the Kia to anyone that needs a nice and convenient ride."</blockquote><figcaption><span class="avatar">T</span> Tamika · Kia Optima 2014</figcaption></figure>
+          <figure class="review"><div class="stars">★★★★★</div><blockquote>"Freeman's Kia was perfect for our group of 6 people. The third row is great and is hard to find in a rental. Super flexible with pickup and drop-off."</blockquote><figcaption><span class="avatar">J</span> Jason · Kia Sorento 2022</figcaption></figure>
+          <figure class="review"><div class="stars">★★★★★</div><blockquote>"Freeman was a great host. Very responsive. The car was very clean and drove great."</blockquote><figcaption><span class="avatar">C</span> Celeste · Kia Sorento 2022</figcaption></figure>
+          <figure class="review review--wide"><div class="stars">★★★★★</div><blockquote>"I needed a car around spring break at the last minute. Everything was booked up on Hertz, Budget, Avis, and Enterprise… He made my first-time experience easy and accommodating. I rate him 10/10. The gas tank was full and the car was clean. I will be back."</blockquote><figcaption><span class="avatar">J</span> Jimecka · Kia Sorento 2016</figcaption></figure>
+          <figure class="review"><div class="stars">★★★★★</div><blockquote>"Great ride and flexible host. Highly recommend."</blockquote><figcaption><span class="avatar">B</span> Brandon · Kia Optima 2014</figcaption></figure>
+          <figure class="review"><div class="stars">★★★★★</div><blockquote>"This gentleman rocks."</blockquote><figcaption><span class="avatar">D</span> Don · Kia Sorento 2016</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="section" id="faq">
+      <div class="container faq">
+        <div>
+          <p class="eyebrow eyebrow--dark">FAQ</p>
+          <h2>Good questions.</h2>
+          <p class="section__lead">Can't find yours? Our assistant answers questions about cars, prices, Rent-to-Own and buying, instantly.</p>
+          <button class="btn btn--dark" data-open-chat>Chat with Churo</button>
+        </div>
+        <div class="faq__list" id="faqList"></div>
+      </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="cta" id="contact">
+      <div class="container cta__inner">
+        <h2>Sarasota roads are waiting.<br /><em>Let's find your ride.</em></h2>
+        <div class="cta__btns">
+          <a href="https://forms.fillout.com/t/pHEsqVXHKaus" target="_blank" rel="noopener" class="btn btn--accent btn--lg">Book now</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdDgjD5kFGaFIEEmNzoNym8B8v12XjKW2jX8AZsHEpCmtCb_Q/viewform?usp=sharing&amp;ouid=115600938134616394240" target="_blank" rel="noopener" class="btn btn--ghost-light btn--lg">Contact us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <span class="brand__chip brand__chip--lg"><img src="assets/brand/churo-logo-black.png" alt="CHURO Car Rentals" width="140" height="94" /></span>
+        <p class="footer__tag">Driven by trust. Powered by passion. A family-operated Sarasota business.</p>
+      </div>
+      <div>
+        <h4>Drive</h4>
+        <a href="#fleet">Rental fleet</a>
+        <a href="#rent-to-own">Rent-to-Own</a>
+        <a href="#calculator">Payment calculator</a>
+        <a href="#for-sale">Cars for sale</a>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <a href="https://forms.fillout.com/t/pHEsqVXHKaus" target="_blank" rel="noopener">Book a car</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdDgjD5kFGaFIEEmNzoNym8B8v12XjKW2jX8AZsHEpCmtCb_Q/viewform?usp=sharing&amp;ouid=115600938134616394240" target="_blank" rel="noopener">Contact form</a>
+        <button class="linklike" data-open-chat>Chat with us</button>
+      </div>
+    </div>
+    <div class="container footer__legal">
+      <span>© <span id="year"></span> CHURO Car Rentals · Drive Luxuriously, LLC · Sarasota, FL</span>
+      <span>Fast. Easy. Available!</span>
+    </div>
+  </footer>
+
+  <!-- ================= PHOTO VIEWER ================= -->
+  <dialog class="viewer" id="viewer" aria-label="Car photos">
+    <button class="viewer__close" id="viewerClose" aria-label="Close">×</button>
+    <img id="viewerImg" alt="" />
+    <p id="viewerCap"></p>
+  </dialog>
+
+  <!-- ================= CHATBOT ================= -->
+  <button class="chat-launcher" id="chatLauncher" aria-label="Open chat with Churo" aria-expanded="false">
+    <span class="chat-launcher__icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg>
+    </span>
+    <span class="chat-launcher__badge" id="chatBadge">1</span>
+  </button>
+
+  <section class="chat" id="chat" aria-label="Chat with Churo" hidden>
+    <header class="chat__head">
+      <div class="chat__avatar"><img src="favicon.ico" alt="" /></div>
+      <div class="chat__title">
+        <strong>Churo · Rental assistant</strong>
+        <span class="chat__status"><i id="engineDot"></i><span id="engineLabel">Connecting…</span></span>
+      </div>
+      <button class="chat__icon-btn" id="chatSettingsBtn" aria-label="AI engine settings" title="AI engine settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+      <button class="chat__icon-btn" id="chatResetBtn" aria-label="New conversation" title="New conversation">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+      </button>
+      <button class="chat__icon-btn" id="chatCloseBtn" aria-label="Close chat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </header>
 
-    <main>
-        <section id="hero">
-        </section>
+    <div class="chat__settings" id="chatSettings" hidden>
+      <p class="chat__settings-title">AI engine</p>
+      <label class="radio"><input type="radio" name="engine" value="auto" checked /> <span><b>Auto</b>: local Ollama model if running on this computer, otherwise built-in assistant</span></label>
+      <label class="radio"><input type="radio" name="engine" value="ollama" /> <span><b>Ollama</b> (local, free). Model: <input id="ollamaModel" value="llama3.2" spellcheck="false" /></span></label>
+      <label class="radio"><input type="radio" name="engine" value="webllm" /> <span><b>In-browser AI</b>: downloads a ~900 MB open model once (Chrome/Edge with WebGPU)</span></label>
+      <label class="radio"><input type="radio" name="engine" value="builtin" /> <span><b>Built-in</b>: instant, offline, rule-based</span></label>
+      <div class="progress" id="webllmProgress" hidden><div class="progress__bar"></div><span></span></div>
+    </div>
 
-        <section id="welcome-section">
-            <h2>Experience Exquisite Car Rentals</h2>
-            <p>Welcome to CHURO — your private gateway to luxury, comfort, and reliability. With over 480 trips completed and a 4.9-star rating on Turo, we bring years of trusted car-sharing experience directly to you, now on our terms. Whether you're traveling solo or with family, for business or a special event, CHURO makes it effortless to drive in style throughout Sarasota.</p>
-            <a href="https://forms.fillout.com/t/pHEsqVXHKaus" class="cta-button" target="_blank">Book Now</a>
-        </section>
+    <div class="chat__body" id="chatBody" aria-live="polite"></div>
+    <div class="chat__chips" id="chatChips"></div>
+    <form class="chat__input" id="chatForm">
+      <textarea id="chatInput" rows="1" placeholder="Ask about rentals, Rent-to-Own, prices…" aria-label="Message"></textarea>
+      <button type="submit" id="chatSend" aria-label="Send">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+  </section>
 
-        <section id="car-gallery">
-            <h2>Our Featured Fleet</h2>
-            <div class="carousel">
-                <div class="carousel-container">
-                    <img src="sorento2022.jpg" alt="Luxury 7-Seater Kia Sorento Rental in Sarasota">
-                    <img src="sorento2018.jpg" alt="Reliable and Comfortable Kia Sorento for Rent">
-                    <img src="sorento2016.jpg" alt="Affordable Kia Sorento Rental for Road Trips">
-                    <img src="Optima2019.jpg" alt="Modern and Smooth Kia Optima Rental for Couples">
-                    <img src="Optima2014.jpg" alt="Budget-Friendly Kia Optima Sedan Rental">
-                    <img src="NissanSentra2013.JPG" alt="Compact and Efficient Nissan Sentra Rental">
-                </div>
-                <button class="prev">&#10094;</button>
-                <button class="next">&#10095;</button>
-            </div>
-            <h2>Your Trusted Source for Car Rentals in Sarasota</h2>
-        </section>
-
-        <section id="company-ethos">
-            <h2>Our company ethos</h2>
-            <h3>Driven By Trust. Powered By Passion.</h3>
-            <div>
-                <p>CHURO was born from a deep belief that car rentals should be personal, flexible, and refreshingly reliable. We’re not a big corporation — we’re your neighbors, providing hand-to-hand service with heart.</p>
-                <ul>
-                    <li>We deliver excellence with every clean, well-maintained car</li>
-                    <li>We go green with paperless agreements and efficient vehicles</li>
-                    <li>We welcome all — solo travelers, couples, families with kids, and business execs alike</li>
-                    <li>We stay ready — 7-seaters, sedans, and everything in between for your Sarasota stay</li>
-                    <li>We deliver loyalty — Many of our guests return every time they’re in town</li>
-                </ul>
-                <p>This is more than a side hustle. It’s our pride on wheels.</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 CHURO Car Rental. All rights reserved.</p>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/chatbot.js"></script>
 </body>
 </html>
