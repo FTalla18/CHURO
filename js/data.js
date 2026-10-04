@@ -6,7 +6,8 @@
 
    status:
      "available" – can be rented, rented-to-own, or bought
-     "rto"       – already on a Rent-to-Own agreement (not offered)
+     "soon"      – coming soon: shown with prices, not bookable yet
+     "rto"       – being purchased by a customer through Rent-to-Own (not offered)
 
    Prices: a number, or a [min, max] range. Ranges resolve to one
    price per day (same for every visitor that day) and change daily.
@@ -17,7 +18,7 @@ window.CHURO = {
     name: "CHURO Car Rentals",
     tagline: "Fast. Easy. Available!",
     city: "Sarasota, FL",
-    turoTrips: "480+",
+    turoTrips: "501+",
     rating: "4.9",
     // Booking + payment (Stripe is connected inside this Fillout form)
     bookingUrl: "https://forms.fillout.com/t/pHEsqVXHKaus",
@@ -44,48 +45,59 @@ window.CHURO = {
     },
     {
       id: "sorento-2018-sx", year: 2018, make: "Kia", model: "Sorento", trim: "SX", color: "White",
-      type: "SUV", seats: null, daily: 165, weekly: 650, value: 16991, down: 1500, status: "available",
+      type: "SUV", seats: 7, daily: 165, weekly: 650, value: 16991, down: 1500, status: "available",
+      features: ["Top SX trim", "Panoramic sunroof", "Leather seats", "Memory seating", "Auto-folding mirrors", "Power liftgate"],
       photos: ["assets/cars/sorento-2018-sx-1.jpg", "assets/cars/sorento-2018-sx-2.jpg", "assets/cars/sorento-2018-sx-3.jpg"],
-      blurb: "Top-trim SX with premium light-gray leather — loaded, comfortable and confident on road trips.",
+      blurb: "Kia's top trim for 2018 — loaded with comfort features and room for seven.",
     },
     {
       id: "sorento-2016-sx", year: 2016, make: "Kia", model: "Sorento", trim: "SX", color: "White",
-      type: "SUV", seats: 7, daily: 145, weekly: 550, value: 16991, down: 1200, status: "available",
+      type: "SUV", seats: 7, daily: 145, weekly: 550, value: 15991, down: 1200, status: "available",
+      features: ["Top SX trim", "Panoramic sunroof", "Leather seats", "Memory seating", "Auto-folding mirrors", "Power liftgate"],
       photos: ["assets/cars/sorento-2016-sx-1.jpg", "assets/cars/sorento-2016-sx-2.jpg", "assets/cars/sorento-2016-sx-3.jpg"],
-      blurb: "SX with blacked-out wheels and a third row — room for the whole crew and the beach gear.",
+      blurb: "Kia's top trim for 2016, with blacked-out wheels and a third row for the whole crew.",
     },
     {
       id: "sorento-2018-lx", year: 2018, make: "Kia", model: "Sorento", trim: "LX", color: "Black",
-      type: "SUV", seats: null, daily: 130, weekly: 510, value: 17248, down: 1200, status: "available",
+      type: "SUV", seats: 7, daily: 130, weekly: 510, value: 15991, down: 1200, status: "available",
       photos: ["assets/cars/sorento-2018-lx-1.jpg", "assets/cars/sorento-2018-lx-2.jpg", "assets/cars/sorento-2018-lx-3.jpg"],
       blurb: "Sleek in black, comfortable and roomy — a smart pick for airport runs and weekend getaways.",
     },
     {
       id: "sorento-2016-lx", year: 2016, make: "Kia", model: "Sorento", trim: "LX", color: "Silver",
-      type: "SUV", seats: null, daily: 120, weekly: [360, 420], value: 15991, down: 1000, status: "available",
+      type: "SUV", seats: 5, daily: 120, weekly: [360, 420], value: 13991, down: 1000, status: "available",
       photos: ["assets/cars/sorento-2016-lx-1.jpg", "assets/cars/sorento-2016-lx-2.jpg", "assets/cars/sorento-2016-lx-3.jpg"],
-      blurb: "Spacious, practical SUV at our best SUV price. Great for families and daily driving.",
+      blurb: "Spacious 5-seat SUV at our best SUV price. Great for daily driving and errands.",
     },
     {
       id: "optima-2020-lx", year: 2020, make: "Kia", model: "Optima", trim: "LX", color: "Blue",
-      type: "Sedan", seats: 5, daily: [120, 125], weekly: [400, 450], value: 15291, down: 960, status: "available",
+      type: "Sedan", seats: 5, daily: [120, 125], weekly: [400, 450], value: 14799, down: 960, status: "available",
       photos: ["assets/cars/optima-2020-lx-1.jpg", "assets/cars/optima-2020-lx-2.jpg", "assets/cars/optima-2020-lx-3.jpg"],
       blurb: "Our newest sedan in a head-turning blue. Smooth, efficient and easy on gas.",
     },
     {
       id: "optima-2019-lx-grey", year: 2019, make: "Kia", model: "Optima", trim: "LX", color: "Grey",
-      type: "Sedan", seats: 5, daily: [120, 125], weekly: [400, 450], value: 14791, down: 960, status: "available",
+      type: "Sedan", seats: 5, daily: [120, 125], weekly: [400, 450], value: 13991, down: 960, status: "available",
       photos: ["assets/cars/optima-2019-lx-grey-1.jpg", "assets/cars/optima-2019-lx-grey-2.jpg", "assets/cars/optima-2019-lx-grey-3.jpg"],
       blurb: "Clean, modern and comfortable — ideal for commuters, gig drivers and professionals.",
     },
     {
       id: "sentra-2013-sv", year: 2013, make: "Nissan", model: "Sentra", trim: "SV", color: "Gray",
-      type: "Sedan", seats: 5, daily: 80, weekly: [289, 300], value: 11267, down: 600, status: "available", minWeekly: 175,
+      type: "Sedan", seats: 5, daily: 80, weekly: [289, 300], value: 5700, down: 600, status: "available", minWeekly: 175,
       photos: ["assets/cars/sentra-2013-sv-1.jpg", "assets/cars/sentra-2013-sv-2.jpg", "assets/cars/sentra-2013-sv-3.jpg"],
       blurb: "Compact, efficient and budget-friendly. Our lowest weekly rate and lowest down payment.",
     },
 
-    // ---- Currently on Rent-to-Own agreements (shown as "spoken for")
+    // ---- Coming soon
+    {
+      id: "model3-2024", year: 2024, make: "Tesla", model: "Model 3", trim: "", color: "Red",
+      type: "Sedan", seats: 5, daily: 140, weekly: 500, value: 27500, down: null, status: "soon",
+      photos: ["assets/cars/model3-2024-1.jpg", "assets/cars/model3-2024-2.jpg", "assets/cars/model3-2024-3.jpg"],
+      features: ["All-electric", "Glass roof", "Autopilot", "Touchscreen", "Heated seats"],
+      blurb: "All-electric, quick and quiet. No gas station stops — ever.",
+    },
+
+    // ---- Being purchased through Rent-to-Own (shown as "Rent-to-Own in progress")
     {
       id: "sorento-2019-lx", year: 2019, make: "Kia", model: "Sorento", trim: "LX", color: "Gray",
       type: "SUV", seats: 7, daily: 135, weekly: 520, value: 17248, down: 1200, status: "rto",
@@ -106,7 +118,7 @@ window.CHURO = {
     },
     {
       id: "optima-2014-lx", year: 2014, make: "Kia", model: "Optima", trim: "LX", color: "Silver",
-      type: "Sedan", seats: 5, daily: [120, 125], weekly: [400, 450], value: 11997, down: 960, status: "rto",
+      type: "Sedan", seats: 5, daily: [95, 100], weekly: 360, value: 11997, down: 960, status: "rto",
       photos: ["assets/cars/optima-2014-lx-1.jpg", "assets/cars/optima-2014-lx-2.jpg", "assets/cars/optima-2014-lx-3.jpg"],
       blurb: "Budget-friendly, reliable and stylish.",
     },
@@ -114,7 +126,8 @@ window.CHURO = {
 
   policies: {
     age: "Renters must be at least 21 years old. Additional fees may apply for drivers under 25.",
-    documents: "A valid driver's license, plus proof of address: at least 2 recent documents in your name — a utility bill (electricity, water, internet or phone), a paystub, or a bank statement.",
+    documents: "A valid driver's license, plus proof of address: at least 2 different recent documents in your name — a utility bill (electricity, water, internet or phone), a paystub, or a bank statement.",
+    deposit: "Daily rentals (less than a week): with 2 proofs of address the refundable security deposit is $200. Without 2 proofs of address, the deposit is 15% of the car's value. Either way it's returned at the end of your rental, minus any citations, tolls or fees incurred during your trip. Weekly rentals require 2 proofs of address.",
     payment: "Pay online through our booking form (card), or with cash, Apple Pay, Venmo, Chime or Zelle.",
     rentals: "We offer daily and weekly rentals. Weekly rentals are heavily discounted — around 40–55% off the daily rate.",
     oneWay: "We focus on round-trip rentals only — no one-way trips.",
@@ -134,7 +147,7 @@ window.CHURO = {
 /* ---------- helpers ---------- */
 (function () {
   const C = window.CHURO;
-  C.carName = (c) => `${c.year} ${c.make} ${c.model} ${c.trim}`;
+  C.carName = (c) => `${c.year} ${c.make} ${c.model}${c.trim ? " " + c.trim : ""}`;
   C.money = (n, cents = true) => "$" + n.toLocaleString("en-US", { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: cents ? 2 : 0 });
   C.byId = (id) => C.fleet.find((c) => c.id === id);
   C.rtoAvailable = (c) => c.status === "available";
@@ -143,6 +156,7 @@ window.CHURO = {
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date()); // YYYY-MM-DD
   const hash = (s) => { let h = 2166136261; for (const ch of s) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; };
   const resolve = (v, key) => Array.isArray(v) ? Math.round(v[0] + hash(today + key) * (v[1] - v[0])) : v;
+  C.depositDaily = (c, hasProofs) => (hasProofs ? 200 : Math.round(c.value * 0.15));
   C.fleet.forEach((c) => {
     c.dailyRange = Array.isArray(c.daily) ? c.daily : null;
     c.weeklyRange = Array.isArray(c.weekly) ? c.weekly : null;

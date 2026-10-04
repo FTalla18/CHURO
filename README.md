@@ -20,7 +20,7 @@ Then open <http://localhost:8000>. Adding `#chat` to the address opens the assis
 
 ## Updating the fleet
 Edit **`js/data.js`**. It is the single source of truth for the tiles, the calculator, the for-sale list and the chatbot.
-- `status: "available"` means the car is offered to rent, for Rent-to-Own and for sale. `status: "rto"` shows it as "On Rent-to-Own" (not available).
+- `status: "available"` means the car is offered to rent, for Rent-to-Own and for sale. `status: "rto"` shows it as "Rent-to-Own in progress" (not available).
 - `daily`, `weekly`: rental rates. Use a number, or a `[min, max]` range: ranges pick a new price each day (the same for every visitor that day).
 - `value`: the cash price. `down`: the Rent-to-Own down payment. `minWeekly`: minimum weekly car payment (default $300, Sentra $175). This sets each car's longest term.
 - Rent-to-Own insurance: `rto.churoInsuranceWeekly` ($60/week) or `rto.ownInsuranceMonthly` ($97/month of liability coverage when the customer uses their own policy).

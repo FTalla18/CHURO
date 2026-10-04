@@ -80,10 +80,11 @@
       return `- ${C.carName(c)} (${c.color}, ${c.type}${c.seats ? `, ${c.seats} seats` : ""}): rent $${c.weekly}/week (saves ${c.weeklySavingsPct}%) or $${c.daily}/day. ` +
         (c.status === "available"
           ? `AVAILABLE. Cash price $${c.value}. Rent-to-Own: $${c.down} down, car payment from ${money(q.carPayment)}/week (max ${q.maxMonths} months, minimum $${C.minWeekly(c)}/week) plus insurance.`
-          : `NOT AVAILABLE: already on a Rent-to-Own agreement with another customer.`);
+          : c.status === "soon" ? `COMING SOON (not bookable yet). Value $${c.value}. Customers can use the contact form to get notified.`
+          : `NOT AVAILABLE: currently being purchased by another customer through Rent-to-Own.`);
     }).join("\n");
     const pol = Object.entries(P).map(([k, v]) => `- ${k}: ${v}`).join("\n");
-    return `You are "Churo", the friendly assistant for ${C.company.name}, a family-operated car rental business in Sarasota, Florida (480+ trips, 4.9 stars on Turo).
+    return `You are "Churo", the friendly assistant for ${C.company.name}, a family-operated car rental business in Sarasota, Florida (501+ trips, 4.9 stars on Turo).
 Customers can: (1) rent daily or weekly, (2) Rent-to-Own with no credit check, (3) buy a car outright with cash.
 
 RULES
@@ -116,7 +117,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     const scored = C.fleet.map((c) => {
       let s = 0, model = false;
       if (new RegExp(`\\b${c.model.toLowerCase()}\\b`).test(t)) { s += 3; model = true; }
-      if (c.model === "Sentra" && /nissan/.test(t)) { s += 3; model = true; }
+      if ((c.model === "Sentra" && /nissan/.test(t)) || (c.make === "Tesla" && /tesla|\bev\b|electric/.test(t))) { s += 3; model = true; }
       if (new RegExp(`\\b(${c.year}|'?${String(c.year).slice(2)})\\b`).test(t)) s += 3;
       if (new RegExp(`\\b${c.trim.toLowerCase()}\\b`).test(t)) s += 1;
       const col = c.color.toLowerCase();
@@ -173,10 +174,12 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     { id: "rideshare", priority: 1, kw: [/uber|lyft|doordash|door dash|instacart|grubhub|gig|rideshare|ride share|deliver(y|ies) (job|work|app)/] },
     { id: "monthly", priority: 1, kw: [/monthly|per month|a month|each month/] },
     { id: "whyweek", priority: 1, kw: [/why .*(week|rent first)|have to rent|first week|try (it|the car) (first|out)/] },
+    { id: "about", priority: 1, kw: [/how many trips|trips|reviews?|rating|stars|turo|who (are|is) (you|churo)|about (you|churo)|trust/] },
+    { id: "deposit", priority: 1, kw: [/deposit|security|hold\b|refundable/] },
     { id: "maintenance", priority: 1, kw: [/maintenance|oil change|repairs?|tires?|who fixes/] },
     { id: "rto", priority: 1, kw: [/rent[- ]?to[- ]?own|\brto\b|lease[- ]to[- ]own|\bown (it|the car|a car)\b|ownership|finance|financing|payment plan|installments?/] },
     { id: "credit", priority: 1, kw: [/credit (check|score)|bad credit|no credit|my credit/] },
-    { id: "down", priority: 2, kw: [/down ?payment|\bdown\b|deposit/] },
+    { id: "down", priority: 2, kw: [/down ?payment|\bdown\b/] },
     { id: "cash", priority: 2, kw: [/\bbuy\b|purchase|for sale|sell|selling|\bcash\b|outright|title|\bdmv\b|registration|plates?/] },
     { id: "signing", priority: 2, kw: [/midflorida|notar|\bsign(ing)?\b|agreement|contract|paperwork/] },
     { id: "price", priority: 3, kw: [/how much|price|cost|rates?\b|\$|per day|per week|daily|weekly|total/] },
@@ -205,7 +208,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
   function rtoText(car, ctx) {
     if (!C.rtoAvailable(car)) {
       const alts = availCars().filter((c) => c.type === car.type).slice(0, 3);
-      return { text: `The **${C.carName(car)}** (${car.color}) is already on a Rent-to-Own agreement, so it isn't available right now. 🙏\n\nSimilar ${car.type === "SUV" ? "SUVs" : "sedans"} you *can* rent-to-own:\n${alts.map((c) => `- **${C.carName(c)}** (${c.color}): ${money(c.down, false)} down`).join("\n")}`, cars: alts };
+      return { text: `The **${C.carName(car)}** (${car.color}) is currently being purchased by another customer through Rent-to-Own, so it isn't available. 🙏\n\nSimilar ${car.type === "SUV" ? "SUVs" : "sedans"} you *can* rent-to-own:\n${alts.map((c) => `- **${C.carName(c)}** (${c.color}): ${money(c.down, false)} down`).join("\n")}`, cars: alts };
     }
     const maxM = C.rtoMaxMonths(car);
     const months = Math.min(ctx.months || maxM, maxM), freq = ctx.frequency || "weekly";
@@ -214,9 +217,9 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     const other = C.rtoQuote({ carId: car.id, months, frequency: freq, insurance: insurance === "own" ? "churo" : "own" });
     const per = freq === "weekly" ? "per week" : "every 2 weeks";
     let text = `✅ The **${C.carName(car)}** (${car.color}) is available for Rent-to-Own. No credit check.\n` +
-      `- Week 1 rental (required first): **${money(q.firstWeek, false)}**\n` +
-      `- Down payment at signing: **${money(car.down, false)}**\n` +
-      `- Then **${money(q.payment)} ${per}** for ${months} month${months > 1 ? "s" : ""}: ${money(q.carPayment)} car + ${money(q.insurancePer)} ${insurance === "own" ? "liability coverage (your own policy)" : "CHURO insurance"}\n` +
+      `1. Rent it for one week first: **${money(q.firstWeek, false)}** (a normal weekly rental)\n` +
+      `2. If you want to continue, bring the **${money(car.down, false)} down payment** to the signing at MIDFLORIDA\n` +
+      `3. Then **${money(q.payment)} ${per}** for ${months} month${months > 1 ? "s" : ""}: ${money(q.carPayment)} car + ${money(q.insurancePer)} ${insurance === "own" ? "liability coverage (your own policy)" : "CHURO insurance"}\n` +
       `- With ${insurance === "own" ? "CHURO's insurance" : "your own policy"} instead: ${money(other.payment)} ${per}\n` +
       `- Total cost of the car: about **${money(q.carTotal, false)}** (price ${money(car.value, false)} + 8% APR + week-1 rental)`;
     if ((ctx.months || 0) > maxM) text += `\n\nNote: the shortest payment for this car is ${money(C.minWeekly(car), false)}/week, so the longest term is **${maxM} months**.`;
@@ -243,7 +246,9 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     signing: () => "Rent-to-Own agreements are signed and **notarized at MIDFLORIDA**. At signing you make the down payment and show proof of insurance (your own policy or ours).",
     maintenance: () => "For **rentals**, we handle all the maintenance. 🧰 With **Rent-to-Own**, you take over ongoing maintenance, just like an owner. Anything you find during your first-week rental, we fix before signing.",
     age: () => P.age,
-    documents: () => `**To rent, you'll need:**\n- A valid driver's license\n- Proof of address: at least **2 recent documents in your name** (utility bill: electricity, water, internet or phone; paystub; or bank statement)\n\n**Payment:** ${P.payment}\n\nFor Rent-to-Own you'll also need proof of insurance at signing.`,
+    documents: () => `**To rent, you'll need:**\n- A valid driver's license\n- Proof of address: at least **2 recent documents in your name** (utility bill: electricity, water, internet or phone; paystub; or bank statement)\n\n**Deposit (daily rentals):** $200 with 2 proofs of address, or 15% of the car's value without them. Refunded at the end minus citations, tolls or fees.\n\n**Payment:** ${P.payment}\n\nFor Rent-to-Own you'll also need proof of insurance at signing.`,
+    deposit: () => P.deposit,
+    about: () => `CHURO is a family-operated rental business in Sarasota. We've completed **${C.company.turoTrips} trips on Turo** with a **${C.company.rating}★ rating**, and now rent directly to you: no middlemen, no surprises. ⭐`,
     insurance: () => `**Rentals:** ask about coverage when you book.\n\n**Rent-to-Own:** ${P.rtoInsurance}`,
     rideshare: () => `${P.rideshare} 🚗💨 Just keep in mind gig driving adds a lot of miles, so stay on top of maintenance.`,
     monthly: () => "We don't offer monthly payment plans. Rent-to-Own payments are **weekly or every two weeks**, as low as **$175/week** depending on the car (most cars have a $300/week minimum). Want me to work out a car for you?",
@@ -255,7 +260,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     issues: () => P.issues,
     payment: () => P.payment + " Rent-to-Own down payments are made at signing.",
     contact: () => `The fastest way to reach us is the **Contact us** form (bottom of the page). We usually reply within a few hours. To reserve a car, use **Book now**.`,
-    fleet: () => `Here's the fleet (weekly rentals are deeply discounted):\n${C.fleet.filter(C.rtoAvailable).map((c) => `- ${carLine(c)}`).join("\n")}\n\nPlus ${C.fleet.length - availCars().length} more cars currently on Rent-to-Own agreements.`,
+    fleet: () => `Here's the fleet (weekly rentals are deeply discounted):\n${C.fleet.filter(C.rtoAvailable).map((c) => `- ${carLine(c)}`).join("\n")}${C.fleet.some((c) => c.status === "soon") ? `\n\nComing soon: ${C.fleet.filter((c) => c.status === "soon").map((c) => `**${C.carName(c)}** ($${c.weekly}/week)`).join(", ")}` : ""}\n\nPlus ${C.fleet.filter((c) => c.status === "rto").length} more cars currently being purchased through Rent-to-Own.`,
   };
 
   function builtinReply(text, ctx) {
@@ -270,7 +275,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     const res = { cars: null, chips: null, action: null, facts: [] };
     const out = (r) => { if (small === "greet" && r.text && top) r.text = "Hi there! 👋 " + r.text; if (r.text) r.facts.push(r.text); return r; };
 
-    const INFO = ["whyweek", "rideshare", "monthly", "maintenance", "insurance", "documents", "payment", "signing", "age", "oneway", "extend", "cancel", "issues", "contact"];
+    const INFO = ["about", "deposit", "whyweek", "rideshare", "monthly", "maintenance", "insurance", "documents", "payment", "signing", "age", "oneway", "extend", "cancel", "issues", "contact"];
     const insFollowUp = /what if|instead|use (your|my|mine|yours)|with (your|my) insurance/.test(e.raw) && ctx.car && C.rtoAvailable(C.byId(ctx.car));
     if (INFO.includes(top) && !insFollowUp && !(e.cars.length === 1 && (has("rto") || has("cash") || has("price")))) {
       res.text = R[top](e, ctx);
@@ -296,6 +301,13 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
       return out(res);
     }
 
+    // ---- coming-soon car
+    if (car && car.status === "soon") {
+      res.text = `⚡ The **${C.carName(car)}** (${car.color}) is **coming soon**! It'll rent for **$${car.weekly}/week** or $${car.daily}/day. ${car.blurb}${car.features ? `\n\nFeatures: ${car.features.join(", ")}.` : ""}\n\nIt isn't bookable yet. Use the **Contact us** form to be first in line. Rent-to-Own and purchase details will be announced when it arrives.`;
+      res.cars = [car];
+      return out(res);
+    }
+
     // ---- Rent-to-Own for a specific car (or payment questions with car context)
     if (car && (has("rto") || has("down") || has("credit") || ((e.months || e.frequency || /insurance|yours|my own/.test(e.raw)) && !has("rent") && !has("cash")))) {
       Object.assign(res, rtoText(car, ctx));
@@ -307,7 +319,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     if (car && has("cash")) {
       res.text = C.rtoAvailable(car)
         ? `The **${C.carName(car)}** (${car.color}) is for sale at **${money(car.value, false)} cash**. Pay in full, we sign the clean title over, and you register it at the DMV.\n\nPrefer payments? Rent-to-Own is **${money(car.down, false)} down** + from **${money(C.rtoQuote({ carId: car.id }).carPayment)}/week** (plus insurance), no credit check.`
-        : `The **${C.carName(car)}** is already on a Rent-to-Own agreement, so it's not for sale right now. Cars for sale: ${availCars().map((c) => `${C.carName(c)} (${money(c.value, false)})`).join(", ")}.`;
+        : `The **${C.carName(car)}** is currently being purchased through Rent-to-Own, so it's not for sale. Cars for sale: ${availCars().map((c) => `${C.carName(c)} (${money(c.value, false)})`).join(", ")}.`;
       res.cars = [car];
       return out(res);
     }
@@ -319,11 +331,12 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
         res.text = res.text.replace("isn't available right now", "isn't available to rent or buy right now");
         return out(res);
       }
-      const days = ctx.days || e.days;
-      let s = `**${C.carName(car)}** (${car.color}${car.seats ? `, ${car.seats} seats` : ""}): **$${car.weekly}/week** (saves ${car.weeklySavingsPct}% vs. daily) or $${car.daily}/day. ${car.blurb}`;
+      const days = e.days || (e.cars.length ? null : ctx.days);
+      let s = `**${C.carName(car)}** (${car.color}${car.seats ? `, ${car.seats} seats` : ""}): **$${car.weekly}/week** (saves ${car.weeklySavingsPct}% vs. daily) or $${car.daily}/day. ${car.blurb}${car.features ? `\n\nFeatures: ${car.features.join(", ")}.` : ""}`;
       if (days) {
         const q = C.rentalQuote(car.id, days);
         s += `\n\nFor **${days} days**: about **${money(q.total)}**${q.savings > 0 ? ` (you save ${money(q.savings, false)} with weekly pricing)` : ""}, before taxes.`;
+        if (days < 7) s += ` Refundable deposit: **$200** with 2 proofs of address, otherwise **${money(C.depositDaily(car, false), false)}** (15% of value).`;
       }
       s += `\n\nIt's also available for Rent-to-Own (${money(car.down, false)} down) or ${money(car.value, false)} cash. Tap **Book now** to reserve.`;
       res.text = s;
@@ -519,7 +532,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
         <div class="chat-car">
           <img src="${c.photos[0]}" alt="${esc(C.carName(c))}" loading="lazy" />
           <div><strong>${esc(C.carName(c))}</strong><small>${esc(c.color)} · $${c.daily}/day · $${c.weekly}/wk</small>
-          <small>${avail ? `<b>Available</b> · RTO ${money(c.down, false)} down` : "On Rent-to-Own"}</small>
+          <small>${avail ? `<b>Available</b> · RTO ${money(c.down, false)} down` : c.status === "soon" ? "<b>Coming soon</b>" : "Rent-to-Own in progress"}</small>
           ${avail ? `<button data-chat-rto="${c.id}">Rent-to-Own payments</button>` : ""}</div>
         </div>`);
     });

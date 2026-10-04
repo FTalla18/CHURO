@@ -99,7 +99,8 @@
     const grid = $("#fleetGrid");
     let cars = C.fleet.filter((c) =>
       state.filter === "All" || (state.filter === "RTO" ? C.rtoAvailable(c) : c.type === state.filter));
-    cars = cars.slice().sort((a, b) => (a.status === b.status ? b.year - a.year : a.status === "available" ? -1 : 1));
+    const ORDER = { available: 0, soon: 1, rto: 2 };
+    cars = cars.slice().sort((a, b) => (a.status === b.status ? b.year - a.year : ORDER[a.status] - ORDER[b.status]));
 
     $("#fleetLead").innerHTML = state.days
       ? `Estimated totals for <strong>${state.days} day${state.days > 1 ? "s" : ""}</strong>. Full weeks are billed at the discounted weekly rate.`
@@ -112,14 +113,15 @@
       const est = state.days ? C.rentalQuote(car.id, state.days) : null;
       const { imgs, thumbs } = photoStrip(car);
       const el = document.createElement("article");
-      el.className = "car" + (avail ? "" : " car--muted");
+      const soon = car.status === "soon";
+      el.className = "car" + (avail || soon ? "" : " car--muted");
       el.style.animationDelay = `${idx * 50}ms`;
       el.innerHTML = `
         <div class="car__media">
           <div class="car__track">${imgs}</div>
           <div class="car__badges">
             <span class="car__tag">${esc(car.type)}</span>
-            <span class="badge ${avail ? "badge--ok" : "badge--rto"}">${avail ? "Available" : "On Rent-to-Own"}</span>
+            <span class="badge ${avail ? "badge--ok" : soon ? "badge--soon" : "badge--rto"}">${avail ? "Available" : soon ? "Coming soon" : "Rent-to-Own in progress"}</span>
           </div>
           ${car.photos.length > 1 ? `<span class="car__count">📷 ${car.photos.length}</span>` : ""}
         </div>
@@ -131,16 +133,19 @@
               <span class="daily">or $${car.daily}/day</span>
             </div>
           </div>
-          ${est ? `<p class="car__note">${state.days} days: <b>${money(est.total)}</b>${est.savings > 0 ? ` · you save ${money(est.savings, false)} vs. daily` : ""} <small class="muted">(est., before taxes)</small></p>` : ""}
-          ${avail ? `<p class="car__deal">🔥 Weekly saves ${car.weeklySavingsPct}% vs. daily</p>` : ""}
+          ${est ? `<p class="car__note">${state.days} days: <b>${money(est.total)}</b>${est.savings > 0 ? ` · you save ${money(est.savings, false)} vs. daily` : ""} <small class="muted">(est., before taxes)</small>${state.days < 7 ? `<br><small>Refundable deposit: <b>$200</b> with 2 proofs of address, otherwise <b>${money(C.depositDaily(car, false), false)}</b> (15% of value).</small>` : ""}</p>` : ""}
+          ${avail || soon ? `<p class="car__deal">🔥 Weekly saves ${car.weeklySavingsPct}% vs. daily</p>` : ""}
           <p class="car__blurb">${esc(car.blurb)}</p>
+          ${car.features ? `<ul class="car__features">${car.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
           ${avail
             ? `<p class="car__note">🔑 Rent-to-Own: <b>${money(car.down, false)} down</b>, then from <b>${money(rto.carPayment)}/week</b> + insurance. No credit check.</p>`
-            : `<p class="car__note">This car is spoken for on a Rent-to-Own agreement. Ask us about a similar one.</p>`}
+            : soon ? `<p class="car__note">⚡ Arriving soon at <b>$${car.weekly}/week</b>. Want to be first in line? Let us know.</p>`
+            : `<p class="car__note">🎉 A CHURO customer is on their way to owning this one through Rent-to-Own. Like it? Ask us about a similar car.</p>`}
           <div class="car__actions">
             ${avail
               ? `<a class="btn btn--dark btn--sm" href="${C.company.bookingUrl}" target="_blank" rel="noopener">Book</a>
                  <button class="btn btn--ghost btn--sm" data-rto="${car.id}">Rent-to-Own</button>`
+              : soon ? `<a class="btn btn--dark btn--sm" href="${C.company.contactUrl}" target="_blank" rel="noopener">Notify me</a>`
               : `<button class="btn btn--ghost btn--sm" data-ask="${car.id}">Ask about a similar car</button>`}
           </div>
         </div>`;
@@ -199,7 +204,7 @@
 
   /* ---------- Rent-to-Own calculator ---------- */
   const calcCar = $("#calcCar"), calcMonths = $("#calcMonths");
-  const groups = [["Available for Rent-to-Own", (c) => C.rtoAvailable(c)], ["Currently on Rent-to-Own (not available)", (c) => !C.rtoAvailable(c)]];
+  const groups = [["Available for Rent-to-Own", (c) => C.rtoAvailable(c)], ["Currently on Rent-to-Own (not available)", (c) => c.status === "rto"]];
   groups.forEach(([label, test]) => {
     const og = document.createElement("optgroup");
     og.label = label;
@@ -228,7 +233,7 @@
     avail.className = "calc__avail " + (q.available ? "ok" : "no");
     avail.innerHTML = q.available
       ? `✅ <b>${esc(C.carName(car))}</b> (${esc(car.color)}) is available for Rent-to-Own.`
-      : `⏳ <b>${esc(C.carName(car))}</b> (${esc(car.color)}) is already on a Rent-to-Own agreement, so it isn't available right now. The numbers show what a similar car would cost.`;
+      : `⏳ <b>${esc(C.carName(car))}</b> (${esc(car.color)}) is currently being purchased by another customer through Rent-to-Own, so it isn't available. The numbers show what a similar car would cost.`;
 
     $("#calcResult").classList.toggle("is-unavailable", !q.available);
     $("#calcPayLabel").textContent = frequency === "weekly" ? "Your weekly payment" : "Your bi-weekly payment";
@@ -240,16 +245,16 @@
       : `CHURO insurance ($${C.rto.churoInsuranceWeekly}/wk, per ${per})`;
     const lines = [
       ["Car price", money(car.value, false)],
-      ["Week 1 rental (required first)", money(q.firstWeek, false)],
-      ["Down payment at signing", money(car.down, false)],
+      ["<b>Step 1:</b> rent it for 1 week (paid as a normal rental)", money(q.firstWeek, false)],
+      ["<b>Step 2:</b> down payment at signing (MIDFLORIDA)", money(car.down, false)],
       ["Amount financed", money(q.principal, false)],
       [`Interest (8% APR, ${months} mo)`, money(q.interest)],
       [`Car payment (per ${per})`, money(q.carPayment)],
       [insLabel, money(q.insurancePer)],
     ];
     $("#calcLines").innerHTML = lines.map(([a, b]) => `<li><span>${a}</span><span>${b}</span></li>`).join("") +
-      `<li class="total"><span>Due before you drive it home</span><span>${money(q.firstWeek + car.down, false)}</span></li>` +
-      `<li class="total"><span>Total cost of the car</span><span>${money(q.carTotal)}</span></li>`;
+      `<li class="total"><span><b>Step 3:</b> your ${frequency === "weekly" ? "weekly" : "bi-weekly"} payment</span><span>${money(q.payment)}</span></li>` +
+      `<li class="total"><span>Total paid for the car (incl. week-1 rental)</span><span>${money(q.carTotal)}</span></li>`;
     $("#calcInsNote").innerHTML = insurance === "own"
       ? "Using your own policy? List CHURO as <b>lienholder/loss payee</b> and <b>additional insured</b>. The car stays in CHURO's name until it's paid off, so Florida law requires us to keep minimum liability on it. That $97/month is passed through to you."
       : "CHURO's coverage is added at $60/week. Nothing else to set up.";
@@ -297,7 +302,7 @@
   /* ---------- FAQ ---------- */
   const P = C.policies;
   const faq = [
-    ["What is CHURO?", "CHURO is a family-operated car rental business in Sarasota, Florida. After 480+ trips and a 4.9-star rating on Turo, we now rent directly to you: no middlemen, no surprises."],
+    ["What is CHURO?", "CHURO is a family-operated car rental business in Sarasota, Florida. After 501+ trips and a 4.9-star rating on Turo, we now rent directly to you: no middlemen, no surprises."],
     ["How does Rent-to-Own work?", P.rto],
     ["Is there a credit check for Rent-to-Own?", "No credit check. Instead, every Rent-to-Own starts with a one-week rental. It shows you can make payments on time, and lets you get a feel for the car before committing. Anything you notice that needs fixing that week, tell us and we'll fix it before signing."],
     ["What insurance do I need for Rent-to-Own?", P.rtoInsurance],
@@ -309,6 +314,7 @@
     ["How old do I need to be?", P.age],
     ["What do I need to rent?", P.documents],
     ["How can I pay?", P.payment],
+    ["Is there a security deposit?", P.deposit],
     ["Do you offer delivery?", P.delivery],
     ["Can I do a one-way rental?", P.oneWay],
     ["How do I extend my rental?", P.extend],
