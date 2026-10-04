@@ -23,7 +23,7 @@
     ollamaModel: "llama3.2",
     webllmModel: "Llama-3.2-1B-Instruct-q4f16_1-MLC",
     webllmCdn: "https://esm.run/@mlc-ai/web-llm",
-    maxHistory: 12,
+    maxHistory: 4,
   };
   // Only auto-probe localhost when the site itself runs locally. On a public host
   // (e.g. GitHub Pages) probing would trigger Chrome's "local network access" prompt.
@@ -74,37 +74,27 @@
   /* =======================================================
      Knowledge → system prompt (for LLM engines)
      ======================================================= */
+  // Compact on purpose: on a CPU-only computer every prompt token costs time.
+  // Prices and payment math are answered by the built-in engine; the model handles everything else.
   function buildSystemPrompt() {
-    const fleet = C.fleet.map((c) => {
-      const q = C.rtoQuote({ carId: c.id, frequency: "weekly" });
-      return `- ${C.carName(c)} (${c.color}, ${c.type}${c.seats ? `, ${c.seats} seats` : ""}): rent $${c.weekly}/week (saves ${c.weeklySavingsPct}%) or $${c.daily}/day. ` +
-        (c.status === "available"
-          ? `AVAILABLE. Cash price $${c.value}. Rent-to-Own: $${c.down} down, car payment from ${money(q.carPayment)}/week (max ${q.maxMonths} months, minimum $${C.minWeekly(c)}/week) plus insurance.`
-          : c.status === "soon" ? `COMING SOON (not bookable yet). Value $${c.value}. Customers can use the contact form to get notified.`
-          : `NOT AVAILABLE: currently being purchased by another customer through Rent-to-Own.`);
-    }).join("\n");
-    const pol = Object.entries(P).map(([k, v]) => `- ${k}: ${v}`).join("\n");
-    return `You are "Churo", the friendly assistant for ${C.company.name}, a family-operated car rental business in Sarasota, Florida (501+ trips, 4.9 stars on Turo).
-Customers can: (1) rent daily or weekly, (2) Rent-to-Own with no credit check, (3) buy a car outright with cash.
+    const avail = C.fleet.filter((c) => c.status === "available")
+      .map((c) => `${C.carName(c)} (${c.color.toLowerCase()} ${c.type}, ${c.seats || 5} seats) $${c.weekly}/wk`).join("; ");
+    const soon = C.fleet.filter((c) => c.status === "soon").map((c) => C.carName(c)).join(", ");
+    return `You are Churo, the assistant for CHURO Car Rentals, a family-run rental business in Sarasota, Florida (501+ Turo trips, 4.9 stars). You talk TO customers; you are never the customer. Answer in 1-4 short sentences, warm and clear.
+
+FACTS
+- Options: daily or weekly rental (weekly is heavily discounted); Rent-to-Own with no credit check; buy with cash (clean title).
+- Cars available: ${avail}.${soon ? ` Coming soon: ${soon}.` : ""}
+- To rent: valid driver's license + 2 recent proofs of address in your name (utility bill, paystub, bank statement). Age 21+.
+- Daily rental deposit: $200 with 2 proofs of address, otherwise 15% of the car's value; refunded minus tolls, citations, fees.
+- Payment: booking form (card), cash, Apple Pay, Venmo, Chime, Zelle.
+- Round trip only: the car comes back to CHURO in Sarasota. "Round trip" is about the return, not where you drive. For long trips or leaving Florida, say we'll confirm and suggest the contact form.
+- Local delivery around Sarasota on request. Extensions: message us before the rental ends.
+- Rent-to-Own: rent 1 week first, then sign and notarize at MIDFLORIDA with the down payment and proof of insurance; weekly or bi-weekly payments, 12 months max, no monthly plans; customer handles maintenance; Uber/DoorDash allowed, nothing illegal.
 
 RULES
-- Use ONLY the facts below. Never invent cars, prices, fees, phone numbers, addresses or policies.
-- If something isn't covered, say you're not sure and point them to the contact form on the website.
-- If a message contains "[CHURO system data]", those numbers are exact; use them.
-- Be warm, upbeat and concise: 2–5 sentences or a short bullet list. Use **bold** for car names and prices.
-- Rent-to-Own math: the customer first rents the car for one week (weekly rate), then pays the down payment at signing; the rest is financed at 8% APR and paid weekly or every two weeks, 12 months max. No monthly payments. Insurance is added to each payment: $60/week with CHURO's insurance, or $97/month (FL minimum liability CHURO must keep) with their own policy.
-- Never share anything about other customers.
-- Point people to "Book now" for rentals and the payment calculator for Rent-to-Own.
-- Today's date is ${new Date().toDateString()}.
-
-FLEET
-${fleet}
-
-POLICIES
-${pol}
-
-CONTACT
-Booking form and contact form are on the website (buttons "Book now" and "Contact us").`;
+- Never invent prices, fees, numbers or policies. Don't quote any price not listed above; for exact prices or payments, point to the car tiles or the payment calculator.
+- If unsure, say so and suggest the "Contact us" form. Never share anything about other customers.`;
   }
 
   /* =======================================================
@@ -404,6 +394,14 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
       engines.ollama.model = names.find((n) => n === wanted || n.split(":")[0] === wanted.split(":")[0]) || names[0];
       engines.ollama.ready = true;
       engines.ollama.label = `Local AI · ${engines.ollama.model} (Ollama)`;
+      // Warm-up: load the model into memory now (empty prompt) and keep it there,
+      // so the first real question doesn't wait for a cold start.
+      // Warm-up also reads the system prompt once so Ollama caches it.
+      fetch(`${CONFIG.ollamaUrl}/api/chat`, { method: "POST", body: JSON.stringify({
+        model: engines.ollama.model, stream: false, keep_alive: "30m",
+        messages: [{ role: "system", content: buildSystemPrompt() }, { role: "user", content: "hi" }],
+        options: { temperature: 0.2, num_ctx: 8192, num_predict: 1 },
+      }) }).catch(() => {});
       return true;
     } catch {
       engines.ollama.ready = false;
@@ -416,7 +414,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     const r = await fetch(`${CONFIG.ollamaUrl}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model: engines.ollama.model, messages, stream: true, options: { temperature: 0.3, num_ctx: 8192 } }),
+      body: JSON.stringify({ model: engines.ollama.model, messages, stream: true, keep_alive: "30m", options: { temperature: 0.2, num_ctx: 8192, num_predict: 110 } }),
     });
     if (!r.ok || !r.body) throw new Error("Ollama HTTP " + r.status);
     const reader = r.body.getReader();
@@ -578,6 +576,15 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     persist();
   }
 
+  /** Guardrail for LLM replies: reject customer-voice replies and dollar amounts we never gave it. */
+  function replyLooksSafe(reply, sourceText) {
+    if (/\b(i'?m interested in|can you help me|i'?d like to (know|rent|buy)|i want to (rent|buy|know)|i would like to)\b/i.test(reply)) return false;
+    const norm = (m) => m.replace(/[$,\s]/g, "").replace(/\.00$/, "");
+    const allowed = new Set((sourceText.match(/\$\s?\d[\d,]*(\.\d+)?/g) || []).map(norm));
+    const used = (reply.match(/\$\s?\d[\d,]*(\.\d+)?/g) || []).map(norm);
+    return used.every((m) => allowed.has(m));
+  }
+
   /* ---------- send / respond ---------- */
   async function send(text) {
     text = (text || "").trim();
@@ -596,19 +603,25 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     let reply = "";
 
     try {
-      if (engineId === "builtin" || local.handled) {
-        await new Promise((r) => setTimeout(r, 450 + Math.min(900, local.text.length * 4)));
+      // Hybrid: verified built-in answers are instant and exact, so use them whenever we have one.
+      // The AI model only handles questions the built-in assistant can't answer.
+      if (engineId === "builtin" || local.handled || !local.fallback) {
+        await new Promise((r) => setTimeout(r, 250 + Math.min(350, local.text.length * 1.5)));
         t.remove();
         reply = local.text;
         addBubble("assistant", reply);
       } else {
         // LLM path: pass grounded facts computed by the analyzer.
-        const msgs = [{ role: "system", content: buildSystemPrompt() }];
+        // Verified answer goes into the system prompt (never into the customer's message,
+        // or small models start replying as the customer).
+        const sys = buildSystemPrompt() + (local.facts.length && !local.fallback
+          ? `\n\nVERIFIED ANSWER to the customer's latest message (written by CHURO, in CHURO's voice). Rephrase it naturally for the customer; keep all numbers exactly:\n"""\n${local.facts.join("\n")}\n"""`
+          : "");
+        const msgs = [{ role: "system", content: sys }];
         const past = history.slice(-CONFIG.maxHistory - 1, -1);
         while (past.length && past[0].role !== "user") past.shift();
         past.forEach((m) => msgs.push({ role: m.role, content: m.content }));
-        const facts = local.facts.length ? `\n\n[CHURO system data — exact, use if relevant]\n${local.facts.join("\n")}` : "";
-        msgs.push({ role: "user", content: text + facts });
+        msgs.push({ role: "user", content: text });
 
         const stream = engineId === "ollama" ? streamOllama(msgs) : streamWebLLM(msgs);
         let bubble = null;
@@ -619,6 +632,12 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
           scrollDown();
         }
         if (!bubble) { t.remove(); reply = local.text; addBubble("assistant", reply); }
+        else if (!replyLooksSafe(reply, sys)) {
+          // Role confusion or a number not in our data → show the verified answer instead.
+          console.warn("[Churo] LLM reply rejected, using verified answer:", reply);
+          reply = local.text;
+          bubble.innerHTML = md(reply);
+        }
       }
     } catch (err) {
       // Engine failed mid-conversation → graceful fallback.
@@ -715,5 +734,5 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
   applyEngine(false);
   if (location.hash === "#chat") open();
 
-  window.ChuroChat = { open, minimize, send: (t) => { open(); send(t); }, _builtinReply: builtinReply, _analyze: analyze };
+  window.ChuroChat = { _systemPrompt: buildSystemPrompt, open, minimize, send: (t) => { open(); send(t); }, _builtinReply: builtinReply, _analyze: analyze };
 })();
