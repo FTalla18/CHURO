@@ -24,6 +24,7 @@
     webllmModel: "Llama-3.2-1B-Instruct-q4f16_1-MLC",
     webllmCdn: "https://esm.run/@mlc-ai/web-llm",
     maxHistory: 4,
+    llmTimeoutMs: 25000, // customers never wait longer than this; the built-in answer is shown instead
   };
   // Only auto-probe localhost when the site itself runs locally. On a public host
   // (e.g. GitHub Pages) probing would trigger Chrome's "local network access" prompt.
@@ -88,13 +89,15 @@ FACTS
 - To rent: valid driver's license + 2 recent proofs of address in your name (utility bill, paystub, bank statement). Age 21+.
 - Daily rental deposit: $200 with 2 proofs of address, otherwise 15% of the car's value; refunded minus tolls, citations, fees.
 - Payment: booking form (card), cash, Apple Pay, Venmo, Chime, Zelle.
-- Round trip only: the car comes back to CHURO in Sarasota. "Round trip" is about the return, not where you drive. For long trips or leaving Florida, say we'll confirm and suggest the contact form.
-- Local delivery around Sarasota on request. Extensions: message us before the rental ends.
+- Pick-up and return in Sarasota, FL 34234 (round trip). No delivery.
+- Drive anywhere in Florida; cars are GPS-tracked and NOT allowed outside Florida. 200 miles per day included.
+- Cars are cleaned, sanitized and fully inspected before every rental; pre- and post-trip photos are taken each time.
+- To book: use the "Book now" link (it notifies the owner). Questions: call (404) 952-8569. Extensions: tell us before the rental ends.
 - Rent-to-Own: rent 1 week first, then sign and notarize at MIDFLORIDA with the down payment and proof of insurance; weekly or bi-weekly payments, 12 months max, no monthly plans; customer handles maintenance; Uber/DoorDash allowed, nothing illegal.
 
 RULES
 - Never invent prices, fees, numbers or policies. Don't quote any price not listed above; for exact prices or payments, point to the car tiles or the payment calculator.
-- If unsure, say so and suggest the "Contact us" form. Never share anything about other customers.`;
+- If unsure, say so and suggest calling (404) 952-8569. Never share anything about other customers.`;
   }
 
   /* =======================================================
@@ -180,7 +183,11 @@ RULES
     { id: "age", priority: 2, kw: [/i'?m \d{2}\b|i am \d{2}\b/, /\bage\b|how old|years? old|under 2[15]|young driver|minimum age/] },
     { id: "documents", priority: 2, kw: [/licen[cs]e|documents?|what (do i|should i) (need|bring)|requirements?|\bid\b|proof of (address|residence)|utility bill|paystub/] },
     { id: "insurance", priority: 0, kw: [/insurance|coverage|insured|accident|damage/] },
-    { id: "delivery", priority: 2, kw: [/deliver|drop (it )?off|bring (it|the car)|airport|pick ?up|where (are you|do i)|location|located|address/] },
+    { id: "delivery", priority: 2, kw: [/deliver|drop (it )?off|bring (it|the car)|airport|pick ?up|where (are you|do i)|location|located|address|zip/] },
+    { id: "travel", priority: 1, kw: [/orlando|miami|tampa|jacksonville|key west|out of state|outside (of )?(fl|florida)|georgia|alabama|another state|road ?trip|where can i (drive|go|take)|take (it|the car) to|drive (it )?to|gps|tracker/] },
+    { id: "mileage", priority: 1, kw: [/mile|mileage|unlimited|how far/] },
+    { id: "clean", priority: 1, kw: [/clean|sanitiz|smell|dirty|inspect|damage photos|pre-?trip|post-?trip|condition/] },
+    { id: "howbook", priority: 1, kw: [/how (do|can) i (book|reserve)|ready to book|make a (booking|reservation)|reserve (a|the|it)/] },
     { id: "oneway", priority: 2, kw: [/one[- ]way/] },
     { id: "extend", priority: 2, kw: [/extend|extension|keep (it|the car) longer|more days/] },
     { id: "cancel", priority: 2, kw: [/cancel|refund/] },
@@ -243,13 +250,17 @@ RULES
     rideshare: () => `${P.rideshare} 🚗💨 Just keep in mind gig driving adds a lot of miles, so stay on top of maintenance.`,
     monthly: () => "We don't offer monthly payment plans. Rent-to-Own payments are **weekly or every two weeks**, as low as **$175/week** depending on the car (most cars have a $300/week minimum). Want me to work out a car for you?",
     whyweek: () => "Since there's **no credit check**, the one-week rental shows you can make payments on time. It also lets you get a feel for the car **before** committing. If you notice anything that needs fixing that week, tell us and we'll fix it **before** we sign at MIDFLORIDA.",
-    delivery: () => `We're based in **Sarasota, FL**. ${P.delivery} Pickup details are confirmed when you book.`,
+    delivery: () => `${P.pickup} Pick-up details are confirmed when you book. Questions? Call **(404) 952-8569**.`,
+    travel: () => `🗺️ ${P.travel} ${P.mileage}`,
+    mileage: () => `${P.mileage} ${P.travel}`,
+    clean: () => `✨ ${P.cleanliness}`,
+    howbook: () => `${P.booking.replace("Book now", "**Book now**").replace("(404) 952-8569", "**(404) 952-8569**")}`,
     oneway: () => P.oneWay,
     extend: () => P.extend,
     cancel: () => P.cancellation,
     issues: () => P.issues,
     payment: () => P.payment + " Rent-to-Own down payments are made at signing.",
-    contact: () => `The fastest way to reach us is the **Contact us** form (bottom of the page). We usually reply within a few hours. To reserve a car, use **Book now**.`,
+    contact: () => `📞 Call us at **(404) 952-8569** for any questions, or use the **Contact us** form. When you're ready to book, use **Book now**. It notifies us right away.`,
     fleet: () => `Here's the fleet (weekly rentals are deeply discounted):\n${C.fleet.filter(C.rtoAvailable).map((c) => `- ${carLine(c)}`).join("\n")}${C.fleet.some((c) => c.status === "soon") ? `\n\nComing soon: ${C.fleet.filter((c) => c.status === "soon").map((c) => `**${C.carName(c)}** ($${c.weekly}/week)`).join(", ")}` : ""}\n\nPlus ${C.fleet.filter((c) => c.status === "rto").length} more cars currently being purchased through Rent-to-Own.`,
   };
 
@@ -265,7 +276,7 @@ RULES
     const res = { cars: null, chips: null, action: null, facts: [] };
     const out = (r) => { if (small === "greet" && r.text && top) r.text = "Hi there! 👋 " + r.text; if (r.text) r.facts.push(r.text); return r; };
 
-    const INFO = ["about", "deposit", "whyweek", "rideshare", "monthly", "maintenance", "insurance", "documents", "payment", "signing", "age", "oneway", "extend", "cancel", "issues", "contact"];
+    const INFO = ["travel", "mileage", "clean", "howbook", "delivery", "about", "deposit", "whyweek", "rideshare", "monthly", "maintenance", "insurance", "documents", "payment", "signing", "age", "oneway", "extend", "cancel", "issues", "contact"];
     const insFollowUp = /what if|instead|use (your|my|mine|yours)|with (your|my) insurance/.test(e.raw) && ctx.car && C.rtoAvailable(C.byId(ctx.car));
     if (INFO.includes(top) && !insFollowUp && !(e.cars.length === 1 && (has("rto") || has("cash") || has("price")))) {
       res.text = R[top](e, ctx);
@@ -359,6 +370,9 @@ RULES
     }
 
     if (top === "price" || top === "rent" || top === "available") {
+      // A generic listing is only a guess when the question has more to it than "what's available?".
+      const words = e.raw.trim().split(/\s+/).length;
+      if (words > 5 && !/what cars|which cars|list|show|options|price|how much|cheap/.test(e.raw)) res.soft = true;
       const cheapest = availCars().reduce((m, c) => (c.weekly < m.weekly ? c : m));
       res.text = `Rentals start at **$${cheapest.daily}/day** or **$${cheapest.weekly}/week** (${C.carName(cheapest)}). Weekly rentals are deeply discounted.\n\nAvailable now:\n${availCars().map((c) => `- ${carLine(c)}`).join("\n")}`;
       res.cars = availCars();
@@ -368,7 +382,7 @@ RULES
     if (small) { res.text = R[small](); res.chips = DEFAULT_CHIPS; return res; }
 
     res.fallback = true;
-    res.text = `I'm not 100% sure about that one. 🤔 I can help with **rentals**, **Rent-to-Own** (no credit check), **buying with cash**, prices and requirements. For anything else, the **Contact us** form reaches us directly.`;
+    res.text = `I'm not 100% sure about that one. 🤔 I can help with **rentals**, **Rent-to-Own** (no credit check), **buying with cash**, prices and requirements. For anything else, call us at **(404) 952-8569**.`;
     res.chips = ["What cars are available?", "How does rent-to-own work?", "Cars for sale", "What do I need to rent?"];
     return res;
   }
@@ -410,9 +424,10 @@ RULES
     } finally { clearTimeout(to); }
   }
 
-  async function* streamOllama(messages) {
+  async function* streamOllama(messages, signal) {
     const r = await fetch(`${CONFIG.ollamaUrl}/api/chat`, {
       method: "POST",
+      signal,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ model: engines.ollama.model, messages, stream: true, keep_alive: "30m", options: { temperature: 0.2, num_ctx: 8192, num_predict: 110 } }),
     });
@@ -448,15 +463,21 @@ RULES
     prog.hidden = false;
     setStatus("loading", "Downloading in-browser model…");
     try {
+      // Use the 16-bit build when the GPU supports it, otherwise the 32-bit build.
+      const adapter = await navigator.gpu.requestAdapter();
+      if (!adapter) throw new Error("no compatible graphics adapter (WebGPU) found");
+      // Older Intel graphics produce garbage with 16-bit math, so they get the 32-bit build too.
+      const isIntel = /intel/i.test((adapter.info && adapter.info.vendor) || "");
+      const modelId = adapter.features.has("shader-f16") && !isIntel ? CONFIG.webllmModel : CONFIG.webllmModel.replace("q4f16_1", "q4f32_1");
       const webllm = await import(CONFIG.webllmCdn);
-      W.engine = await webllm.CreateMLCEngine(CONFIG.webllmModel, {
+      W.engine = await webllm.CreateMLCEngine(modelId, {
         initProgressCallback: (p) => {
           prog.querySelector(".progress__bar").style.width = Math.round((p.progress || 0) * 100) + "%";
           prog.querySelector("span").textContent = p.text || "Loading…";
         },
       });
       W.ready = true;
-      W.label = `In-browser AI · ${CONFIG.webllmModel.split("-q")[0]}`;
+      W.label = `In-browser AI · ${modelId.split("-q")[0]}`;
       prog.hidden = true;
       return true;
     } catch (err) {
@@ -467,7 +488,7 @@ RULES
   }
 
   async function* streamWebLLM(messages) {
-    const chunks = await engines.webllm.engine.chat.completions.create({ messages, stream: true, temperature: 0.3 });
+    const chunks = await engines.webllm.engine.chat.completions.create({ messages, stream: true, temperature: 0.2, max_tokens: 110 });
     for await (const c of chunks) {
       const d = c.choices[0] && c.choices[0].delta && c.choices[0].delta.content;
       if (d) yield d;
@@ -578,6 +599,7 @@ RULES
 
   /** Guardrail for LLM replies: reject customer-voice replies and dollar amounts we never gave it. */
   function replyLooksSafe(reply, sourceText) {
+    if (/\b(\w+)(?:\W+\1\b){5,}/i.test(reply)) return false; // degenerate repetition ("breaks breaks breaks…")
     if (/\b(i'?m interested in|can you help me|i'?d like to (know|rent|buy)|i want to (rent|buy|know)|i would like to)\b/i.test(reply)) return false;
     const norm = (m) => m.replace(/[$,\s]/g, "").replace(/\.00$/, "");
     const allowed = new Set((sourceText.match(/\$\s?\d[\d,]*(\.\d+)?/g) || []).map(norm));
@@ -605,7 +627,7 @@ RULES
     try {
       // Hybrid: verified built-in answers are instant and exact, so use them whenever we have one.
       // The AI model only handles questions the built-in assistant can't answer.
-      if (engineId === "builtin" || local.handled || !local.fallback) {
+      if (engineId === "builtin" || local.handled || !(local.fallback || local.soft)) {
         await new Promise((r) => setTimeout(r, 250 + Math.min(350, local.text.length * 1.5)));
         t.remove();
         reply = local.text;
@@ -623,15 +645,33 @@ RULES
         past.forEach((m) => msgs.push({ role: m.role, content: m.content }));
         msgs.push({ role: "user", content: text });
 
-        const stream = engineId === "ollama" ? streamOllama(msgs) : streamWebLLM(msgs);
+        // Hard time limit: slow hardware must never leave a customer waiting.
+        const ctrl = new AbortController();
+        let timedOut = false;
+        const timer = setTimeout(() => {
+          timedOut = true;
+          ctrl.abort();
+          if (engineId === "webllm" && engines.webllm.engine) engines.webllm.engine.interruptGenerate();
+        }, CONFIG.llmTimeoutMs);
+        const stream = engineId === "ollama" ? streamOllama(msgs, ctrl.signal) : streamWebLLM(msgs);
         let bubble = null;
-        for await (const tok of stream) {
-          if (!bubble) { t.remove(); bubble = addBubble("assistant", ""); }
-          reply += tok;
-          bubble.innerHTML = md(reply);
-          scrollDown();
-        }
-        if (!bubble) { t.remove(); reply = local.text; addBubble("assistant", reply); }
+        try {
+          for await (const tok of stream) {
+            if (timedOut) break;
+            if (!bubble) { t.remove(); bubble = addBubble("assistant", ""); }
+            reply += tok;
+            bubble.innerHTML = md(reply);
+            scrollDown();
+          }
+        } catch (err) {
+          if (!timedOut) throw err;
+        } finally { clearTimeout(timer); }
+        if (timedOut) {
+          console.warn("[Churo] AI took too long, showing built-in answer");
+          reply = local.text;
+          if (t.isConnected) t.remove();
+          if (bubble) bubble.innerHTML = md(reply); else addBubble("assistant", reply);
+        } else if (!bubble) { t.remove(); reply = local.text; addBubble("assistant", reply); }
         else if (!replyLooksSafe(reply, sys)) {
           // Role confusion or a number not in our data → show the verified answer instead.
           console.warn("[Churo] LLM reply rejected, using verified answer:", reply);

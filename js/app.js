@@ -315,7 +315,10 @@
     ["What do I need to rent?", P.documents],
     ["How can I pay?", P.payment],
     ["Is there a security deposit?", P.deposit],
-    ["Do you offer delivery?", P.delivery],
+    ["Where do I pick up the car?", P.pickup],
+    ["Where can I drive?", P.travel + " " + P.mileage],
+    ["Are the cars clean and inspected?", P.cleanliness],
+    ["How do I book?", P.booking],
     ["Can I do a one-way rental?", P.oneWay],
     ["How do I extend my rental?", P.extend],
   ];

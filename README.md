@@ -30,12 +30,14 @@ Edit **`js/data.js`**. It is the single source of truth for the tiles, the calcu
 Never put customer names, VINs or other private details in this file. Everything in it is public.
 
 ## Chat assistant engines (⚙️ in the chat)
+Most questions (prices, Rent-to-Own payments, deposits, requirements, travel, booking) get an **instant, verified answer** from the built-in engine. An AI model is only used for open-ended questions, with a 25-second limit; if it's slower, the built-in answer (or "call us") is shown instead.
+
 | Engine | Notes |
 |---|---|
-| **Auto** (default) | Uses Ollama if the site runs on your own computer, otherwise the built-in engine |
-| **Ollama** | A free local model (`ollama pull llama3.2`). Works only on the computer running Ollama |
-| **In-browser AI** | A ~900 MB open model that runs in the visitor's browser (Chrome/Edge with WebGPU) |
-| **Built-in** | Instant and offline. This is what public visitors get by default |
+| **Auto** (default) | Uses Ollama if the site runs on your own computer, otherwise built-in only |
+| **Ollama** | Free local model (`ollama pull llama3.2`). Works only on the computer running Ollama |
+| **In-browser AI** | Each visitor's browser downloads a ~900 MB model. Needs a recent Mac (Apple Silicon) or a PC with a good graphics card; too slow on older Intel graphics |
+| **Built-in** | Instant, offline, always accurate. What public visitors get by default |
 
 ## Files
 ```
