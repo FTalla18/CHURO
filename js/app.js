@@ -108,7 +108,7 @@
     grid.innerHTML = cars.length ? "" : `<p class="empty">No cars match this filter.</p>`;
     cars.forEach((car, idx) => {
       const avail = car.status === "available";
-      const rto = C.rtoQuote({ carId: car.id, months: 12, frequency: "weekly" });
+      const rto = C.rtoQuote({ carId: car.id, frequency: "weekly" });
       const est = state.days ? C.rentalQuote(car.id, state.days) : null;
       const { imgs, thumbs } = photoStrip(car);
       const el = document.createElement("article");
@@ -127,14 +127,15 @@
         <div class="car__body">
           <div class="car__top">
             <h3 class="car__name">${esc(C.carName(car))}<small>${esc(car.color)}${car.seats ? ` · ${car.seats} seats` : ""}</small></h3>
-            <div class="car__price"><strong>$${car.daily}</strong><span>/day</span>
-              <span class="weekly">$${car.weekly}/week</span>
+            <div class="car__price"><strong>$${car.weekly}</strong><span>/week</span>
+              <span class="daily">or $${car.daily}/day</span>
             </div>
           </div>
           ${est ? `<p class="car__note">${state.days} days: <b>${money(est.total)}</b>${est.savings > 0 ? ` · you save ${money(est.savings, false)} vs. daily` : ""} <small class="muted">(est., before taxes)</small></p>` : ""}
+          ${avail ? `<p class="car__deal">🔥 Weekly saves ${car.weeklySavingsPct}% vs. daily</p>` : ""}
           <p class="car__blurb">${esc(car.blurb)}</p>
           ${avail
-            ? `<p class="car__note">🔑 Rent-to-Own: <b>${money(car.down, false)} down</b>, then about <b>${money(rto.payment)}/week</b> for 12 months.</p>`
+            ? `<p class="car__note">🔑 Rent-to-Own: <b>${money(car.down, false)} down</b>, then from <b>${money(rto.carPayment)}/week</b> + insurance. No credit check.</p>`
             : `<p class="car__note">This car is spoken for on a Rent-to-Own agreement. Ask us about a similar one.</p>`}
           <div class="car__actions">
             ${avail
@@ -210,36 +211,48 @@
   calcCar.value = "sorento-2018-lx";
 
   function renderCalc() {
-    const months = +calcMonths.value;
     const frequency = $("input[name=freq]:checked").value;
-    const ins = $("input[name=ins]:checked").value;
-    const q = C.rtoQuote({ carId: calcCar.value, months, frequency });
-    const c = q.car;
+    const insurance = $("input[name=ins]:checked").value;
+    const car = C.byId(calcCar.value);
+    const maxM = C.rtoMaxMonths(car);
+    calcMonths.max = maxM;
+    if (+calcMonths.value > maxM) calcMonths.value = maxM;
+    const months = +calcMonths.value;
+    const q = C.rtoQuote({ carId: car.id, months, frequency, insurance });
+    const per = frequency === "weekly" ? "week" : "2 weeks";
     $("#calcMonthsOut").textContent = months;
+    $("#calcMaxNote").textContent = maxM < 12 ? `(max ${maxM} for this car, min payment ${money(C.minWeekly(car), false)}/wk)` : "(12 max)";
     calcMonths.setAttribute("aria-valuetext", `${months} months`);
 
     const avail = $("#calcAvail");
     avail.className = "calc__avail " + (q.available ? "ok" : "no");
     avail.innerHTML = q.available
-      ? `✅ <b>${esc(C.carName(c))}</b> is available for Rent-to-Own.`
-      : `⏳ <b>${esc(C.carName(c))}</b> is already on a Rent-to-Own agreement, so it isn't available right now. The numbers below show what a similar car would cost.`;
+      ? `✅ <b>${esc(C.carName(car))}</b> (${esc(car.color)}) is available for Rent-to-Own.`
+      : `⏳ <b>${esc(C.carName(car))}</b> (${esc(car.color)}) is already on a Rent-to-Own agreement, so it isn't available right now. The numbers show what a similar car would cost.`;
 
     $("#calcResult").classList.toggle("is-unavailable", !q.available);
     $("#calcPayLabel").textContent = frequency === "weekly" ? "Your weekly payment" : "Your bi-weekly payment";
     $("#calcPayment").textContent = money(q.payment);
-    $("#calcSub").textContent = `${q.n} ${frequency === "weekly" ? "weekly" : "bi-weekly"} payments · about ${money(q.monthlyEquivalent, false)}/month · paid off around ${fmtDate(q.payoff)}`;
+    $("#calcSub").textContent = `${money(q.carPayment)} car + ${money(q.insurancePer)} insurance · ${q.n} payments · paid off around ${fmtDate(q.payoff)}`;
 
+    const insLabel = insurance === "own"
+      ? `Liability coverage ($${C.rto.ownInsuranceMonthly}/mo, per ${per})`
+      : `CHURO insurance ($${C.rto.churoInsuranceWeekly}/wk, per ${per})`;
     const lines = [
-      ["Car price", money(c.value, false)],
+      ["Car price", money(car.value, false)],
       ["Week 1 rental (required first)", money(q.firstWeek, false)],
-      ["Down payment at signing", money(c.down, false)],
+      ["Down payment at signing", money(car.down, false)],
       ["Amount financed", money(q.principal, false)],
-      [`Interest (8% APR over ${months} mo)`, money(q.interest)],
-      ["Insurance", ins === "own" ? "Your own policy" : "CHURO policy, quoted at signing"],
+      [`Interest (8% APR, ${months} mo)`, money(q.interest)],
+      [`Car payment (per ${per})`, money(q.carPayment)],
+      [insLabel, money(q.insurancePer)],
     ];
     $("#calcLines").innerHTML = lines.map(([a, b]) => `<li><span>${a}</span><span>${b}</span></li>`).join("") +
-      `<li class="total"><span>Due before you drive it home</span><span>${money(q.firstWeek + c.down, false)}</span></li>` +
-      `<li class="total"><span>Total cost to own</span><span>${money(q.totalCost)}</span></li>`;
+      `<li class="total"><span>Due before you drive it home</span><span>${money(q.firstWeek + car.down, false)}</span></li>` +
+      `<li class="total"><span>Total cost of the car</span><span>${money(q.carTotal)}</span></li>`;
+    $("#calcInsNote").innerHTML = insurance === "own"
+      ? "Using your own policy? List CHURO as <b>lienholder/loss payee</b> and <b>additional insured</b>. The car stays in CHURO's name until it's paid off, so Florida law requires us to keep minimum liability on it. That $97/month is passed through to you."
+      : "CHURO's coverage is added at $60/week. Nothing else to set up.";
 
     const cta = $("#calcCta");
     cta.classList.toggle("is-disabled", !q.available);
@@ -258,7 +271,7 @@
 
   /* ---------- Cars for sale ---------- */
   $("#saleGrid").innerHTML = C.fleet.filter(C.rtoAvailable).sort((a, b) => a.value - b.value).map((c) => {
-    const q = C.rtoQuote({ carId: c.id, months: 12, frequency: "weekly" });
+    const q = C.rtoQuote({ carId: c.id, frequency: "weekly" });
     return `
       <article class="sale-card">
         <img src="${c.photos[0]}" alt="${esc(C.carName(c))}" loading="lazy" data-zoom-sale="${c.id}" />
@@ -266,7 +279,7 @@
           <h3>${esc(C.carName(c))}</h3>
           <p class="muted" style="margin:0">${esc(c.color)} · ${esc(c.type)}</p>
           <div class="sale-card__price">${money(c.value, false)} <small class="muted" style="font-size:.9rem;font-family:var(--font-body)">cash</small></div>
-          <p class="sale-card__alt">or Rent-to-Own: <b>${money(c.down, false)} down</b> + ${money(q.payment)}/wk</p>
+          <p class="sale-card__alt">or Rent-to-Own: <b>${money(c.down, false)} down</b> + from ${money(q.carPayment)}/wk</p>
           <div class="sale-card__actions">
             <a class="btn btn--dark btn--sm" href="${C.company.contactUrl}" target="_blank" rel="noopener">I'm interested</a>
             <button class="btn btn--ghost btn--sm" data-rto="${c.id}">Payments</button>
@@ -286,15 +299,19 @@
   const faq = [
     ["What is CHURO?", "CHURO is a family-operated car rental business in Sarasota, Florida. After 480+ trips and a 4.9-star rating on Turo, we now rent directly to you: no middlemen, no surprises."],
     ["How does Rent-to-Own work?", P.rto],
-    ["Is there a credit check for Rent-to-Own?", "No. There's no credit check. You just need to rent the car for at least one week first, then sign the agreement, make the down payment and show proof of insurance."],
+    ["Is there a credit check for Rent-to-Own?", "No credit check. Instead, every Rent-to-Own starts with a one-week rental. It shows you can make payments on time, and lets you get a feel for the car before committing. Anything you notice that needs fixing that week, tell us and we'll fix it before signing."],
+    ["What insurance do I need for Rent-to-Own?", P.rtoInsurance],
+    ["Can I drive for Uber, Lyft or DoorDash?", P.rideshare],
+    ["Can I pay monthly?", "No. Rent-to-Own payments are weekly or every two weeks. Weekly payments can be as low as $175 depending on the car."],
+    ["Who handles maintenance?", P.maintenance],
     ["Can I buy a car outright?", P.cash],
     ["Do you rent by the week?", P.rentals],
     ["How old do I need to be?", P.age],
-    ["What do I need to bring?", P.documents],
+    ["What do I need to rent?", P.documents],
+    ["How can I pay?", P.payment],
     ["Do you offer delivery?", P.delivery],
     ["Can I do a one-way rental?", P.oneWay],
     ["How do I extend my rental?", P.extend],
-    ["Is insurance included?", P.insurance],
   ];
   $("#faqList").innerHTML = faq.map(([q, a], i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("");
 

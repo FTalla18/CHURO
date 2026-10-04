@@ -161,9 +161,9 @@
           <p class="section__lead">A low-stakes way into car ownership for anyone tired of paying Avis or Enterprise week after week. <strong>No credit check.</strong></p>
         </div>
         <ol class="timeline">
-          <li><span>1</span><div><h3>Rent it for a week</h3><p>Every Rent-to-Own starts with at least a one-week rental, so you get a feel for the car before committing.</p></div></li>
-          <li><span>2</span><div><h3>Sign at MIDFLORIDA</h3><p>We meet at MIDFLORIDA to sign and notarize the agreement. You pay the down payment and show proof of insurance (your own or ours).</p></div></li>
-          <li><span>3</span><div><h3>Pay weekly or bi-weekly</h3><p>Fixed payments for up to 12 months. You take over routine maintenance, just like an owner.</p></div></li>
+          <li><span>1</span><div><h3>Rent it for a week</h3><p>No credit check, so every Rent-to-Own starts with a one-week rental. You get a feel for the car, and anything that needs fixing gets fixed before you sign.</p></div></li>
+          <li><span>2</span><div><h3>Sign at MIDFLORIDA</h3><p>We meet at MIDFLORIDA to sign and notarize the agreement. You pay the down payment and show proof of insurance: use ours, or your own with CHURO listed as lienholder.</p></div></li>
+          <li><span>3</span><div><h3>Pay weekly or bi-weekly</h3><p>Fixed payments for up to 12 months. Drive for Uber or DoorDash if you like. You handle routine maintenance, just like an owner.</p></div></li>
           <li><span>4</span><div><h3>It's yours</h3><p>Once it's paid off, the car is yours. Drive on with no more rental payments.</p></div></li>
         </ol>
       </div>
@@ -181,7 +181,7 @@
           </label>
           <div class="calc__avail" id="calcAvail" aria-live="polite"></div>
           <div class="field">
-            <span>Pay off in <b id="calcMonthsOut">12</b> months <small class="muted">(12 max)</small></span>
+            <span>Pay off in <b id="calcMonthsOut">12</b> months <small class="muted" id="calcMaxNote">(12 max)</small></span>
             <input type="range" id="calcMonths" min="1" max="12" step="1" value="12" />
           </div>
           <div class="field">
@@ -197,6 +197,7 @@
               <label><input type="radio" name="ins" value="own" checked /><span>My own policy</span></label>
               <label><input type="radio" name="ins" value="churo" /><span>Use CHURO's</span></label>
             </div>
+            <small class="calc__note" id="calcInsNote"></small>
           </div>
         </div>
 
@@ -209,7 +210,7 @@
             <a class="btn btn--accent btn--block" id="calcCta" href="https://forms.fillout.com/t/pHEsqVXHKaus" target="_blank" rel="noopener">Start with a 1-week rental</a>
             <button class="btn btn--ghost-light btn--block" data-open-chat>Questions? Ask Churo</button>
           </div>
-          <p class="calc__fine">Estimate only. Uses an 8% annual rate on the amount after your down payment. Final terms are set in your signed agreement.</p>
+          <p class="calc__fine">Estimate only. Uses an 8% annual rate on the amount after your down payment. Weekly or bi-weekly payments only, no monthly plans. Final terms are set in your signed, notarized agreement.</p>
         </aside>
       </div>
     </section>

@@ -76,10 +76,10 @@
      ======================================================= */
   function buildSystemPrompt() {
     const fleet = C.fleet.map((c) => {
-      const q = C.rtoQuote({ carId: c.id, months: 12, frequency: "weekly" });
-      return `- ${C.carName(c)} (${c.color}, ${c.type}${c.seats ? `, ${c.seats} seats` : ""}): rent $${c.daily}/day or $${c.weekly}/week. ` +
+      const q = C.rtoQuote({ carId: c.id, frequency: "weekly" });
+      return `- ${C.carName(c)} (${c.color}, ${c.type}${c.seats ? `, ${c.seats} seats` : ""}): rent $${c.weekly}/week (saves ${c.weeklySavingsPct}%) or $${c.daily}/day. ` +
         (c.status === "available"
-          ? `AVAILABLE. Cash price $${c.value}. Rent-to-Own: $${c.down} down, about ${money(q.payment)}/week over 12 months.`
+          ? `AVAILABLE. Cash price $${c.value}. Rent-to-Own: $${c.down} down, car payment from ${money(q.carPayment)}/week (max ${q.maxMonths} months, minimum $${C.minWeekly(c)}/week) plus insurance.`
           : `NOT AVAILABLE: already on a Rent-to-Own agreement with another customer.`);
     }).join("\n");
     const pol = Object.entries(P).map(([k, v]) => `- ${k}: ${v}`).join("\n");
@@ -91,7 +91,8 @@ RULES
 - If something isn't covered, say you're not sure and point them to the contact form on the website.
 - If a message contains "[CHURO system data]", those numbers are exact; use them.
 - Be warm, upbeat and concise: 2–5 sentences or a short bullet list. Use **bold** for car names and prices.
-- Rent-to-Own math: the customer first rents the car for one week (weekly rate), then pays the down payment at signing; the rest is financed at 8% APR and paid weekly or every two weeks, 12 months max.
+- Rent-to-Own math: the customer first rents the car for one week (weekly rate), then pays the down payment at signing; the rest is financed at 8% APR and paid weekly or every two weeks, 12 months max. No monthly payments. Insurance is added to each payment: $60/week with CHURO's insurance, or $97/month (FL minimum liability CHURO must keep) with their own policy.
+- Never share anything about other customers.
 - Point people to "Book now" for rentals and the payment calculator for Rent-to-Own.
 - Today's date is ${new Date().toDateString()}.
 
@@ -147,8 +148,10 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     else if (/\bweekend\b/.test(t)) e.days = 3;
     if ((m = t.match(/(\d{1,2})\s*(?:months?|mo)\b/))) e.months = +m[1];
     else if (/\b(a|one) year\b|\b12 months\b/.test(t)) e.months = 12;
+    if (/(my own|own (insurance|policy)|i have insurance|bring (my|mine))/.test(t)) ctx.insurance = "own";
+    else if (/(your|churo'?s?) insurance|use yours|use your/.test(t)) ctx.insurance = "churo";
     if (/bi-?weekly|every (two|2) weeks|every other week/.test(t)) e.frequency = "biweekly";
-    else if (/\bweekly\b|per week|a week|each week|every week/.test(t)) e.frequency = "weekly";
+    else if (/\bweekly (payment|plan)|pay (weekly|every week)|per week payment|each week|every week/.test(t)) e.frequency = "weekly";
     if (/\bsuvs?\b|7[ -]?seat|third row|3rd row|family|group|kids/.test(t)) e.type = "SUV";
     else if (/\bsedans?\b|small car|compact/.test(t)) e.type = "Sedan";
     if ((m = t.match(/(?:under|below|less than|max(?:imum)?|budget(?: of| is)?|up to|afford)\s*\$?\s*(\d{2,5})/))) e.budget = +m[1];
@@ -156,7 +159,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
 
     const scored = INTENTS.map((it) => ({ it, score: it.kw.reduce((s, r) => s + (r.test(t) ? 1 : 0), 0) }))
       .filter((x) => x.score > 0)
-      .sort((a, b) => b.score - a.score || (a.it.priority || 9) - (b.it.priority || 9));
+      .sort((a, b) => b.score - a.score || (a.it.priority ?? 9) - (b.it.priority ?? 9));
 
     if (e.cars.length === 1) ctx.car = e.cars[0];
     ["days", "months", "frequency"].forEach((k) => { if (e[k] != null) ctx[k] = e[k]; });
@@ -167,6 +170,9 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     { id: "greet", priority: 20, kw: [/\b(hi|hello|hey|yo|hiya|good (morning|afternoon|evening))\b/] },
     { id: "thanks", priority: 20, kw: [/\b(thanks|thank you|thx|ty|appreciate|awesome|perfect)\b/] },
     { id: "bye", priority: 20, kw: [/\b(bye|goodbye|see ya|see you|that'?s all)\b/] },
+    { id: "rideshare", priority: 1, kw: [/uber|lyft|doordash|door dash|instacart|grubhub|gig|rideshare|ride share|deliver(y|ies) (job|work|app)/] },
+    { id: "monthly", priority: 1, kw: [/monthly|per month|a month|each month/] },
+    { id: "whyweek", priority: 1, kw: [/why .*(week|rent first)|have to rent|first week|try (it|the car) (first|out)/] },
     { id: "maintenance", priority: 1, kw: [/maintenance|oil change|repairs?|tires?|who fixes/] },
     { id: "rto", priority: 1, kw: [/rent[- ]?to[- ]?own|\brto\b|lease[- ]to[- ]own|\bown (it|the car|a car)\b|ownership|finance|financing|payment plan|installments?/] },
     { id: "credit", priority: 1, kw: [/credit (check|score)|bad credit|no credit|my credit/] },
@@ -179,21 +185,21 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     { id: "fleet", priority: 4, kw: [/what (cars|vehicles)|which (cars|vehicles)|your (fleet|cars|vehicles)|show me|list|options/] },
     { id: "recommend", priority: 4, kw: [/recommend|suggest|best|which (one|car) should|good for|need a car/] },
     { id: "age", priority: 2, kw: [/i'?m \d{2}\b|i am \d{2}\b/, /\bage\b|how old|years? old|under 2[15]|young driver|minimum age/] },
-    { id: "documents", priority: 2, kw: [/licen[cs]e|documents?|what (do i|should i) (need|bring)|requirements?|\bid\b/] },
-    { id: "insurance", priority: 2, kw: [/insurance|coverage|insured|accident|damage/] },
+    { id: "documents", priority: 2, kw: [/licen[cs]e|documents?|what (do i|should i) (need|bring)|requirements?|\bid\b|proof of (address|residence)|utility bill|paystub/] },
+    { id: "insurance", priority: 0, kw: [/insurance|coverage|insured|accident|damage/] },
     { id: "delivery", priority: 2, kw: [/deliver|drop (it )?off|bring (it|the car)|airport|pick ?up|where (are you|do i)|location|located|address/] },
     { id: "oneway", priority: 2, kw: [/one[- ]way/] },
     { id: "extend", priority: 2, kw: [/extend|extension|keep (it|the car) longer|more days/] },
     { id: "cancel", priority: 2, kw: [/cancel|refund/] },
     { id: "issues", priority: 2, kw: [/broke ?down|problem|issue|flat tire|emergency|warning light/] },
-    { id: "payment", priority: 3, kw: [/pay (with|by)|credit card|debit|zelle|cash app|venmo|payment method/] },
+    { id: "payment", priority: 3, kw: [/pay (with|by)|credit card|debit|zelle|cash app|venmo|chime|apple pay|payment method|how (do|can) i pay/] },
     { id: "contact", priority: 3, kw: [/contact|phone|call|text|email|talk to|human|person|owner|freeman/] },
   ];
 
   /* =======================================================
      Built-in responses
      ======================================================= */
-  const carLine = (c) => `**${C.carName(c)}** (${c.color}) — $${c.daily}/day · **$${c.weekly}/week**`;
+  const carLine = (c) => `**${C.carName(c)}** (${c.color}) — **$${c.weekly}/week** (save ${c.weeklySavingsPct}%) · $${c.daily}/day`;
   const availCars = () => C.fleet.filter(C.rtoAvailable);
 
   function rtoText(car, ctx) {
@@ -201,15 +207,20 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
       const alts = availCars().filter((c) => c.type === car.type).slice(0, 3);
       return { text: `The **${C.carName(car)}** (${car.color}) is already on a Rent-to-Own agreement, so it isn't available right now. 🙏\n\nSimilar ${car.type === "SUV" ? "SUVs" : "sedans"} you *can* rent-to-own:\n${alts.map((c) => `- **${C.carName(c)}** (${c.color}): ${money(c.down, false)} down`).join("\n")}`, cars: alts };
     }
-    const months = ctx.months || 12, freq = ctx.frequency || "weekly";
-    const q = C.rtoQuote({ carId: car.id, months, frequency: freq });
-    const alt = C.rtoQuote({ carId: car.id, months, frequency: freq === "weekly" ? "biweekly" : "weekly" });
-    const text = `✅ The **${C.carName(car)}** (${car.color}) is available for Rent-to-Own.\n` +
+    const maxM = C.rtoMaxMonths(car);
+    const months = Math.min(ctx.months || maxM, maxM), freq = ctx.frequency || "weekly";
+    const insurance = ctx.insurance || "own";
+    const q = C.rtoQuote({ carId: car.id, months, frequency: freq, insurance });
+    const other = C.rtoQuote({ carId: car.id, months, frequency: freq, insurance: insurance === "own" ? "churo" : "own" });
+    const per = freq === "weekly" ? "per week" : "every 2 weeks";
+    let text = `✅ The **${C.carName(car)}** (${car.color}) is available for Rent-to-Own. No credit check.\n` +
       `- Week 1 rental (required first): **${money(q.firstWeek, false)}**\n` +
       `- Down payment at signing: **${money(car.down, false)}**\n` +
-      `- Then **${money(q.payment)} ${freq === "weekly" ? "per week" : "every 2 weeks"}** for ${months} month${months > 1 ? "s" : ""} (or ${money(alt.payment)} ${freq === "weekly" ? "every 2 weeks" : "per week"})\n` +
-      `- Total cost to own: about **${money(q.totalCost, false)}** (car price ${money(car.value, false)} + 8% APR + week-1 rental)\n\n` +
-      `No credit check. I've loaded it into the payment calculator so you can adjust the term.`;
+      `- Then **${money(q.payment)} ${per}** for ${months} month${months > 1 ? "s" : ""}: ${money(q.carPayment)} car + ${money(q.insurancePer)} ${insurance === "own" ? "liability coverage (your own policy)" : "CHURO insurance"}\n` +
+      `- With ${insurance === "own" ? "CHURO's insurance" : "your own policy"} instead: ${money(other.payment)} ${per}\n` +
+      `- Total cost of the car: about **${money(q.carTotal, false)}** (price ${money(car.value, false)} + 8% APR + week-1 rental)`;
+    if ((ctx.months || 0) > maxM) text += `\n\nNote: the shortest payment for this car is ${money(C.minWeekly(car), false)}/week, so the longest term is **${maxM} months**.`;
+    text += `\n\nI've loaded it into the payment calculator so you can adjust it.`;
     return { text, cars: [car], action: () => window.ChuroApp && window.ChuroApp.selectRto(car.id, { months, frequency: freq }) };
   }
 
@@ -225,15 +236,18 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     greet: () => pick(["Hey there! 👋 I'm **Churo**, CHURO Car Rentals' assistant.", "Hi! 👋 Welcome to CHURO."]) + " I can help you **rent**, **rent-to-own** (no credit check) or **buy** a car. What are you looking for?",
     thanks: () => pick(["Anytime! 🙌 Anything else?", "You got it! Ready to book? Tap **Book now** at the top.", "Happy to help, and enjoy the ride! 🚗"]),
     bye: () => "Take care! 🌴 I'm here whenever you need a ride.",
-    rto: () => `**Rent-to-Own**: a low-stakes way into car ownership. No credit check.\n1. Rent the car for at least **1 week** to get a feel for it\n2. Meet at **MIDFLORIDA** to sign and notarize the agreement, pay the down payment and show proof of insurance (yours or ours)\n3. Pay **weekly or every 2 weeks** until it's paid off (12 months max)\n4. You handle routine maintenance, and the car is yours\n\nAvailable right now:\n${availCars().map((c) => `- **${C.carName(c)}** (${c.color}): ${money(c.down, false)} down`).join("\n")}\n\nWhich one interests you? I'll work out the payments.`,
+    rto: () => `**Rent-to-Own**: a low-stakes way into car ownership. No credit check.\n1. Rent the car for at least **1 week** to get a feel for it\n2. Meet at **MIDFLORIDA** to sign and notarize the agreement, pay the down payment and show proof of insurance (ours for $60/week, or yours + $97/month liability)\n3. Pay **weekly or every 2 weeks** until it's paid off (12 months max, no monthly plans)\n4. You handle routine maintenance, and the car is yours\n\nAvailable right now:\n${availCars().map((c) => `- **${C.carName(c)}** (${c.color}): ${money(c.down, false)} down`).join("\n")}\n\nWhich one interests you? I'll work out the payments.`,
     credit: () => "**No credit check!** 🙌 Rent-to-Own only requires that you rent the car for at least one week first, then make the down payment and show proof of insurance at signing.",
     down: () => `Down payments for Rent-to-Own (paid at signing, after your first week's rental):\n${availCars().sort((a, b) => a.down - b.down).map((c) => `- **${C.carName(c)}** (${c.color}): ${money(c.down, false)}`).join("\n")}`,
     cash: () => `Yes, you can **buy outright with cash**. ${P.cash.replace(/^Buy outright with cash: b/, "B")}\n\nCars for sale:\n${availCars().sort((a, b) => a.value - b.value).map((c) => `- **${C.carName(c)}** (${c.color}): **${money(c.value, false)}**`).join("\n")}`,
     signing: () => "Rent-to-Own agreements are signed and **notarized at MIDFLORIDA**. At signing you make the down payment and show proof of insurance (your own policy or ours).",
-    maintenance: () => "For **rentals**, we handle all the maintenance. 🧰 With **Rent-to-Own**, you take over ongoing maintenance responsibilities, just like an owner.",
+    maintenance: () => "For **rentals**, we handle all the maintenance. 🧰 With **Rent-to-Own**, you take over ongoing maintenance, just like an owner. Anything you find during your first-week rental, we fix before signing.",
     age: () => P.age,
-    documents: () => `**What to bring:** ${P.documents} For Rent-to-Own you'll also need proof of insurance at signing.`,
-    insurance: () => P.insurance,
+    documents: () => `**To rent, you'll need:**\n- A valid driver's license\n- Proof of address: at least **2 recent documents in your name** (utility bill: electricity, water, internet or phone; paystub; or bank statement)\n\n**Payment:** ${P.payment}\n\nFor Rent-to-Own you'll also need proof of insurance at signing.`,
+    insurance: () => `**Rentals:** ask about coverage when you book.\n\n**Rent-to-Own:** ${P.rtoInsurance}`,
+    rideshare: () => `${P.rideshare} 🚗💨 Just keep in mind gig driving adds a lot of miles, so stay on top of maintenance.`,
+    monthly: () => "We don't offer monthly payment plans. Rent-to-Own payments are **weekly or every two weeks**, as low as **$175/week** depending on the car (most cars have a $300/week minimum). Want me to work out a car for you?",
+    whyweek: () => "Since there's **no credit check**, the one-week rental shows you can make payments on time. It also lets you get a feel for the car **before** committing. If you notice anything that needs fixing that week, tell us and we'll fix it **before** we sign at MIDFLORIDA.",
     delivery: () => `We're based in **Sarasota, FL**. ${P.delivery} Pickup details are confirmed when you book.`,
     oneway: () => P.oneWay,
     extend: () => P.extend,
@@ -256,6 +270,16 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     const res = { cars: null, chips: null, action: null, facts: [] };
     const out = (r) => { if (small === "greet" && r.text && top) r.text = "Hi there! 👋 " + r.text; if (r.text) r.facts.push(r.text); return r; };
 
+    const INFO = ["whyweek", "rideshare", "monthly", "maintenance", "insurance", "documents", "payment", "signing", "age", "oneway", "extend", "cancel", "issues", "contact"];
+    const insFollowUp = /what if|instead|use (your|my|mine|yours)|with (your|my) insurance/.test(e.raw) && ctx.car && C.rtoAvailable(C.byId(ctx.car));
+    if (INFO.includes(top) && !insFollowUp && !(e.cars.length === 1 && (has("rto") || has("cash") || has("price")))) {
+      res.text = R[top](e, ctx);
+      const second = a.intents.find((i) => i !== top && INFO.includes(i) && R[i]);
+      if (second) res.text += "\n\n" + R[second](e, ctx);
+      return out(res);
+    }
+    if (insFollowUp && !e.cars.length) { Object.assign(res, rtoText(C.byId(ctx.car), ctx)); return out(res); }
+
     // which car are we talking about? (explicit match, or the one from earlier in the chat)
     const refersBack = /\b(it|that|this|that one|this one|the car|same)\b/.test(e.raw) || e.months || e.frequency || e.days;
     const general = e.cheap || e.type || e.budget || /\b(cars|payments|all|any|which|list)\b/.test(e.raw) || has("maintenance");
@@ -273,7 +297,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     }
 
     // ---- Rent-to-Own for a specific car (or payment questions with car context)
-    if (car && (has("rto") || has("down") || has("credit") || ((e.months || e.frequency) && !has("rent") && !has("cash")))) {
+    if (car && (has("rto") || has("down") || has("credit") || ((e.months || e.frequency || /insurance|yours|my own/.test(e.raw)) && !has("rent") && !has("cash")))) {
       Object.assign(res, rtoText(car, ctx));
       if (has("credit")) res.text = "No credit check needed! 🙌\n\n" + res.text;
       return out(res);
@@ -282,7 +306,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
     // ---- cash price for a car
     if (car && has("cash")) {
       res.text = C.rtoAvailable(car)
-        ? `The **${C.carName(car)}** (${car.color}) is for sale at **${money(car.value, false)} cash**. Pay in full, we sign the clean title over, and you register it at the DMV.\n\nPrefer payments? Rent-to-Own is **${money(car.down, false)} down** + about **${money(C.rtoQuote({ carId: car.id }).payment)}/week** for 12 months.`
+        ? `The **${C.carName(car)}** (${car.color}) is for sale at **${money(car.value, false)} cash**. Pay in full, we sign the clean title over, and you register it at the DMV.\n\nPrefer payments? Rent-to-Own is **${money(car.down, false)} down** + from **${money(C.rtoQuote({ carId: car.id }).carPayment)}/week** (plus insurance), no credit check.`
         : `The **${C.carName(car)}** is already on a Rent-to-Own agreement, so it's not for sale right now. Cars for sale: ${availCars().map((c) => `${C.carName(c)} (${money(c.value, false)})`).join(", ")}.`;
       res.cars = [car];
       return out(res);
@@ -296,7 +320,7 @@ Booking form and contact form are on the website (buttons "Book now" and "Contac
         return out(res);
       }
       const days = ctx.days || e.days;
-      let s = `**${C.carName(car)}** (${car.color}${car.seats ? `, ${car.seats} seats` : ""}): **$${car.daily}/day** or **$${car.weekly}/week**. ${car.blurb}`;
+      let s = `**${C.carName(car)}** (${car.color}${car.seats ? `, ${car.seats} seats` : ""}): **$${car.weekly}/week** (saves ${car.weeklySavingsPct}% vs. daily) or $${car.daily}/day. ${car.blurb}`;
       if (days) {
         const q = C.rentalQuote(car.id, days);
         s += `\n\nFor **${days} days**: about **${money(q.total)}**${q.savings > 0 ? ` (you save ${money(q.savings, false)} with weekly pricing)` : ""}, before taxes.`;
