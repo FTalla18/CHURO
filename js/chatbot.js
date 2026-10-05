@@ -87,7 +87,7 @@ FACTS
 - Options: daily or weekly rental (weekly is heavily discounted); Rent-to-Own with no credit check; buy with cash (clean title).
 - Cars available: ${avail}.${soon ? ` Coming soon: ${soon}.` : ""}
 - To rent: valid Florida driver's license + 2 different recent proofs of address in your name (utility bill, paystub, bank statement). Insurance card optional. Age 21+.
-- Daily rental deposit: $200 with 2 proofs of address, otherwise a higher deposit depending on the car; refunded minus tolls, citations, fees.
+- Daily rental deposit: $200 with 2 proofs of address, otherwise up to $1,000 depending on the car; refunded minus tolls, citations, fees.
 - Payment: booking form (card), cash, Apple Pay, Venmo, Chime, Zelle.
 - Pick-up and return in Sarasota, FL 34234 (round trip). Delivery within 15 miles of 34234 costs $140.
 - Drive anywhere in Florida; cars are GPS-tracked and NOT allowed outside Florida. 200 miles per day included.
@@ -243,7 +243,7 @@ RULES
     signing: () => "Rent-to-Own agreements are signed and **notarized at MIDFLORIDA**. At signing you make the down payment and show proof of insurance (your own policy or ours).",
     maintenance: () => "For **rentals**, we handle all the maintenance. 🧰 With **Rent-to-Own**, you take over ongoing maintenance, just like an owner. Anything you find during your first-week rental, we fix before signing.",
     age: () => P.age,
-    documents: () => `**To rent, you'll need:**\n- A valid **Florida** driver's license\n- Proof of address: at least **2 different recent documents in your name** (utility bill: electricity, water, internet or phone; paystub; or bank statement)\n- Your auto insurance card (optional)\n\n**Deposit (daily rentals):** just **$200** with 2 proofs of address; without them a higher deposit applies, depending on the car. Refunded at the end minus citations, tolls or fees.\n\n**Payment:** ${P.payment}\n\nFor Rent-to-Own you'll also need proof of insurance at signing.`,
+    documents: () => `**To rent, you'll need:**\n- A valid **Florida** driver's license\n- Proof of address: at least **2 different recent documents in your name** (utility bill: electricity, water, internet or phone; paystub; or bank statement)\n- Your auto insurance card (optional)\n\n**Deposit (daily rentals):** just **$200** with 2 proofs of address; without them it's up to **$1,000**, depending on the car. Refunded at the end minus citations, tolls or fees.\n\n**Payment:** ${P.payment}\n\nFor Rent-to-Own you'll also need proof of insurance at signing.`,
     deposit: () => `${P.deposit}\n\nDeposit without proofs of address:\n${C.depositList().map((x) => `- ${x}`).join("\n")}`,
     about: () => `CHURO is a family-operated rental business in Sarasota. We've completed **${C.company.turoTrips} trips on Turo** with a **${C.company.rating}★ rating**, and now rent directly to you: no middlemen, no surprises. ⭐`,
     insurance: () => `**Rentals:** ask about coverage when you book.\n\n**Rent-to-Own:** ${P.rtoInsurance}`,

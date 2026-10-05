@@ -129,7 +129,7 @@ window.CHURO = {
   policies: {
     age: "Renters must be at least 21 years old. Additional fees may apply for drivers under 25.",
     documents: "A valid Florida driver's license, plus proof of address: at least 2 different recent documents in your name — a utility bill (electricity, water, internet or phone), a paystub, or a bank statement. A photo of your auto insurance card is optional.",
-    deposit: "Daily rentals (less than a week): with 2 proofs of address the refundable security deposit is just $200. Without them, a higher deposit applies that depends on the car. Either way it's returned at the end of your rental, minus any citations, tolls or fees incurred during your trip. Weekly rentals require 2 proofs of address.",
+    deposit: "Daily rentals (less than a week): with 2 proofs of address the refundable security deposit is just $200. Without them, the deposit is up to $1,000 depending on the car. Either way it's returned at the end of your rental, minus any citations, tolls or fees incurred during your trip. Weekly rentals require 2 proofs of address.",
     payment: "Pay online through our booking form (card), or with cash, Apple Pay, Venmo, Chime or Zelle.",
     rentals: "We offer daily and weekly rentals. Weekly rentals are heavily discounted — around 40–55% off the daily rate.",
     oneWay: "We focus on round-trip rentals only — no one-way trips.",
@@ -161,8 +161,9 @@ window.CHURO = {
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date()); // YYYY-MM-DD
   const hash = (s) => { let h = 2166136261; for (const ch of s) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; };
   const resolve = (v, key) => Array.isArray(v) ? Math.round(v[0] + hash(today + key) * (v[1] - v[0])) : v;
-  // Without 2 proofs of address: 15% of the car's value, rounded up to the next $10 (customers only see the dollar amount).
-  C.depositDaily = (c, hasProofs) => (hasProofs ? 200 : Math.ceil((c.value * 0.15) / 10) * 10);
+  // Without 2 proofs of address: the lesser of $1,000 and 15% of the car's value (rounded up to the next $10).
+  // Customers only see the dollar amount. Must match the Fillout booking form.
+  C.depositDaily = (c, hasProofs) => (hasProofs ? 200 : Math.min(1000, Math.ceil((c.value * 0.15) / 10) * 10));
   C.depositList = () => C.fleet.filter((c) => c.status === "available")
     .sort((a, b) => C.depositDaily(a, false) - C.depositDaily(b, false))
     .map((c) => `${C.carName(c)} (${c.color}): $${C.depositDaily(c, false).toLocaleString("en-US")}`);
