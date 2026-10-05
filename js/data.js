@@ -73,7 +73,7 @@ window.CHURO = {
     },
     {
       id: "optima-2020-lx", year: 2020, make: "Kia", model: "Optima", trim: "LX", color: "Blue",
-      type: "Sedan", seats: 5, daily: [120, 125], weekly: [400, 450], value: 14799, down: 960, status: "available",
+      type: "Sedan", seats: 5, daily: [120, 127], weekly: 450, value: 14799, down: 960, status: "available",
       photos: ["assets/cars/optima-2020-lx-1.jpg", "assets/cars/optima-2020-lx-2.jpg", "assets/cars/optima-2020-lx-3.jpg"],
       blurb: "Our newest sedan in a head-turning blue. Smooth, efficient and easy on gas.",
     },
@@ -113,7 +113,7 @@ window.CHURO = {
       blurb: "Clean, modern and smooth on the road.",
     },
     {
-      id: "optima-2016-sx", year: 2016, make: "Kia", model: "Optima", trim: "SX", color: "White",
+      id: "optima-2016-sx", year: 2016, make: "Kia", model: "Optima", trim: "EX", color: "White",
       type: "Sedan", seats: 5, daily: [120, 125], weekly: [400, 450], value: 14791, down: 960, status: "rto",
       photos: ["assets/cars/optima-2016-sx-1.jpg", "assets/cars/optima-2016-sx-2.jpg", "assets/cars/optima-2016-sx-3.jpg"],
       blurb: "Sporty styling with a panoramic sunroof.",
@@ -128,12 +128,12 @@ window.CHURO = {
 
   policies: {
     age: "Renters must be at least 21 years old. Additional fees may apply for drivers under 25.",
-    documents: "A valid driver's license, plus proof of address: at least 2 different recent documents in your name — a utility bill (electricity, water, internet or phone), a paystub, or a bank statement.",
-    deposit: "Daily rentals (less than a week): with 2 proofs of address the refundable security deposit is $200. Without 2 proofs of address, the deposit is 15% of the car's value. Either way it's returned at the end of your rental, minus any citations, tolls or fees incurred during your trip. Weekly rentals require 2 proofs of address.",
+    documents: "A valid Florida driver's license, plus proof of address: at least 2 different recent documents in your name — a utility bill (electricity, water, internet or phone), a paystub, or a bank statement. A photo of your auto insurance card is optional.",
+    deposit: "Daily rentals (less than a week): with 2 proofs of address the refundable security deposit is just $200. Without them, a higher deposit applies that depends on the car. Either way it's returned at the end of your rental, minus any citations, tolls or fees incurred during your trip. Weekly rentals require 2 proofs of address.",
     payment: "Pay online through our booking form (card), or with cash, Apple Pay, Venmo, Chime or Zelle.",
     rentals: "We offer daily and weekly rentals. Weekly rentals are heavily discounted — around 40–55% off the daily rate.",
     oneWay: "We focus on round-trip rentals only — no one-way trips.",
-    pickup: "Pick-up and return are in Sarasota, FL 34234. We don't offer delivery.",
+    pickup: "Pick-up and return are in Sarasota, FL 34234 (free). Prefer delivery? We deliver within 15 miles of 34234 for $140.",
     travel: "Drive anywhere in Florida. Cars are GPS-tracked and are not allowed outside Florida.",
     mileage: "Each car includes 200 miles per day, which is plenty: most renters never get close.",
     booking: "Once you've picked your car, book it through the Book now link. That notifies us right away and we'll confirm. Questions first? Call (404) 952-8569.",
@@ -161,7 +161,11 @@ window.CHURO = {
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date()); // YYYY-MM-DD
   const hash = (s) => { let h = 2166136261; for (const ch of s) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; };
   const resolve = (v, key) => Array.isArray(v) ? Math.round(v[0] + hash(today + key) * (v[1] - v[0])) : v;
-  C.depositDaily = (c, hasProofs) => (hasProofs ? 200 : Math.round(c.value * 0.15));
+  // Without 2 proofs of address: 15% of the car's value, rounded up to the next $10 (customers only see the dollar amount).
+  C.depositDaily = (c, hasProofs) => (hasProofs ? 200 : Math.ceil((c.value * 0.15) / 10) * 10);
+  C.depositList = () => C.fleet.filter((c) => c.status === "available")
+    .sort((a, b) => C.depositDaily(a, false) - C.depositDaily(b, false))
+    .map((c) => `${C.carName(c)} (${c.color}): $${C.depositDaily(c, false).toLocaleString("en-US")}`);
   C.fleet.forEach((c) => {
     c.dailyRange = Array.isArray(c.daily) ? c.daily : null;
     c.weeklyRange = Array.isArray(c.weekly) ? c.weekly : null;

@@ -133,7 +133,7 @@
               <span class="daily">or $${car.daily}/day</span>
             </div>
           </div>
-          ${est ? `<p class="car__note">${state.days} days: <b>${money(est.total)}</b>${est.savings > 0 ? ` · you save ${money(est.savings, false)} vs. daily` : ""} <small class="muted">(est., before taxes)</small>${state.days < 7 ? `<br><small>Refundable deposit: <b>$200</b> with 2 proofs of address, otherwise <b>${money(C.depositDaily(car, false), false)}</b> (15% of value).</small>` : ""}</p>` : ""}
+          ${est ? `<p class="car__note">${state.days} days: <b>${money(est.total)}</b>${est.savings > 0 ? ` · you save ${money(est.savings, false)} vs. daily` : ""} <small class="muted">(est., before taxes)</small>${state.days < 7 ? `<br><small>Refundable deposit: <b>$200</b> with 2 proofs of address, otherwise <b>${money(C.depositDaily(car, false), false)}</b>.</small>` : ""}</p>` : ""}
           ${avail || soon ? `<p class="car__deal">🔥 Weekly saves ${car.weeklySavingsPct}% vs. daily</p>` : ""}
           <p class="car__blurb">${esc(car.blurb)}</p>
           ${car.features ? `<ul class="car__features">${car.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
@@ -314,8 +314,8 @@
     ["How old do I need to be?", P.age],
     ["What do I need to rent?", P.documents],
     ["How can I pay?", P.payment],
-    ["Is there a security deposit?", P.deposit],
-    ["Where do I pick up the car?", P.pickup],
+    ["Is there a security deposit?", P.deposit + " Without proofs of address: " + C.depositList().join("; ") + "."],
+    ["Where do I pick up the car? Do you deliver?", P.pickup],
     ["Where can I drive?", P.travel + " " + P.mileage],
     ["Are the cars clean and inspected?", P.cleanliness],
     ["How do I book?", P.booking],
